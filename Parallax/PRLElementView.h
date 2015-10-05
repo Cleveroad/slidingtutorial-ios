@@ -11,5 +11,6 @@
 @interface PRLElementView : UIView
 
 @property (nonatomic, assign) CGFloat slippingCoefficient;
+@property (nonatomic, assign) NSUInteger pageNum;
 
 @end
