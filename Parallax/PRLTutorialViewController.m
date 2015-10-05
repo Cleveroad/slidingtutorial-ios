@@ -10,6 +10,7 @@
 #import "PRLElementView.h"
 
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 typedef NS_ENUM(NSUInteger, ScrollDirection) {
     ScrollDirectionNone,
@@ -27,13 +28,11 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 @property (nonatomic, strong) NSMutableArray *arrayOfElements;
 @property (nonatomic, strong) NSMutableArray *arrayOfBackgroundColors;
 
-@property (nonatomic, strong) UIView *view1;
-@property (nonatomic, strong) UIView *view2;
-@property (nonatomic, strong) UIView *view3;
-
 @end
 
 @implementation PRLTutorialViewController
+
+#pragma mark -
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,61 +44,63 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     self.arrayOfBackgroundColors = [@[color1, color2, color3, color4, [UIColor whiteColor]] mutableCopy];
     
     self.arrayOfElements = [NSMutableArray array];
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    CGRect rect = [UIScreen mainScreen].bounds;
-    CGFloat width = screenSize.width;
     
-    self.scrollView = [[UIScrollView alloc] initWithFrame:rect];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
-    [self.scrollView setContentSize:CGSizeMake(screenSize.width * (self.arrayOfBackgroundColors.count -1), screenSize.height)];
+    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * (self.arrayOfBackgroundColors.count -1), SCREEN_HEIGHT)];
     [self.scrollView setBackgroundColor:self.arrayOfBackgroundColors[0]];
     [self.view addSubview:self.scrollView];
     
-    self.view1 = [[UIView alloc] initWithFrame:rect];
-    [self.scrollView addSubview:self.view1];
-    
-    self.view2 = [[UIView alloc] initWithFrame:CGRectMake(width, 0, rect.size.width, rect.size.height)];
-   // [self.view2 setBackgroundColor:self.color2];
-    [self.scrollView addSubview:self.view2];
-    
-    self.view3 = [[UIView alloc] initWithFrame:CGRectMake(width *2, 0, rect.size.width, rect.size.height)];
-    //[self.view3 setBackgroundColor:self.color3];
-    [self.scrollView addSubview:self.view3];
-    
     [self setupFirstScreen];
+    [self setupSecondScreen];
 }
 
 - (void)setupFirstScreen {
-    [self addElementOnView:self.view1 elementName:@"elem01-04" offsetX:0 offsetY:30 slippingCoefficient:0];
-    [self addElementOnView:self.view1 elementName:@"elem01-01" offsetX:0 offsetY:-100 slippingCoefficient:0.1];
-    [self addElementOnView:self.view1 elementName:@"elem01-02" offsetX:-140 offsetY:0 slippingCoefficient:-0.2];
-    [self addElementOnView:self.view1 elementName:@"elem01-03" offsetX:-110 offsetY:100 slippingCoefficient:0.3];
+    UIView *viewPage  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.scrollView addSubview:viewPage];
     
+    [self addElementOnView:viewPage elementName:@"elem01-04" offsetX:0 offsetY:30 slippingCoefficient:0];
+    [self addElementOnView:viewPage elementName:@"elem01-01" offsetX:0 offsetY:-100 slippingCoefficient:0.1];
+    [self addElementOnView:viewPage elementName:@"elem01-02" offsetX:-140 offsetY:0 slippingCoefficient:-0.2];
+    [self addElementOnView:viewPage elementName:@"elem01-03" offsetX:-110 offsetY:100 slippingCoefficient:0.3];
+    
+}
+
+- (void)setupSecondScreen {
+    UIView *viewPage = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.scrollView addSubview:viewPage];
+    
+    [self addElementOnView:viewPage elementName:@"elem02-07" offsetX:0 offsetY:0 slippingCoefficient:0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-00" offsetX:0 offsetY:0 slippingCoefficient:-0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-01" offsetX:0 offsetY:0 slippingCoefficient:0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-02" offsetX:0 offsetY:0 slippingCoefficient:0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-03" offsetX:0 offsetY:0 slippingCoefficient:-0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-04" offsetX:0 offsetY:0 slippingCoefficient:0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-05" offsetX:0 offsetY:0 slippingCoefficient:0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-06" offsetX:0 offsetY:0 slippingCoefficient:-0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-08" offsetX:0 offsetY:0 slippingCoefficient:0.3];
+    [self addElementOnView:viewPage elementName:@"elem02-09" offsetX:0 offsetY:0 slippingCoefficient:0.3];
+}
+
+- (void)setupThirdScreen {
+    UIView *viewPage = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH *2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.scrollView addSubview:viewPage];
 }
 
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 {
-    ScrollDirection scrollDirection;
-    if (self.lastContentOffset > scrollView.contentOffset.x) {
-        scrollDirection = ScrollDirectionRight;
-        for (PRLElementView *view in self.arrayOfElements) {
-            CGFloat offset = fabs(self.lastContentOffset - scrollView.contentOffset.x) * view.slippingCoefficient;
-            CGRect rect = view.frame;
-            [view setFrame:CGRectMake(rect.origin.x + offset, rect.origin.y, rect.size.width, rect.size.height)];
-        }
-    } else if (self.lastContentOffset < scrollView.contentOffset.x) {
-        scrollDirection = ScrollDirectionLeft;
-        for (PRLElementView *view in self.arrayOfElements) {
-            CGFloat offset = fabs(self.lastContentOffset - scrollView.contentOffset.x) * view.slippingCoefficient;
-            CGRect rect = view.frame;
-            [view setFrame:CGRectMake(rect.origin.x - offset, rect.origin.y, rect.size.width, rect.size.height)];
-        }
+    //self.lastContentOffset = fmod(self.lastContentOffset, SCREEN_WIDTH);
+    //CGFloat contentOffset = fmod(self.scrollView.contentOffset.x, SCREEN_WIDTH);
+    CGFloat contentOffset = self.scrollView.contentOffset.x;
+    for (PRLElementView *view in self.arrayOfElements) {
+        CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
+        [view setFrame:CGRectMake(view.frame.origin.x + offset, view.frame.origin.y, view.frame.size.width, view.frame.size.height)];
     }
     
-    self.lastContentOffset = scrollView.contentOffset.x;
+    self.lastContentOffset = contentOffset;
     NSInteger pageNum =  floorf(scrollView.contentOffset.x / SCREEN_WIDTH);
     if (pageNum < 0) {
         pageNum = 0;
@@ -124,11 +125,9 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 {
     UIImage *image = [UIImage imageNamed:elementName];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    
-    CGFloat screenWidht = [UIScreen mainScreen].bounds.size.width;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    CGFloat postionX = (screenWidht - image.size.width) / 2;
-    CGFloat postionY = (screenHeight - image.size.height) / 2;
+
+    CGFloat postionX = (SCREEN_WIDTH - image.size.width) / 2;
+    CGFloat postionY = (SCREEN_HEIGHT - image.size.height) / 2;
     
     PRLElementView *viewSlip = [[PRLElementView alloc] initWithFrame:CGRectMake(postionX + offsetX, postionY + offsetY, image.size.width, image.size.height)];
     viewSlip.slippingCoefficient = slippingCoefficient;
