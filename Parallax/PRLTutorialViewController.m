@@ -9,6 +9,8 @@
 #import "PRLTutorialViewController.h"
 #import "PRLElementView.h"
 
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+
 typedef NS_ENUM(NSUInteger, ScrollDirection) {
     ScrollDirectionNone,
     ScrollDirectionRight,
@@ -23,6 +25,7 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, assign) CGFloat lastContentOffset;
 @property (nonatomic, strong) NSMutableArray *arrayOfElements;
+@property (nonatomic, strong) NSMutableArray *arrayOfBackgroundColors;
 
 @property (nonatomic, strong) UIView *view1;
 @property (nonatomic, strong) UIView *view2;
@@ -35,6 +38,12 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIColor *color1 = [UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1];
+    UIColor *color2 = [UIColor colorWithRed:163./255 green:181./255 blue:0 alpha:1];
+    UIColor *color3 = [UIColor colorWithRed:35./255 green:75./255 blue:122.0/255 alpha:1];
+    UIColor *color4 = [UIColor colorWithRed:198./255 green:84./255 blue:0.0/255 alpha:1];
+    self.arrayOfBackgroundColors = [@[color1, color2, color3, color4, [UIColor whiteColor]] mutableCopy];
+    
     self.arrayOfElements = [NSMutableArray array];
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     CGRect rect = [UIScreen mainScreen].bounds;
@@ -43,27 +52,25 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     self.scrollView = [[UIScrollView alloc] initWithFrame:rect];
     self.scrollView.delegate = self;
     self.scrollView.pagingEnabled = YES;
-    [self.scrollView setContentSize:CGSizeMake(screenSize.width *3, screenSize.height)];
+    [self.scrollView setContentSize:CGSizeMake(screenSize.width * (self.arrayOfBackgroundColors.count -1), screenSize.height)];
+    [self.scrollView setBackgroundColor:self.arrayOfBackgroundColors[0]];
     [self.view addSubview:self.scrollView];
     
     self.view1 = [[UIView alloc] initWithFrame:rect];
-    [self.view1 setBackgroundColor:[UIColor redColor]];
     [self.scrollView addSubview:self.view1];
     
     self.view2 = [[UIView alloc] initWithFrame:CGRectMake(width, 0, rect.size.width, rect.size.height)];
-    [self.view2 setBackgroundColor:[UIColor yellowColor]];
+   // [self.view2 setBackgroundColor:self.color2];
     [self.scrollView addSubview:self.view2];
     
     self.view3 = [[UIView alloc] initWithFrame:CGRectMake(width *2, 0, rect.size.width, rect.size.height)];
-    [self.view3 setBackgroundColor:[UIColor greenColor]];
+    //[self.view3 setBackgroundColor:self.color3];
     [self.scrollView addSubview:self.view3];
     
     [self setupFirstScreen];
 }
 
 - (void)setupFirstScreen {
-    [self.view1 setBackgroundColor:[UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1]];
-    
     [self addElementOnView:self.view1 elementName:@"elem01-04" offsetX:0 offsetY:30 slippingCoefficient:0];
     [self addElementOnView:self.view1 elementName:@"elem01-01" offsetX:0 offsetY:-100 slippingCoefficient:0.1];
     [self addElementOnView:self.view1 elementName:@"elem01-02" offsetX:-140 offsetY:0 slippingCoefficient:-0.2];
@@ -93,6 +100,18 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     }
     
     self.lastContentOffset = scrollView.contentOffset.x;
+    NSInteger pageNum =  floorf(scrollView.contentOffset.x / SCREEN_WIDTH);
+    if (pageNum < 0) {
+        pageNum = 0;
+    }
+    if (pageNum > self.arrayOfBackgroundColors.count -1) {
+        pageNum = self.arrayOfBackgroundColors.count -1;
+    }
+    
+    UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[pageNum]
+                                        secondColor:self.arrayOfBackgroundColors[pageNum +1]
+                                             offset:(CGFloat)scrollView.contentOffset.x];
+    [scrollView setBackgroundColor:mixedColor];
 }
 
 #pragma mark -
@@ -116,6 +135,27 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     [viewSlip addSubview:imageView];
     [viewPage addSubview:viewSlip];
     [self.arrayOfElements addObject:viewSlip];
+}
+
+- (UIColor *)colorWithFirstColor:(UIColor *)firstColor
+                     secondColor:(UIColor *)secondColor
+                          offset:(CGFloat)offset;
+{
+    CGFloat red1, green1, blue1, alpha1;
+    CGFloat red2, green2, blue2, alpha2;
+    [firstColor  getRed:&red1 green:&green1 blue:&blue1 alpha:&alpha1];
+    [secondColor getRed:&red2 green:&green2 blue:&blue2 alpha:&alpha2];
+    
+    CGFloat redDelta = red2 - red1;
+    CGFloat greenDelta = green2 - green1;
+    CGFloat blueDelta = blue2 - blue1;
+    
+    offset = fmod(offset, SCREEN_WIDTH);
+    CGFloat resultRed = redDelta * (offset / SCREEN_WIDTH) + red1;
+    CGFloat resultGreen = greenDelta * (offset / SCREEN_WIDTH) + green1;
+    CGFloat resultBlue = blueDelta * (offset / SCREEN_WIDTH) + blue1;
+    
+    return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:1];
 }
 
 @end
