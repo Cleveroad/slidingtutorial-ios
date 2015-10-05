@@ -57,11 +57,14 @@ typedef enum ScrollDirection {
         self.constraintImg2.constant -= fabs(self.lastContentOffset - scrollView.contentOffset.x) * 1.25;
         self.constraintImg3.constant += fabs(self.lastContentOffset - scrollView.contentOffset.x) * 1.75;
     }
+    
     self.lastContentOffset = scrollView.contentOffset.x;
-    [self.scrollView setBackgroundColor:[UIColor colorWithRed:(int)(scrollView.contentOffset.x) % 255 green:(int)(scrollView.contentOffset.x) % 255 blue:(int)(scrollView.contentOffset.x) % 255 alpha:1]];
-    
-    // do whatever you need to with scrollDirection here.
-    
+    CGFloat color = (int)(scrollView.contentOffset.x) % 255;
+    color /= 255;
+    [self.scrollView setBackgroundColor:[UIColor colorWithRed:color
+                                                        green:color
+                                                         blue:color
+                                                        alpha:1]];
     
     [self.view layoutSubviews];
 }

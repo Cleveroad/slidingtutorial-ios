@@ -14,6 +14,8 @@
 		F57CC9921BBEB921008956D9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F57CC9911BBEB921008956D9 /* Images.xcassets */; };
 		F57CC9951BBEB921008956D9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F57CC9931BBEB921008956D9 /* LaunchScreen.xib */; };
 		F57CC9A11BBEB921008956D9 /* ParallaxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CC9A01BBEB921008956D9 /* ParallaxTests.m */; };
+		F5AB621B1BC26BC000FB93AA /* PRLTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AB62191BC26BC000FB93AA /* PRLTutorialViewController.m */; };
+		F5AB621E1BC27B5C00FB93AA /* PRLElementView.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AB621D1BC27B5C00FB93AA /* PRLElementView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,10 @@
 		F57CC99A1BBEB921008956D9 /* ParallaxTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ParallaxTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F57CC99F1BBEB921008956D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F57CC9A01BBEB921008956D9 /* ParallaxTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ParallaxTests.m; sourceTree = "<group>"; };
+		F5AB62191BC26BC000FB93AA /* PRLTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRLTutorialViewController.m; sourceTree = "<group>"; };
+		F5AB621A1BC26BC000FB93AA /* PRLTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRLTutorialViewController.h; sourceTree = "<group>"; };
+		F5AB621C1BC27B5C00FB93AA /* PRLElementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRLElementView.h; sourceTree = "<group>"; };
+		F5AB621D1BC27B5C00FB93AA /* PRLElementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRLElementView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				F57CC9831BBEB921008956D9 /* Parallax */,
+				F57CC9841BBEB921008956D9 /* Supporting Files */,
 				F57CC99D1BBEB921008956D9 /* ParallaxTests */,
 				F57CC9821BBEB921008956D9 /* Products */,
 			);
@@ -81,6 +88,8 @@
 		F57CC9831BBEB921008956D9 /* Parallax */ = {
 			isa = PBXGroup;
 			children = (
+				F5AB621A1BC26BC000FB93AA /* PRLTutorialViewController.h */,
+				F5AB62191BC26BC000FB93AA /* PRLTutorialViewController.m */,
 				F57CC9881BBEB921008956D9 /* AppDelegate.h */,
 				F57CC9891BBEB921008956D9 /* AppDelegate.m */,
 				F57CC98B1BBEB921008956D9 /* ViewController.h */,
@@ -88,7 +97,8 @@
 				F57CC98E1BBEB921008956D9 /* Main.storyboard */,
 				F57CC9911BBEB921008956D9 /* Images.xcassets */,
 				F57CC9931BBEB921008956D9 /* LaunchScreen.xib */,
-				F57CC9841BBEB921008956D9 /* Supporting Files */,
+				F5AB621C1BC27B5C00FB93AA /* PRLElementView.h */,
+				F5AB621D1BC27B5C00FB93AA /* PRLElementView.m */,
 			);
 			path = Parallax;
 			sourceTree = "<group>";
@@ -100,6 +110,7 @@
 				F57CC9861BBEB921008956D9 /* main.m */,
 			);
 			name = "Supporting Files";
+			path = Parallax;
 			sourceTree = "<group>";
 		};
 		F57CC99D1BBEB921008956D9 /* ParallaxTests */ = {
@@ -220,8 +231,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F57CC98D1BBEB921008956D9 /* ViewController.m in Sources */,
+				F5AB621E1BC27B5C00FB93AA /* PRLElementView.m in Sources */,
 				F57CC98A1BBEB921008956D9 /* AppDelegate.m in Sources */,
 				F57CC9871BBEB921008956D9 /* main.m in Sources */,
+				F5AB621B1BC26BC000FB93AA /* PRLTutorialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +431,7 @@
 				F57CC9A61BBEB921008956D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F57CC9A71BBEB921008956D9 /* Build configuration list for PBXNativeTarget "ParallaxTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +440,7 @@
 				F57CC9A91BBEB921008956D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
