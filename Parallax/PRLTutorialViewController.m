@@ -12,15 +12,6 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
-typedef NS_ENUM(NSUInteger, ScrollDirection) {
-    ScrollDirectionNone,
-    ScrollDirectionRight,
-    ScrollDirectionLeft,
-    ScrollDirectionUp,
-    ScrollDirectionDown,
-    ScrollDirectionCrazy,
-};
-
 @interface PRLTutorialViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -63,8 +54,15 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     [self addElementOnView:viewPage elementName:@"elem00-04" offsetX:0 offsetY:0 slippingCoefficient:0 pageNum:0];
     [self addElementOnView:viewPage elementName:@"elem00-00" offsetX:0 offsetY:-125 slippingCoefficient:0.1 pageNum:0];
     [self addElementOnView:viewPage elementName:@"elem00-01" offsetX:-140 offsetY:-30 slippingCoefficient:-0.2 pageNum:0];
-    [self addElementOnView:viewPage elementName:@"elem00-02" offsetX:-110 offsetY:58 slippingCoefficient:0.3 pageNum:0];
-    
+    [self addElementOnView:viewPage elementName:@"elem00-02" offsetX:-110 offsetY:58 slippingCoefficient:0.2 pageNum:0];
+    //[self addElementOnView:viewPage elementName:@"elem00-03" offsetX:0 offsetY:0 slippingCoefficient:0.3 pageNum:0];
+    //[self addElementOnView:viewPage elementName:@"elem00-05" offsetX:0 offsetY:0 slippingCoefficient:0 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-06" offsetX:-170 offsetY:-125 slippingCoefficient:0.15 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-07" offsetX:-130 offsetY:-125 slippingCoefficient:-0.2 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-08" offsetX:135 offsetY:-125 slippingCoefficient:0.1 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-09" offsetX:135 offsetY:-80 slippingCoefficient:0.2 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-10" offsetX:-150 offsetY:-85 slippingCoefficient:-0.15 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-11" offsetX:0 offsetY:170 slippingCoefficient:0.05 pageNum:0];
 }
 
 - (void)setupSecondScreen {
