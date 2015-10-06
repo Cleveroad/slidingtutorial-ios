@@ -45,6 +45,7 @@
     
     [self setupFirstScreen];
     [self setupSecondScreen];
+    [self setupThirdScreen];
 }
 
 - (void)setupFirstScreen {
@@ -85,6 +86,15 @@
 - (void)setupThirdScreen {
     UIView *viewPage = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH *2, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.scrollView addSubview:viewPage];
+    
+    [self addElementOnView:viewPage elementName:@"elem02-04" offsetX:0 offsetY:0 slippingCoefficient:0.0 pageNum:2];
+    [self addElementOnView:viewPage elementName:@"elem02-05" offsetX:0 offsetY:-110 slippingCoefficient:0.15 pageNum:2];
+    [self addElementOnView:viewPage elementName:@"elem02-00" offsetX:-50 offsetY:-120 slippingCoefficient:-0.1 pageNum:2];
+    [self addElementOnView:viewPage elementName:@"elem02-01" offsetX:130 offsetY:-130 slippingCoefficient:0.2 pageNum:2];
+    [self addElementOnView:viewPage elementName:@"elem02-02" offsetX:40 offsetY:-150 slippingCoefficient:0.1 pageNum:2];
+    [self addElementOnView:viewPage elementName:@"elem02-03" offsetX:120 offsetY:50 slippingCoefficient:-0.10 pageNum:2];
+    //[self addElementOnView:viewPage elementName:@"elem02-06" offsetX:0 offsetY:0 slippingCoefficient:0.0 pageNum:2];
+    [self addElementOnView:viewPage elementName:@"elem02-07" offsetX:0 offsetY:170 slippingCoefficient:-0.15 pageNum:2];
 }
 
 #pragma mark - UIScrollView delegate
@@ -132,7 +142,7 @@
                                                                                 image.size.width,
                                                                                 image.size.height)];
     viewSlip.slippingCoefficient = slippingCoefficient;
-    viewSlip.pageNum = pageNum;
+    //viewSlip.pageNum = pageNum;
     [viewSlip addSubview:imageView];
     [viewPage addSubview:viewSlip];
     [self.arrayOfElements addObject:viewSlip];
