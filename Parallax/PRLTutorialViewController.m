@@ -31,7 +31,7 @@
     UIColor *color1 = [UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1];
     UIColor *color2 = [UIColor colorWithRed:163./255 green:181./255 blue:0 alpha:1];
     UIColor *color3 = [UIColor colorWithRed:35./255 green:75./255 blue:122.0/255 alpha:1];
-    UIColor *color4 = [UIColor colorWithRed:198./255 green:84./255 blue:0.0/255 alpha:1];
+    UIColor *color4 = [UIColor colorWithRed:217./255 green:64./255 blue:0.0/255 alpha:1];
     self.arrayOfBackgroundColors = [@[color1, color2, color3, color4, [UIColor whiteColor]] mutableCopy];
     
     self.arrayOfElements = [NSMutableArray array];
@@ -46,6 +46,7 @@
     [self setupFirstScreen];
     [self setupSecondScreen];
     [self setupThirdScreen];
+    [self setupFourthScreen];
 }
 
 - (void)setupFirstScreen {
@@ -77,9 +78,9 @@
     [self addElementOnView:viewPage elementName:@"elem01-03" offsetX:0 offsetY:50 slippingCoefficient:-0.2 pageNum:1];
     [self addElementOnView:viewPage elementName:@"elem01-04" offsetX:0 offsetY:-95 slippingCoefficient:-0.3 pageNum:1];
     [self addElementOnView:viewPage elementName:@"elem01-05" offsetX:-120 offsetY:-25 slippingCoefficient:0.2 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem01-06" offsetX:-110 offsetY:-95 slippingCoefficient:0.3 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem01-08" offsetX:0 offsetY:-160 slippingCoefficient:0.4 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem01-09" offsetX:-110 offsetY:-160 slippingCoefficient:0.3 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-06" offsetX:-110 offsetY:-95 slippingCoefficient:0.25 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-08" offsetX:0 offsetY:-160 slippingCoefficient:0.2 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-09" offsetX:-110 offsetY:-160 slippingCoefficient:0.25 pageNum:1];
     [self addElementOnView:viewPage elementName:@"elem01-10" offsetX:0 offsetY:170 slippingCoefficient:0.2 pageNum:1];
 }
 
@@ -92,11 +93,34 @@
     [self addElementOnView:viewPage elementName:@"elem02-00" offsetX:-50 offsetY:-120 slippingCoefficient:-0.1 pageNum:2];
     [self addElementOnView:viewPage elementName:@"elem02-01" offsetX:130 offsetY:-130 slippingCoefficient:0.2 pageNum:2];
     [self addElementOnView:viewPage elementName:@"elem02-02" offsetX:40 offsetY:-150 slippingCoefficient:0.1 pageNum:2];
-    [self addElementOnView:viewPage elementName:@"elem02-03" offsetX:120 offsetY:50 slippingCoefficient:-0.10 pageNum:2];
+    [self addElementOnView:viewPage elementName:@"elem02-03" offsetX:110 offsetY:50 slippingCoefficient:0.10 pageNum:2];
     //[self addElementOnView:viewPage elementName:@"elem02-06" offsetX:0 offsetY:0 slippingCoefficient:0.0 pageNum:2];
     [self addElementOnView:viewPage elementName:@"elem02-07" offsetX:0 offsetY:170 slippingCoefficient:-0.15 pageNum:2];
 }
 
+- (void)setupFourthScreen {
+    UIView *viewPage = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH *3, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.scrollView addSubview:viewPage];
+    
+    [self addElementOnView:viewPage elementName:@"elem03-11" offsetX:-100 offsetY:-30 slippingCoefficient:-0.10 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-13" offsetX:-10 offsetY:-110 slippingCoefficient:0.10 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-04" offsetX:0 offsetY:0 slippingCoefficient:0.0 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-00" offsetX:35 offsetY:60 slippingCoefficient:0.15 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-01" offsetX:70 offsetY:0 slippingCoefficient:0.05 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-02" offsetX:-30 offsetY:125 slippingCoefficient:-0.15 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-03" offsetX:55 offsetY:105 slippingCoefficient:0.10 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-05" offsetX:-110 offsetY:30 slippingCoefficient:0.15 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-06" offsetX:100 offsetY:40 slippingCoefficient:-0.10 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-07" offsetX:-90 offsetY:-125 slippingCoefficient:0.10 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-08" offsetX:110 offsetY:-60 slippingCoefficient:0.05 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-09" offsetX:110 offsetY:-110 slippingCoefficient:-0.15 pageNum:3];
+    //[self addElementOnView:viewPage elementName:@"elem03-10" offsetX:130 offsetY:-30 slippingCoefficient:0.0 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-12" offsetX:50 offsetY:-120 slippingCoefficient:0.10 pageNum:3];
+    //[self addElementOnView:viewPage elementName:@"elem03-14" offsetX:0 offsetY:0 slippingCoefficient:0.0 pageNum:3];
+    //[self addElementOnView:viewPage elementName:@"elem03-15" offsetX:0 offsetY:0 slippingCoefficient:0.0 pageNum:3];
+    [self addElementOnView:viewPage elementName:@"elem03-16" offsetX:0 offsetY:170 slippingCoefficient:-0.10 pageNum:3];
+    
+}
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
