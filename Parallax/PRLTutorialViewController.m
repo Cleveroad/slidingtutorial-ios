@@ -60,10 +60,10 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     UIView *viewPage  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.scrollView addSubview:viewPage];
     
-    [self addElementOnView:viewPage elementName:@"elem01-04" offsetX:0 offsetY:30 slippingCoefficient:0 pageNum:0];
-    [self addElementOnView:viewPage elementName:@"elem01-01" offsetX:0 offsetY:-100 slippingCoefficient:0.1 pageNum:0];
-    [self addElementOnView:viewPage elementName:@"elem01-02" offsetX:-140 offsetY:0 slippingCoefficient:-0.2 pageNum:0];
-    [self addElementOnView:viewPage elementName:@"elem01-03" offsetX:-110 offsetY:100 slippingCoefficient:0.3 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-04" offsetX:0 offsetY:0 slippingCoefficient:0 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-00" offsetX:0 offsetY:-125 slippingCoefficient:0.1 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-01" offsetX:-140 offsetY:-30 slippingCoefficient:-0.2 pageNum:0];
+    [self addElementOnView:viewPage elementName:@"elem00-02" offsetX:-110 offsetY:58 slippingCoefficient:0.3 pageNum:0];
     
 }
 
@@ -71,17 +71,17 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     UIView *viewPage = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.scrollView addSubview:viewPage];
     
-    [self addElementOnView:viewPage elementName:@"elem02-07" offsetX:0 offsetY:0 slippingCoefficient:-0.05 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-00" offsetX:-145 offsetY:35 slippingCoefficient:-0.2 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-01" offsetX:110 offsetY:-130 slippingCoefficient:0.3 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-02" offsetX:0 offsetY:-30 slippingCoefficient:0.1 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-03" offsetX:0 offsetY:50 slippingCoefficient:-0.2 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-04" offsetX:0 offsetY:-95 slippingCoefficient:0.1 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-05" offsetX:-120 offsetY:-25 slippingCoefficient:0.2 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-06" offsetX:-110 offsetY:-95 slippingCoefficient:-0.3 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-08" offsetX:0 offsetY:-160 slippingCoefficient:0.4 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-09" offsetX:-110 offsetY:-160 slippingCoefficient:0.3 pageNum:1];
-    [self addElementOnView:viewPage elementName:@"elem02-10" offsetX:0 offsetY:170 slippingCoefficient:0.2 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-07" offsetX:0 offsetY:0 slippingCoefficient:-0.05 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-00" offsetX:-145 offsetY:35 slippingCoefficient:0.2 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-01" offsetX:110 offsetY:-130 slippingCoefficient:0.3 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-02" offsetX:0 offsetY:-30 slippingCoefficient:-0.15 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-03" offsetX:0 offsetY:50 slippingCoefficient:-0.2 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-04" offsetX:0 offsetY:-95 slippingCoefficient:-0.3 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-05" offsetX:-120 offsetY:-25 slippingCoefficient:0.2 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-06" offsetX:-110 offsetY:-95 slippingCoefficient:0.3 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-08" offsetX:0 offsetY:-160 slippingCoefficient:0.4 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-09" offsetX:-110 offsetY:-160 slippingCoefficient:0.3 pageNum:1];
+    [self addElementOnView:viewPage elementName:@"elem01-10" offsetX:0 offsetY:170 slippingCoefficient:0.2 pageNum:1];
 }
 
 - (void)setupThirdScreen {
@@ -96,9 +96,7 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     CGFloat contentOffset = self.scrollView.contentOffset.x;
     for (PRLElementView *view in self.arrayOfElements) {
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
-        if (fabs(contentOffset) > view.pageNum * SCREEN_WIDTH) {
-            [view setFrame:CGRectMake(view.frame.origin.x + offset, view.frame.origin.y, view.frame.size.width, view.frame.size.height)];
-        }
+        [view setFrame:CGRectMake(view.frame.origin.x + offset, view.frame.origin.y, view.frame.size.width, view.frame.size.height)];
     }
     
     self.lastContentOffset = contentOffset;
@@ -131,7 +129,10 @@ typedef NS_ENUM(NSUInteger, ScrollDirection) {
     CGFloat postionX = (SCREEN_WIDTH - image.size.width) / 2;
     CGFloat postionY = (SCREEN_HEIGHT - image.size.height) / 2;
     
-    PRLElementView *viewSlip = [[PRLElementView alloc] initWithFrame:CGRectMake(postionX + offsetX, postionY + offsetY, image.size.width, image.size.height)];
+    PRLElementView *viewSlip = [[PRLElementView alloc] initWithFrame:CGRectMake(postionX + offsetX + SCREEN_WIDTH * slippingCoefficient * pageNum,
+                                                                                postionY + offsetY,
+                                                                                image.size.width,
+                                                                                image.size.height)];
     viewSlip.slippingCoefficient = slippingCoefficient;
     viewSlip.pageNum = pageNum;
     [viewSlip addSubview:imageView];
