@@ -49,6 +49,33 @@
     [self setupFourthScreen];
 }
 
+//- (void)viewWillTransitionToSize:(CGSize)size  withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+//    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
+//     {
+//         UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+////         NSLog(@"Orientation %i",orientation);
+////         int i=0;
+//         [self.scrollView removeFromSuperview];
+//         // do whatever
+//     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
+//     {
+//         
+//         self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//         self.scrollView.delegate = self;
+//         self.scrollView.pagingEnabled = YES;
+//         [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * (self.arrayOfBackgroundColors.count -1), SCREEN_HEIGHT)];
+//         [self.scrollView setBackgroundColor:self.arrayOfBackgroundColors[0]];
+//         [self.view addSubview:self.scrollView];
+//         
+//         [self setupFirstScreen];
+//         [self setupSecondScreen];
+//         [self setupThirdScreen];
+//         [self setupFourthScreen];
+//     }];
+//    
+//    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+//}
+
 - (void)setupFirstScreen {
     UIView *viewPage  = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [self.scrollView addSubview:viewPage];
