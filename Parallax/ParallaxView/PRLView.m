@@ -29,11 +29,11 @@
 - (instancetype)initWithFrame:(CGRect)frame
                     pageCount:(NSUInteger)pageCount;
 {
-    
     if ((self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.height, frame.size.width * pageCount)])) {
-        self.arrayOfBackgroundColors = [NSMutableArray new];
         self.arrayOfElements = [NSMutableArray new];
         self.arrayOfPages = [NSMutableArray new];
+        self.arrayOfBackgroundColors = [NSMutableArray new];
+        [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
         self.scrollView.delegate = self;
@@ -72,6 +72,11 @@
     [self.arrayOfElements addObject:viewSlip];
 }
 
+- (void)addBackkgroundColor:(UIColor *)color;
+{
+    [self.arrayOfBackgroundColors insertObject:color atIndex:self.arrayOfBackgroundColors.count -1];
+}
+
 
 #pragma mark - UIScrollView delegate
 
@@ -92,10 +97,10 @@
         pageNum = self.arrayOfBackgroundColors.count -1;
     }
     
-//    UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[pageNum]
-//                                        secondColor:self.arrayOfBackgroundColors[pageNum +1]
-//                                             offset:(CGFloat)scrollView.contentOffset.x];
-//    [scrollView setBackgroundColor:mixedColor];
+    UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[pageNum]
+                                        secondColor:self.arrayOfBackgroundColors[pageNum +1]
+                                             offset:(CGFloat)scrollView.contentOffset.x];
+    [scrollView setBackgroundColor:mixedColor];
 }
 
 #pragma mark - Private
@@ -122,5 +127,31 @@
     return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:1];
 }
 
+//- (void)viewWillTransitionToSize:(CGSize)size  withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
+//    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
+//     {
+//         UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+////         NSLog(@"Orientation %i",orientation);
+////         int i=0;
+//         [self.scrollView removeFromSuperview];
+//         // do whatever
+//     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
+//     {
+//
+//         self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//         self.scrollView.delegate = self;
+//         self.scrollView.pagingEnabled = YES;
+//         [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * (self.arrayOfBackgroundColors.count -1), SCREEN_HEIGHT)];
+//         [self.scrollView setBackgroundColor:self.arrayOfBackgroundColors[0]];
+//         [self.view addSubview:self.scrollView];
+//
+//         [self setupFirstScreen];
+//         [self setupSecondScreen];
+//         [self setupThirdScreen];
+//         [self setupFourthScreen];
+//     }];
+//
+//    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+//}
 
 @end

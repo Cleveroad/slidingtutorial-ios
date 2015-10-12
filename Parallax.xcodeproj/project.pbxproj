@@ -16,7 +16,6 @@
 		F57CC9A11BBEB921008956D9 /* ParallaxTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F57CC9A01BBEB921008956D9 /* ParallaxTests.m */; };
 		F58B01DF1BC7FB1600B7447F /* PRLElementView.m in Sources */ = {isa = PBXBuildFile; fileRef = F58B01DE1BC7FB1600B7447F /* PRLElementView.m */; };
 		F58B01E21BC7FB4000B7447F /* PRLView.m in Sources */ = {isa = PBXBuildFile; fileRef = F58B01E11BC7FB4000B7447F /* PRLView.m */; };
-		F5AB621B1BC26BC000FB93AA /* PRLTutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F5AB62191BC26BC000FB93AA /* PRLTutorialViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,8 +46,6 @@
 		F58B01DE1BC7FB1600B7447F /* PRLElementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRLElementView.m; sourceTree = "<group>"; };
 		F58B01E01BC7FB4000B7447F /* PRLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRLView.h; sourceTree = "<group>"; };
 		F58B01E11BC7FB4000B7447F /* PRLView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRLView.m; sourceTree = "<group>"; };
-		F5AB62191BC26BC000FB93AA /* PRLTutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRLTutorialViewController.m; sourceTree = "<group>"; };
-		F5AB621A1BC26BC000FB93AA /* PRLTutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PRLTutorialViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				F58B01DC1BC7FB1600B7447F /* ParallaxView */,
-				F5AB621A1BC26BC000FB93AA /* PRLTutorialViewController.h */,
-				F5AB62191BC26BC000FB93AA /* PRLTutorialViewController.m */,
 				F57CC9881BBEB921008956D9 /* AppDelegate.h */,
 				F57CC9891BBEB921008956D9 /* AppDelegate.m */,
 				F57CC98B1BBEB921008956D9 /* ViewController.h */,
@@ -248,7 +243,6 @@
 				F58B01DF1BC7FB1600B7447F /* PRLElementView.m in Sources */,
 				F57CC98A1BBEB921008956D9 /* AppDelegate.m in Sources */,
 				F57CC9871BBEB921008956D9 /* main.m in Sources */,
-				F5AB621B1BC26BC000FB93AA /* PRLTutorialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
