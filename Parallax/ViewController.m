@@ -77,6 +77,7 @@
     //[viewParallax addElementWithName:@"elem03-15" offsetX:0 offsetY:0 slippingCoefficient:0.0 pageNum:3];
     [viewParallax addElementWithName:@"elem03-16" offsetX:0 offsetY:170 slippingCoefficient:-0.10 pageNum:3];
     
+    [viewParallax prepareForShow];
     [self.view addSubview:viewParallax];
 }
 

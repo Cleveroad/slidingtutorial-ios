@@ -27,8 +27,13 @@
 #pragma mark - Public
 
 - (instancetype)initWithFrame:(CGRect)frame
-                    pageCount:(NSUInteger)pageCount;
+                    pageCount:(NSInteger)pageCount;
 {
+    if (pageCount <= 0) {
+        NSLog(@"Wrong page count %li. It should be at leat 1", (long)pageCount);
+        return nil;
+    }
+    
     if ((self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, frame.size.height, frame.size.width * pageCount)])) {
         self.arrayOfElements = [NSMutableArray new];
         self.arrayOfPages = [NSMutableArray new];
@@ -54,9 +59,18 @@
                    offsetX:(CGFloat)offsetX
                    offsetY:(CGFloat)offsetY
        slippingCoefficient:(CGFloat)slippingCoefficient
-                   pageNum:(NSUInteger)pageNum;
+                   pageNum:(NSInteger)pageNum;
 {
     UIImage *image = [UIImage imageNamed:elementName];
+    if (!image) {
+        NSLog(@"No image with name %@ loaded",elementName);
+        return;
+    }
+    if (pageNum >= self.arrayOfPages.count || pageNum < 0) {
+        NSLog(@"Wrong page number %li Range of pages should be from 0 to %lu",(long)pageNum, self.arrayOfPages.count -1);
+        return;
+    }
+    
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     
     CGFloat postionX = (SCREEN_WIDTH - image.size.width) / 2;
@@ -77,6 +91,21 @@
     [self.arrayOfBackgroundColors insertObject:color atIndex:self.arrayOfBackgroundColors.count -1];
 }
 
+- (void)prepareForShow;
+{
+    if (self.arrayOfBackgroundColors.count -1 < self.arrayOfPages.count) {
+        NSLog(@"Wrong count of background colors. Should be %lu instead of %lu", self.arrayOfPages.count, self.arrayOfBackgroundColors.count -1);
+        NSLog(@"The missing colors will be replaced by white");
+        while (self.arrayOfBackgroundColors.count < self.arrayOfPages.count) {
+            [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
+        }
+    }
+    
+    UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[0]
+                                        secondColor:self.arrayOfBackgroundColors[1]
+                                             offset:0];
+    [self.scrollView setBackgroundColor:mixedColor];
+}
 
 #pragma mark - UIScrollView delegate
 
@@ -93,13 +122,13 @@
     if (pageNum < 0) {
         pageNum = 0;
     }
-    if (pageNum > self.arrayOfBackgroundColors.count -1) {
-        pageNum = self.arrayOfBackgroundColors.count -1;
+    if (pageNum > self.arrayOfBackgroundColors.count -2) {
+        pageNum = self.arrayOfBackgroundColors.count -2;
     }
     
     UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[pageNum]
                                         secondColor:self.arrayOfBackgroundColors[pageNum +1]
-                                             offset:(CGFloat)scrollView.contentOffset.x];
+                                             offset:scrollView.contentOffset.x];
     [scrollView setBackgroundColor:mixedColor];
 }
 

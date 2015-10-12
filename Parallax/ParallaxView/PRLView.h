@@ -11,14 +11,16 @@
 @interface PRLView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame
-                    pageCount:(NSUInteger)pageCount;
+                    pageCount:(NSInteger)pageCount;
 
 - (void)addElementWithName:(NSString *)elementName
                    offsetX:(CGFloat)offsetX
                    offsetY:(CGFloat)offsetY
        slippingCoefficient:(CGFloat)slippingCoefficient
-                   pageNum:(NSUInteger)pageNum;
+                   pageNum:(NSInteger)pageNum;
 
 - (void)addBackkgroundColor:(UIColor *)color;
+
+- (void)prepareForShow;
 
 @end
