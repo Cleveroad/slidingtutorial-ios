@@ -30,7 +30,7 @@
                     pageCount:(NSInteger)pageCount;
 {
     if (pageCount <= 0) {
-        NSLog(@"Wrong page count %li. It should be at leat 1", (long)pageCount);
+        NSLog(@"Wrong page count %li. It should be at least 1", (long)pageCount);
         return nil;
     }
     
