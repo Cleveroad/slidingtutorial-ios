@@ -9,9 +9,6 @@
 #import "PRLView.h"
 #import "PRLElementView.h"
 
-#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
-#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
-
 @interface PRLView () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -19,6 +16,8 @@
 @property (nonatomic, strong) NSMutableArray *arrayOfElements;
 @property (nonatomic, strong) NSMutableArray *arrayOfBackgroundColors;
 @property (nonatomic, strong) NSMutableArray *arrayOfPages;
+
+@property (nonatomic,assign) CGFloat lastScreenWidth;
 
 @end
 
@@ -39,6 +38,7 @@
         self.arrayOfPages = [NSMutableArray new];
         self.arrayOfBackgroundColors = [NSMutableArray new];
         [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
+        self.lastScreenWidth = 0;
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
         self.scrollView.delegate = self;
@@ -51,6 +51,8 @@
             [self.arrayOfPages addObject:view];
             [self.scrollView addSubview:view];
         }
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
     return  self;
 }
@@ -61,29 +63,20 @@
        slippingCoefficient:(CGFloat)slippingCoefficient
                    pageNum:(NSInteger)pageNum;
 {
-    UIImage *image = [UIImage imageNamed:elementName];
-    if (!image) {
-        NSLog(@"No image with name %@ loaded",elementName);
-        return;
-    }
     if (pageNum >= self.arrayOfPages.count || pageNum < 0) {
-        NSLog(@"Wrong page number %li Range of pages should be from 0 to %lu",(long)pageNum, self.arrayOfPages.count -1);
+        NSLog(@"Wrong page number %li Range of pages should be from 0 to %u",(long)pageNum, self.arrayOfPages.count -1);
         return;
     }
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-    
-    CGFloat postionX = (SCREEN_WIDTH - image.size.width) / 2;
-    CGFloat postionY = (SCREEN_HEIGHT - image.size.height) / 2;
-    
-    PRLElementView *viewSlip = [[PRLElementView alloc] initWithFrame:CGRectMake(postionX + offsetX + SCREEN_WIDTH * slippingCoefficient * pageNum,
-                                                                                postionY + offsetY,
-                                                                                image.size.width,
-                                                                                image.size.height)];
-    viewSlip.slippingCoefficient = slippingCoefficient;
-    [viewSlip addSubview:imageView];
-    [self.arrayOfPages[pageNum] addSubview:viewSlip];
-    [self.arrayOfElements addObject:viewSlip];
+    PRLElementView *viewSlip = [[PRLElementView alloc] initWithImageName:elementName
+                                                                     offsetX:offsetX
+                                                                     offsetY:offsetY
+                                                                  pageNumber:pageNum
+                                                         slippingCoefficient:slippingCoefficient];
+    if (viewSlip) {
+        [self.arrayOfPages[pageNum] addSubview:viewSlip];
+        [self.arrayOfElements addObject:viewSlip];
+    }
 }
 
 - (void)addBackkgroundColor:(UIColor *)color;
@@ -94,7 +87,7 @@
 - (void)prepareForShow;
 {
     if (self.arrayOfBackgroundColors.count -1 < self.arrayOfPages.count) {
-        NSLog(@"Wrong count of background colors. Should be %lu instead of %lu", self.arrayOfPages.count, self.arrayOfBackgroundColors.count -1);
+        NSLog(@"Wrong count of background colors. Should be %lu instead of %u", (unsigned long)self.arrayOfPages.count, self.arrayOfBackgroundColors.count -1);
         NSLog(@"The missing colors will be replaced by white");
         while (self.arrayOfBackgroundColors.count < self.arrayOfPages.count) {
             [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
@@ -156,31 +149,46 @@
     return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:1];
 }
 
-//- (void)viewWillTransitionToSize:(CGSize)size  withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator {
-//    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
-//     {
-//         UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-////         NSLog(@"Orientation %i",orientation);
-////         int i=0;
-//         [self.scrollView removeFromSuperview];
-//         // do whatever
-//     } completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
-//     {
-//
-//         self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-//         self.scrollView.delegate = self;
-//         self.scrollView.pagingEnabled = YES;
-//         [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * (self.arrayOfBackgroundColors.count -1), SCREEN_HEIGHT)];
-//         [self.scrollView setBackgroundColor:self.arrayOfBackgroundColors[0]];
-//         [self.view addSubview:self.scrollView];
-//
-//         [self setupFirstScreen];
-//         [self setupSecondScreen];
-//         [self setupThirdScreen];
-//         [self setupFourthScreen];
-//     }];
-//
-//    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-//}
+- (void)deviceOrientationChanged:(NSNotification *)notification {
+    if (self.lastScreenWidth == 0) { //first launch setup
+        self.lastScreenWidth = SCREEN_WIDTH;
+    }
+    
+    NSInteger currentPageNum = self.scrollView.contentOffset.x / self.lastScreenWidth;
+    [self setBackgroundColor:self.scrollView.backgroundColor];
+    [self.scrollView setContentOffset:CGPointMake(0, 0)]; //fix problem with inapropriate elements transtion
+    [self.scrollView setFrame:[UIScreen mainScreen].bounds];
+    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * self.arrayOfPages.count, SCREEN_HEIGHT)];
+    
+    for (int i = 0; i < self.arrayOfPages.count; i++) {
+        UIView *view = self.arrayOfPages[i];
+        [view setFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    }
+    
+    //-- removing element views and put in a new coords
+    for (int i = 0; i < self.arrayOfElements.count; i++) {
+        PRLElementView *view = self.arrayOfElements[i];
+        [view removeFromSuperview];
+        
+        PRLElementView *viewSlip = [[PRLElementView alloc] initWithImageName:view.imageName
+                                                                     offsetX:view.offsetX
+                                                                     offsetY:view.offsetY
+                                                                  pageNumber:view.pageNumber
+                                                         slippingCoefficient:view.slippingCoefficient];
+        
+        if (viewSlip) {
+            [self.arrayOfPages[viewSlip.pageNumber] addSubview:viewSlip];
+            [self.arrayOfElements replaceObjectAtIndex:i withObject:viewSlip];
+        }
+    }
+    
+    //--- scrolling to current page selected
+    [self.scrollView setContentOffset:CGPointMake(SCREEN_WIDTH * currentPageNum, 0)];
+    self.lastScreenWidth = SCREEN_WIDTH;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+}
 
 @end

@@ -19,6 +19,7 @@
     [super viewDidLoad];
    
     PRLView *viewParallax = [[PRLView alloc] initWithFrame:[UIScreen mainScreen].bounds pageCount:4];
+    [self.view addSubview:viewParallax];
     
     [viewParallax addBackkgroundColor:[UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1]];
     [viewParallax addBackkgroundColor:[UIColor colorWithRed:163./255 green:181./255 blue:0 alpha:1]];
@@ -78,7 +79,6 @@
     [viewParallax addElementWithName:@"elem03-16" offsetX:0 offsetY:170 slippingCoefficient:-0.10 pageNum:3];
     
     [viewParallax prepareForShow];
-    [self.view addSubview:viewParallax];
 }
 
 @end
