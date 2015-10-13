@@ -24,7 +24,8 @@
                           offsetX:(CGFloat)offsetX
                           offsetY:(CGFloat)offsetY
                        pageNumber:(NSInteger)pageNumber
-              slippingCoefficient:(CGFloat)slippingCoefficient;
+              slippingCoefficient:(CGFloat)slippingCoefficient
+                 scaleCoefficient:(CGFloat)scaleCoefficient;
 {
     UIImage *image = [UIImage imageNamed:imageName];
     if (!image) {
@@ -32,20 +33,21 @@
         return nil;
     }
     
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    CGSize destinationSize = CGSizeMake(image.size.width * scaleCoefficient, image.size.height * scaleCoefficient);
+    UIGraphicsBeginImageContextWithOptions(destinationSize, NO, [UIScreen mainScreen].scale);
+    [image drawInRect:CGRectMake(0,0,destinationSize.width,destinationSize.height)];
+    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+   
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:resizedImage];
     
-//    CGPoint centerView = [self.view center]
-//    centerView.x += offsetX;
-//    centerView.y += offsetY;
-//    self.center = centerView;
+    CGFloat postionX = (SCREEN_WIDTH - resizedImage.size.width) / 2;
+    CGFloat postionY = (SCREEN_HEIGHT - resizedImage.size.height) / 2;
     
-    CGFloat postionX = (SCREEN_WIDTH - image.size.width) / 2;
-    CGFloat postionY = (SCREEN_HEIGHT - image.size.height) / 2;
-    
-    if (self = [super initWithFrame:CGRectMake(postionX + offsetX + SCREEN_WIDTH * slippingCoefficient * pageNumber,
-                                               postionY + offsetY,
-                                               image.size.width,
-                                               image.size.height)]) {
+    if (self = [super initWithFrame:CGRectMake(postionX + offsetX * scaleCoefficient + SCREEN_WIDTH * slippingCoefficient * pageNumber ,
+                                               postionY + offsetY * scaleCoefficient,
+                                               resizedImage.size.width,
+                                               resizedImage.size.height)]) {
         self.slippingCoefficient = slippingCoefficient;
         self.offsetX = offsetX;
         self.offsetY = offsetY;

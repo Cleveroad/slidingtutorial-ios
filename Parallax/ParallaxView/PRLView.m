@@ -12,12 +12,14 @@
 @interface PRLView () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
-@property (nonatomic, assign) CGFloat lastContentOffset;
+
 @property (nonatomic, strong) NSMutableArray *arrayOfElements;
 @property (nonatomic, strong) NSMutableArray *arrayOfBackgroundColors;
 @property (nonatomic, strong) NSMutableArray *arrayOfPages;
 
+@property (nonatomic, assign) CGFloat lastContentOffset;
 @property (nonatomic,assign) CGFloat lastScreenWidth;
+@property (nonatomic, assign) CGFloat scaleCoefficient;
 
 @end
 
@@ -26,7 +28,8 @@
 #pragma mark - Public
 
 - (instancetype)initWithFrame:(CGRect)frame
-                    pageCount:(NSInteger)pageCount;
+                    pageCount:(NSInteger)pageCount
+             scaleCoefficient:(CGFloat)scaleCoefficient;
 {
     if (pageCount <= 0) {
         NSLog(@"Wrong page count %li. It should be at least 1", (long)pageCount);
@@ -39,6 +42,7 @@
         self.arrayOfBackgroundColors = [NSMutableArray new];
         [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
         self.lastScreenWidth = 0;
+        self.scaleCoefficient = scaleCoefficient;
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
         self.scrollView.delegate = self;
@@ -72,7 +76,8 @@
                                                                      offsetX:offsetX
                                                                      offsetY:offsetY
                                                                   pageNumber:pageNum
-                                                         slippingCoefficient:slippingCoefficient];
+                                                     slippingCoefficient:slippingCoefficient
+                                                        scaleCoefficient:self.scaleCoefficient];
     if (viewSlip) {
         [self.arrayOfPages[pageNum] addSubview:viewSlip];
         [self.arrayOfElements addObject:viewSlip];
@@ -174,7 +179,8 @@
                                                                      offsetX:view.offsetX
                                                                      offsetY:view.offsetY
                                                                   pageNumber:view.pageNumber
-                                                         slippingCoefficient:view.slippingCoefficient];
+                                                         slippingCoefficient:view.slippingCoefficient
+                                                            scaleCoefficient:self.scaleCoefficient];
         
         if (viewSlip) {
             [self.arrayOfPages[viewSlip.pageNumber] addSubview:viewSlip];

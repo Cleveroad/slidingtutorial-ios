@@ -23,6 +23,7 @@
                           offsetX:(CGFloat)offsetX
                           offsetY:(CGFloat)offsetY
                        pageNumber:(NSInteger)pageNumber
-              slippingCoefficient:(CGFloat)slippingCoefficient;
+              slippingCoefficient:(CGFloat)slippingCoefficient
+                 scaleCoefficient:(CGFloat)scaleCoefficient;
 
 @end

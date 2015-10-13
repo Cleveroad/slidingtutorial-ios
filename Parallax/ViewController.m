@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    PRLView *viewParallax = [[PRLView alloc] initWithFrame:[UIScreen mainScreen].bounds pageCount:4];
+    PRLView *viewParallax = [[PRLView alloc] initWithFrame:[UIScreen mainScreen].bounds pageCount:4 scaleCoefficient:0.8];
     [self.view addSubview:viewParallax];
     
     [viewParallax addBackkgroundColor:[UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1]];

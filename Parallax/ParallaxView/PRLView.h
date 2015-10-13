@@ -11,7 +11,8 @@
 @interface PRLView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame
-                    pageCount:(NSInteger)pageCount;
+                    pageCount:(NSInteger)pageCount
+             scaleCoefficient:(CGFloat)scaleCoefficient;
 
 - (void)addElementWithName:(NSString *)elementName
                    offsetX:(CGFloat)offsetX
