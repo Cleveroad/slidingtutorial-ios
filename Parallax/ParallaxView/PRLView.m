@@ -29,16 +29,15 @@
 
 #pragma mark - Public
 
-- (instancetype)initWithFrame:(CGRect)frame
-                    pageCount:(NSInteger)pageCount
-             scaleCoefficient:(CGFloat)scaleCoefficient;
+- (instancetype)initWithPageCount:(NSInteger)pageCount
+                 scaleCoefficient:(CGFloat)scaleCoefficient;
 {
     if (pageCount <= 0) {
         NSLog(@"Wrong page count %li. It should be at least 1", (long)pageCount);
         return nil;
     }
     
-    if ((self = [super initWithFrame:frame])) {
+    if ((self = [super initWithFrame:[UIScreen mainScreen].bounds])) {
         self.arrayOfElements = [NSMutableArray new];
         self.arrayOfPages = [NSMutableArray new];
         self.arrayOfBackgroundColors = [NSMutableArray new];
@@ -46,7 +45,7 @@
         self.lastScreenWidth = 0;
         self.scaleCoefficient = scaleCoefficient;
         
-        self.scrollView = [[UIScrollView alloc] initWithFrame:frame];
+        self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         self.scrollView.delegate = self;
         self.scrollView.pagingEnabled = YES;
         [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * pageCount, SCREEN_HEIGHT)];

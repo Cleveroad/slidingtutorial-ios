@@ -18,9 +18,8 @@
 
 @property (weak, nonatomic) id <PRLViewProtocol> delegate;
 
-- (instancetype)initWithFrame:(CGRect)frame
-                    pageCount:(NSInteger)pageCount
-             scaleCoefficient:(CGFloat)scaleCoefficient;
+- (instancetype)initWithPageCount:(NSInteger)pageCount
+                 scaleCoefficient:(CGFloat)scaleCoefficient;
 
 - (void)addElementWithName:(NSString *)elementName
                    offsetX:(CGFloat)offsetX

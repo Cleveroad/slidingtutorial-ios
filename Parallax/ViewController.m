@@ -40,7 +40,7 @@
 #pragma mark - Private
 
 - (void)deployTutorialParallaxView {
-    PRLView *viewParallax = [[PRLView alloc] initWithFrame:[UIScreen mainScreen].bounds pageCount:4 scaleCoefficient:0.8];
+    PRLView *viewParallax = [[PRLView alloc] initWithPageCount:4 scaleCoefficient:0.8];
     viewParallax.delegate = self;
     self.viewParallax = viewParallax;
     [self.view addSubview:viewParallax];
