@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) PRLView *viewParallax;
 
+- (IBAction)actionTryAgain:(id)sender;
+
 @end
 
 @implementation ViewController
@@ -20,6 +22,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+    [self deployTutorialParallaxView];
+}
+
+#pragma mark - PRLViewProtocol
+
+- (void)skipTutorial {
+    [self.viewParallax removeFromSuperview];
+}
+
+#pragma mark - IBActions
+
+- (IBAction)actionTryAgain:(id)sender {
+    [self deployTutorialParallaxView];
+}
+
+#pragma mark - Private
+
+- (void)deployTutorialParallaxView {
     PRLView *viewParallax = [[PRLView alloc] initWithFrame:[UIScreen mainScreen].bounds pageCount:4 scaleCoefficient:0.8];
     viewParallax.delegate = self;
     self.viewParallax = viewParallax;
@@ -83,12 +103,6 @@
     [viewParallax addElementWithName:@"elem03-16" offsetX:0 offsetY:170 slippingCoefficient:-0.10 pageNum:3];
     
     [viewParallax prepareForShow];
-}
-
-#pragma mark - PRLViewProtocol
-
-- (void)skipTutorial {
-    [self.viewParallax removeFromSuperview];
 }
 
 @end
