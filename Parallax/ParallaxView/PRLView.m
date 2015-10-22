@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *skipView;
+@property (nonatomic, strong) UIPageControl *pageControl;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfElements;
 @property (nonatomic, strong) NSMutableArray *arrayOfBackgroundColors;
@@ -60,7 +61,7 @@
         //--- configure bottom skip view
         UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH *2, 1)];
-        [lineView setBackgroundColor:[UIColor whiteColor]];
+        [lineView setBackgroundColor:[UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1]];
         [skipView addSubview:lineView];
         
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, 70, 40)];
@@ -68,6 +69,13 @@
         [button addTarget:self action:@selector(skipPressed:) forControlEvents:UIControlEventTouchUpInside];
         [skipView addSubview:button];
         [self addSubview:skipView];
+        
+        UIPageControl *pageControl = [UIPageControl new];
+        pageControl.numberOfPages = pageCount;
+        pageControl.center = CGPointMake(SCREEN_WIDTH / 2, kHeightSkipView /2);
+        [skipView addSubview:pageControl];
+        self.pageControl = pageControl;
+        
         self.skipView = skipView;
         //---
         
@@ -143,6 +151,8 @@
                                         secondColor:self.arrayOfBackgroundColors[pageNum +1]
                                              offset:scrollView.contentOffset.x];
     [scrollView setBackgroundColor:mixedColor];
+    
+    self.pageControl.currentPage = lround(self.scrollView.contentOffset.x / (self.scrollView.contentSize.width / self.pageControl.numberOfPages));
 }
 
 #pragma mark - Private
