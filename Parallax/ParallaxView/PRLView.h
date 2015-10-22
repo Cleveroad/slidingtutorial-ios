@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PRLViewProtocol <NSObject>
+
+- (void)skipTutorial;
+
+@end
+
 @interface PRLView : UIView
+
+@property (weak, nonatomic) id <PRLViewProtocol> delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame
                     pageCount:(NSInteger)pageCount

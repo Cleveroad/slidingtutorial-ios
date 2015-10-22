@@ -9,7 +9,9 @@
 #import "ViewController.h"
 #import "PRLView.h"
 
-@interface ViewController () <UIScrollViewDelegate>
+@interface ViewController () <UIScrollViewDelegate, PRLViewProtocol>
+
+@property (nonatomic, strong) PRLView *viewParallax;
 
 @end
 
@@ -19,6 +21,8 @@
     [super viewDidLoad];
    
     PRLView *viewParallax = [[PRLView alloc] initWithFrame:[UIScreen mainScreen].bounds pageCount:4 scaleCoefficient:0.8];
+    viewParallax.delegate = self;
+    self.viewParallax = viewParallax;
     [self.view addSubview:viewParallax];
     
     [viewParallax addBackkgroundColor:[UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1]];
@@ -79,6 +83,12 @@
     [viewParallax addElementWithName:@"elem03-16" offsetX:0 offsetY:170 slippingCoefficient:-0.10 pageNum:3];
     
     [viewParallax prepareForShow];
+}
+
+#pragma mark - PRLViewProtocol
+
+- (void)skipTutorial {
+    [self.viewParallax removeFromSuperview];
 }
 
 @end
