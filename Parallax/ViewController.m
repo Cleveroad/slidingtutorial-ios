@@ -45,10 +45,10 @@
     self.viewParallax = viewParallax;
     [self.view addSubview:viewParallax];
     
-    [viewParallax addBackkgroundColor:[UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1]];
-    [viewParallax addBackkgroundColor:[UIColor colorWithRed:163./255 green:181./255 blue:0 alpha:1]];
-    [viewParallax addBackkgroundColor:[UIColor colorWithRed:35./255 green:75./255 blue:122.0/255 alpha:1]];
-    [viewParallax addBackkgroundColor:[UIColor colorWithRed:217./255 green:64./255 blue:0.0/255 alpha:1]];
+    [viewParallax addBackgroundColor:[UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1]];
+    [viewParallax addBackgroundColor:[UIColor colorWithRed:163./255 green:181./255 blue:0 alpha:1]];
+    [viewParallax addBackgroundColor:[UIColor colorWithRed:35./255 green:75./255 blue:122.0/255 alpha:1]];
+    [viewParallax addBackgroundColor:[UIColor colorWithRed:217./255 green:64./255 blue:0.0/255 alpha:1]];
     
     [viewParallax addElementWithName:@"elem00-04" offsetX:0 offsetY:0 slippingCoefficient:0 pageNum:0];
     [viewParallax addElementWithName:@"elem00-00" offsetX:0 offsetY:-125 slippingCoefficient:0.1 pageNum:0];

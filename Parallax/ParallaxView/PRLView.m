@@ -106,7 +106,7 @@
     }
 }
 
-- (void)addBackkgroundColor:(UIColor *)color;
+- (void)addBackgroundColor:(UIColor *)color;
 {
     [self.arrayOfBackgroundColors insertObject:color atIndex:self.arrayOfBackgroundColors.count -1];
 }

@@ -27,7 +27,7 @@
        slippingCoefficient:(CGFloat)slippingCoefficient
                    pageNum:(NSInteger)pageNum;
 
-- (void)addBackkgroundColor:(UIColor *)color;
+- (void)addBackgroundColor:(UIColor *)color;
 
 - (void)prepareForShow;
 

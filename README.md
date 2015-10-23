@@ -13,14 +13,36 @@ All you need to do is:
 ##Using
 
 First,  import PRLView.h to your view controller:<br>
-```#import "PRLView.h"
-``` 
+`#import "PRLView.h"`
 
 After you should instantiate an instance of sliding view tutorial class: <br>
 
-PRLView *viewParallax = [[PRLView alloc] initWithPageCount:4 scaleCoefficient:0.8];
+`PRLView *viewParallax = [[PRLView alloc] initWithPageCount:3 scaleCoefficient:0.8];`
 
-Where first parameter is a count of pages in tutorial and second parameter is a coefficient of  scaling images (put 1.0 if you don't need scale and images will  displaying in a full size). 
+Where first parameter is a count of pages in tutorial and second parameter is a coefficient of  scaling images (put 1.0 if you don't need scale and images will  displaying in a full size).  <br>
+
+Then add background colors for all your tutorial pages: <br>
+`[viewParallax addBackgroundColor:[UIColor colorWithRed:231./255 green:150./255 blue:0 alpha:1]];
+[viewParallax addBackgroundColor:[UIColor colorWithRed:163./255 green:181./255 blue:0 alpha:1]];
+[viewParallax addBackgroundColor:[UIColor colorWithRed:35./255 green:75./255 blue:122.0/255 alpha:1]];` <br>
+
+<p>The colors follow the order they are added. All missing colors will be replaced with white color.  </p>
+
+After that you should add all image-layers onto sliding tutorial view: <br>
+`[viewParallax addElementWithName:@"elem00-00" offsetX:0 offsetY:0 slippingCoefficient:0.3 pageNum:0];
+[viewParallax addElementWithName:@"elem01-00" offsetX:-140 offsetY:25 slippingCoefficient:-0.15 pageNum:1];
+[viewParallax addElementWithName:@"elem02-00" offsetX:-50 offsetY:-120 slippingCoefficient:0.2 pageNum:2];`
+
+<b>First param</b> - image name from your project resources. <br>
+**offsetX** and **offsetY** - layer offset from the center of the screen. If you send  offsetX:0 offsetY:0 your image layer will be placed exactly in the center of the screen. Dot (0,0) in this coords system situated in the center of the screen in all device orientations.  <br>
+**slippingCoefficient** - ratio bound to scroll offset in scroll view.  For 1 pixel content offset of scroll view layer will be slipping for 1 * slippingCoefficient (so if  slippingCoefficient == 0.3, it will be equal 0.3px). Sign determines the direction of slipping - left or right. <br>
+**pageNum** - the page number on which you will add this image layer.
+
+After all call last method - prepareForShow: <br>
+`[viewParallax prepareForShow];` <br>
+And now your tutorial is ready to show. <br>
+
+For handle skip button action, you should support **PRLViewProtocol**  and implement protocol method **skipTutorial**
 
 ## Support
 If you have any questions regarding the use of this tutorial, please contact us for support
