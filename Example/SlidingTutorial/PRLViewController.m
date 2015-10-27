@@ -9,7 +9,7 @@
 #import "PRLViewController.h"
 #import "PRLView.h"
 
-@interface ViewController () <UIScrollViewDelegate, PRLViewProtocol>
+@interface PRLViewController () <UIScrollViewDelegate, PRLViewProtocol>
 
 @property (nonatomic, strong) PRLView *viewParallax;
 
@@ -17,7 +17,7 @@
 
 @end
 
-@implementation ViewController
+@implementation PRLViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -510,13 +510,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B0932138B090A717323E262 /* Pods-SlidingTutorial_Example.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlidingTutorial/SlidingTutorial-Prefix.pch";
 				INFOPLIST_FILE = "SlidingTutorial/SlidingTutorial-Info.plist";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -525,13 +524,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CA9FEC727AA972B267ED22E3 /* Pods-SlidingTutorial_Example.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlidingTutorial/SlidingTutorial-Prefix.pch";
 				INFOPLIST_FILE = "SlidingTutorial/SlidingTutorial-Info.plist";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
