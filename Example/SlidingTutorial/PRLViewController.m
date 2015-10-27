@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Cleveroad Inc. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "PRLViewController.h"
 #import "PRLView.h"
 
 @interface ViewController () <UIScrollViewDelegate, PRLViewProtocol>
@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    
     [self deployTutorialParallaxView];
 }
 
