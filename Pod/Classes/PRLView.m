@@ -90,7 +90,7 @@
                    pageNum:(NSInteger)pageNum;
 {
     if (pageNum >= self.arrayOfPages.count || pageNum < 0) {
-        NSLog(@"Wrong page number %li Range of pages should be from 0 to %lu",(long)pageNum, self.arrayOfPages.count -1);
+        NSLog(@"Wrong page number %li Range of pages should be from 0 to %u",(long)pageNum, self.arrayOfPages.count -1);
         return;
     }
     
@@ -114,7 +114,7 @@
 - (void)prepareForShow;
 {
     if (self.arrayOfBackgroundColors.count -1 < self.arrayOfPages.count) {
-        NSLog(@"Wrong count of background colors. Should be %lu instead of %lu", (unsigned long)self.arrayOfPages.count, self.arrayOfBackgroundColors.count -1);
+        NSLog(@"Wrong count of background colors. Should be %lu instead of %u", (unsigned long)self.arrayOfPages.count, self.arrayOfBackgroundColors.count -1);
         NSLog(@"The missing colors will be replaced by white");
         while (self.arrayOfBackgroundColors.count < self.arrayOfPages.count) {
             [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
