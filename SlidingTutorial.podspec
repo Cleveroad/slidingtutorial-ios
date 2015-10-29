@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
   s.homepage         = "https://github.com/Cleveroad/slidingtutorial-ios"
   s.screenshots     = "http://cs629210.vk.me/v629210635/1b795/QXDdPlHqxZA.jpg", "http://cs629210.vk.me/v629210635/1b79e/fPDUzNVi_UI.jpg", "http://cs629210.vk.me/v629210635/1b7a7/f2MGj6e1cXI.jpg"
-  s.license          = 'MIT'
+  s.license          = 'GPL'
   s.author           = { "Cleveroad" => "info@cleveroad.com" }
   s.source           = { :git => "https://github.com/Cleveroad/slidingtutorial-ios.git", :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/CleveroadInc'

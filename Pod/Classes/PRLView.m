@@ -90,7 +90,7 @@
                    pageNum:(NSInteger)pageNum;
 {
     if (pageNum >= self.arrayOfPages.count || pageNum < 0) {
-        NSLog(@"Wrong page number %li Range of pages should be from 0 to %u",(long)pageNum, self.arrayOfPages.count -1);
+        NSLog(@"Wrong page number %lu Range of pages should be from 0 to %u",(long)pageNum, self.arrayOfPages.count -1);
         return;
     }
     
