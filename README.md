@@ -2,8 +2,6 @@
 
 ###Simple library that helps developers to create awesome sliding iOS app tutorial.
 
-<img src="https://www.cleveroad.com/public/comercial/SlidingTutorial-iOS.gif" />
-
 Applied parallax effects will make your product presentation look like Google apps tutorial.
 
 All you need to do is:
