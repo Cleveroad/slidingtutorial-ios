@@ -46,6 +46,10 @@
                    pageNum:(NSInteger)pageNum;
 
 
+//New stuff
+- (void)addViewFromXib:(NSString *)xibName toPageNum:(NSInteger)pageNum;
+//
+
 /**
  Calls for adding background colors for all your tutorial pages
  The colors follow the order they are added. All missing colors will be replaced with white color.

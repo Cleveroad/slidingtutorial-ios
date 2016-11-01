@@ -106,6 +106,40 @@
     }
 }
 
+- (void)addViewFromXib:(NSString *)xibName toPageNum:(NSInteger)pageNum
+{
+    PRLElementView *viewSlip = [[NSBundle mainBundle] loadNibNamed:xibName
+                                                             owner:nil
+                                                           options:nil].lastObject;
+    if (viewSlip) {
+        [self.arrayOfPages[pageNum] addSubview:viewSlip];
+        [self.arrayOfElements addObjectsFromArray:viewSlip.subviews];
+        [viewSlip.subviews enumerateObjectsUsingBlock:^(__kindof PRLElementView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            /**
+            CGRectMake(postionX + offsetX * scaleCoefficient + SCREEN_WIDTH * slippingCoefficient * pageNumber,
+                       postionY + offsetY * scaleCoefficient,
+                       resizedImage.size.width,
+                       resizedImage.size.height)
+            */
+            CGFloat postionX = ((SCREEN_WIDTH - obj.frame.size.width) / 2);
+            CGFloat posX = postionX - obj.frame.origin.x;
+            CGFloat x = postionX + SCREEN_WIDTH * obj.slippingCoefficient * pageNum;
+            CGFloat bloom = obj.frame.origin.x + SCREEN_WIDTH;
+            CGFloat moom = obj.slippingCoefficient * pageNum;
+            CGFloat hui = fabs(obj.slippingCoefficient * pageNum);
+            if (obj.frame.origin.x == 60) {
+                x = 60;
+            }
+            obj.frame = CGRectMake(fabs(obj.frame.origin.x + SCREEN_WIDTH * obj.slippingCoefficient * pageNum),
+                                   obj.frame.origin.y,
+                                   obj.frame.size.width,
+                                   obj.frame.size.height);
+        }];
+        [self addBackgroundColor:viewSlip.backgroundColor];
+        viewSlip.backgroundColor  = [UIColor clearColor];
+    }
+}
+
 - (void)addBackgroundColor:(UIColor *)color;
 {
     [self.arrayOfBackgroundColors insertObject:color atIndex:self.arrayOfBackgroundColors.count -1];
@@ -132,6 +166,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView;
 {
     CGFloat contentOffset = self.scrollView.contentOffset.x;
+    if (contentOffset == 0) {
+        NSLog(@"HUY");
+    }
     for (PRLElementView *view in self.arrayOfElements) {
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
         [view setFrame:CGRectMake(view.frame.origin.x + offset, view.frame.origin.y, view.frame.size.width, view.frame.size.height)];

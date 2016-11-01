@@ -7,8 +7,11 @@
 //
 
 #import "PRLTestViewController.h"
+#import "PRLView.h"
 
-@interface PRLTestViewController ()
+@interface PRLTestViewController () <PRLViewProtocol>
+
+@property (nonatomic, strong) PRLView *viewParallax;
 
 @end
 
@@ -16,22 +19,33 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    [self deployTutorialParallaxView];
+}
+- (IBAction)actionBackButtonPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - PRLViewProtocol
+
+- (void)skipTutorial {
+    [self.viewParallax removeFromSuperview];
 }
 
-/*
-#pragma mark - Navigation
+#pragma mark - Private
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)deployTutorialParallaxView {
+    PRLView *viewParallax = [[PRLView alloc] initWithPageCount:3 scaleCoefficient:0.8];
+    viewParallax.delegate = self;
+    self.viewParallax = viewParallax;
+    [self.view addSubview:viewParallax];
+    
+    [viewParallax addViewFromXib:@"TestView" toPageNum:0];
+    [viewParallax addViewFromXib:@"TestView1" toPageNum:1];
+    [viewParallax addViewFromXib:@"TestView2" toPageNum:2];
+
+
+    [viewParallax prepareForShow];
 }
-*/
 
 @end

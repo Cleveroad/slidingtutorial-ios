@@ -13,13 +13,17 @@
 
 extern CGFloat const kHeightSkipView;
 
+IB_DESIGNABLE
+
 @interface PRLElementView : UIView
 
-@property (nonatomic, readonly) CGFloat slippingCoefficient;
+@property (nonatomic, readonly) IBInspectable CGFloat slippingCoefficient;
 @property (nonatomic, readonly) CGFloat offsetX;
 @property (nonatomic, readonly) CGFloat offsetY;
 @property (nonatomic, readonly) NSInteger pageNumber;
 @property (nonatomic, readonly) NSString *imageName;
+@property (nonatomic, strong) IBInspectable UIImage *image;
+@property (nonatomic) IBInspectable CGFloat cornerRadius;
 
 - (instancetype)initWithImageName:(NSString *)imageName
                           offsetX:(CGFloat)offsetX

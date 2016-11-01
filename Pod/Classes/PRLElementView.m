@@ -18,6 +18,8 @@ CGFloat const kHeightSkipView = 40.;
 @property (nonatomic, readwrite) NSInteger pageNumber;
 @property (nonatomic, readwrite) NSString *imageName;
 
+@property (nonatomic) CALayer *imageLayer;
+
 @end
 
 @implementation PRLElementView
@@ -61,4 +63,28 @@ CGFloat const kHeightSkipView = 40.;
     return self;
 }
 
+- (void)setImage:(UIImage *)image {
+    if (image) {
+        _image = [self imageWithImage:image scaledToSize:self.bounds.size];
+        [self setBackgroundColor:[UIColor colorWithPatternImage:_image]];
+    }
+}
+
+- (void)setCornerRadius:(CGFloat)cornerRadius {
+    self.layer.cornerRadius = cornerRadius;
+}
+
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize {
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+- (void)setSlippingCoefficient:(CGFloat)slippingCoefficient {
+    if (slippingCoefficient) {
+        _slippingCoefficient = slippingCoefficient;
+    }
+}
 @end
