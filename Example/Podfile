@@ -1,11 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'SlidingTutorial_Example', :exclusive => true do
+target 'SlidingTutorial_Example' do
   pod "SlidingTutorial", :path => "../"
 end
 
-target 'SlidingTutorial_Tests', :exclusive => true do
+target 'SlidingTutorial_Tests' do
   pod "SlidingTutorial", :path => "../"
 
   pod 'FBSnapshotTestCase'
