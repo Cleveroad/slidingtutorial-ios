@@ -27,9 +27,9 @@
  @param pageCount - a count of pages in tutorial and second parameter is a coefficient of scaling images (put 1.0 if you don't need scale and images will displaying in a full size).
  @param scaleCoefficient - is a coefficient of scaling images (put 1.0 if you don't need scale and images will displaying in a full size).
  */
-- (instancetype)initWithPageCount:(NSInteger)pageCount
-                 scaleCoefficient:(CGFloat)scaleCoefficient;
 
+- (instancetype)initWithViewsFromXibsNamed:(NSArray <NSString *> *)xibNames
+                            circularScroll:(BOOL)circular;
 
 /**
  Calls for adding images onto sliding page

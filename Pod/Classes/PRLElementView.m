@@ -87,4 +87,13 @@ CGFloat const kHeightSkipView = 40.;
         _slippingCoefficient = slippingCoefficient;
     }
 }
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (_image) {
+        _image = [self imageWithImage:_image scaledToSize:self.bounds.size];
+        [self setBackgroundColor:[UIColor colorWithPatternImage:_image]];
+    }
+}
+
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "PRLTestViewController.h"
-#import "PRLView.h"
+#import "PRLview.h"
 
 @interface PRLTestViewController () <PRLViewProtocol>
 
@@ -35,16 +35,11 @@
 #pragma mark - Private
 
 - (void)deployTutorialParallaxView {
-    PRLView *viewParallax = [[PRLView alloc] initWithPageCount:4 scaleCoefficient:0.8];
+    PRLView *viewParallax = [[PRLView alloc] initWithViewsFromXibsNamed:@[@"TestView", @"TestView1", @"TestView2", @"TestView3"]
+                                                         circularScroll:YES];
     viewParallax.delegate = self;
     self.viewParallax = viewParallax;
     [self.view addSubview:viewParallax];
-    
-    [viewParallax addViewFromXib:@"TestView" toPageNum:0];
-    [viewParallax addViewFromXib:@"TestView1" toPageNum:1];
-    [viewParallax addViewFromXib:@"TestView2" toPageNum:2];
-    [viewParallax addViewFromXib:@"TestView3" toPageNum:3];
-
     [viewParallax prepareForShow];
 }
 

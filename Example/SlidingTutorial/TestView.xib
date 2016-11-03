@@ -2,7 +2,8 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11201"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,9 +13,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LX0-a2-432" customClass="PRLElementView">
-                    <frame key="frameInset" minX="115" minY="223" width="162" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="LX0-a2-432" customClass="PRLElementView">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="LX0-a2-432" secondAttribute="height" multiplier="163:23" id="wj2-2W-Vzx"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-00"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -22,10 +24,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rii-rs-gLy" customClass="PRLElementView">
-                    <frame key="frameInset" minX="97" minY="254" width="201" height="159"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rii-rs-gLy" customClass="PRLElementView">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Rii-rs-gLy" secondAttribute="height" multiplier="67:53" id="21l-wk-rzh"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-04"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -33,10 +36,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xl5-Y0-1SO" customClass="PRLElementView">
-                    <frame key="frameInset" minX="43" minY="344" width="103" height="69"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xl5-Y0-1SO" customClass="PRLElementView">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="xl5-Y0-1SO" secondAttribute="height" multiplier="103:69" id="LVG-Gz-VUf"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-02"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -44,10 +48,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rwV-Il-DjT" customClass="PRLElementView">
-                    <frame key="frameInset" minX="60" minY="293" width="58" height="48"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rwV-Il-DjT" customClass="PRLElementView">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="rwV-Il-DjT" secondAttribute="height" multiplier="29:24" id="Mla-wy-akf"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-01"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -55,10 +60,12 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CF3-Lg-7ft" customClass="PRLElementView">
-                    <frame key="frameInset" minX="49" minY="223" width="23" height="23"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CF3-Lg-7ft" customClass="PRLElementView">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="23" id="1D0-l1-gzN"/>
+                        <constraint firstAttribute="width" constant="23" id="IhR-Wa-2YF"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-06"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -66,10 +73,12 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a9O-rS-baT" customClass="PRLElementView">
-                    <frame key="frameInset" minX="312" minY="254" width="10" height="25"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9O-rS-baT" customClass="PRLElementView">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="10" id="AEc-AR-fQY"/>
+                        <constraint firstAttribute="height" constant="25" id="iYW-P0-e89"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-09"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -77,10 +86,12 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uIn-RO-Euh" customClass="PRLElementView">
-                    <frame key="frameInset" minX="301" minY="215" width="31" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIn-RO-Euh" customClass="PRLElementView">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="31" id="R32-EB-4eQ"/>
+                        <constraint firstAttribute="height" constant="31" id="juE-IL-FkU"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-08"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -88,10 +99,12 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="09M-wm-0v6" customClass="PRLElementView">
-                    <frame key="frameInset" minX="84" minY="223" width="26" height="26"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="09M-wm-0v6" customClass="PRLElementView">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="26" id="KIK-sD-RYF"/>
+                        <constraint firstAttribute="height" constant="26" id="ZkF-Q5-Mk5"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-07"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -99,21 +112,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xmL-yh-E7C" customClass="PRLElementView">
-                    <frame key="frameInset" minX="64" minY="260" width="23" height="31"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZE-og-tmP" customClass="PRLElementView">
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-10"/>
-                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.14999999999999999"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZE-og-tmP" customClass="PRLElementView">
-                    <frame key="frameInset" minX="121" minY="421" width="150" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="GZE-og-tmP" secondAttribute="height" multiplier="5:1" id="F47-Wy-bb2"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-11"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -121,8 +124,48 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xmL-yh-E7C" customClass="PRLElementView">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="17" id="c2M-aa-Mch"/>
+                        <constraint firstAttribute="height" constant="26" id="run-iY-Ag2"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-10"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="-0.14999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.90588235294117647" green="0.59215686274509804" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Rii-rs-gLy" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="5c3-rG-09G"/>
+                <constraint firstItem="GZE-og-tmP" firstAttribute="trailing" secondItem="Rii-rs-gLy" secondAttribute="trailing" constant="-25" id="6Et-X6-o1K"/>
+                <constraint firstItem="CF3-Lg-7ft" firstAttribute="bottom" secondItem="09M-wm-0v6" secondAttribute="bottom" id="7bi-R8-5Bs"/>
+                <constraint firstItem="LX0-a2-432" firstAttribute="trailing" secondItem="Rii-rs-gLy" secondAttribute="trailing" constant="-12" id="9mh-U2-mqL"/>
+                <constraint firstAttribute="trailing" secondItem="Rii-rs-gLy" secondAttribute="trailing" constant="87" id="AWH-vO-DGR"/>
+                <constraint firstItem="LX0-a2-432" firstAttribute="leading" secondItem="09M-wm-0v6" secondAttribute="trailing" constant="15" id="C91-E1-205"/>
+                <constraint firstItem="xmL-yh-E7C" firstAttribute="top" secondItem="rwV-Il-DjT" secondAttribute="top" id="FwS-xV-4Po"/>
+                <constraint firstItem="Rii-rs-gLy" firstAttribute="leading" secondItem="xl5-Y0-1SO" secondAttribute="trailing" constant="-50" id="Hck-1Y-n4i"/>
+                <constraint firstItem="rwV-Il-DjT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="60" id="Ikj-RN-ogb"/>
+                <constraint firstItem="09M-wm-0v6" firstAttribute="bottom" secondItem="LX0-a2-432" secondAttribute="bottom" id="PZy-yn-cCh"/>
+                <constraint firstItem="uIn-RO-Euh" firstAttribute="top" secondItem="Rii-rs-gLy" secondAttribute="top" id="RM2-0g-rfd"/>
+                <constraint firstItem="a9O-rS-baT" firstAttribute="leading" secondItem="Rii-rs-gLy" secondAttribute="trailing" constant="18" id="RyO-We-gFJ"/>
+                <constraint firstItem="GZE-og-tmP" firstAttribute="top" secondItem="Rii-rs-gLy" secondAttribute="bottom" constant="8" id="Sxh-Bo-5zY"/>
+                <constraint firstItem="LX0-a2-432" firstAttribute="leading" secondItem="Rii-rs-gLy" secondAttribute="leading" constant="12" id="V20-bO-8vH"/>
+                <constraint firstItem="xl5-Y0-1SO" firstAttribute="top" secondItem="rwV-Il-DjT" secondAttribute="bottom" constant="12" id="Yve-ah-65L"/>
+                <constraint firstItem="Rii-rs-gLy" firstAttribute="leading" secondItem="rwV-Il-DjT" secondAttribute="trailing" constant="-22" id="bJk-D2-UsV"/>
+                <constraint firstItem="Rii-rs-gLy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="87" id="beS-hI-o2z"/>
+                <constraint firstItem="rwV-Il-DjT" firstAttribute="leading" secondItem="xmL-yh-E7C" secondAttribute="trailing" constant="8" id="byd-nu-jwk"/>
+                <constraint firstItem="xl5-Y0-1SO" firstAttribute="bottom" secondItem="Rii-rs-gLy" secondAttribute="bottom" id="cAs-rR-VeP"/>
+                <constraint firstItem="Rii-rs-gLy" firstAttribute="top" secondItem="LX0-a2-432" secondAttribute="bottom" constant="8" id="eDh-Pr-YUI"/>
+                <constraint firstItem="xl5-Y0-1SO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="40" id="i8g-3g-t7Y"/>
+                <constraint firstItem="a9O-rS-baT" firstAttribute="top" secondItem="uIn-RO-Euh" secondAttribute="bottom" constant="9" id="l5E-7p-CqV"/>
+                <constraint firstItem="GZE-og-tmP" firstAttribute="leading" secondItem="Rii-rs-gLy" secondAttribute="leading" constant="25" id="nz3-ET-Sbh"/>
+                <constraint firstItem="09M-wm-0v6" firstAttribute="leading" secondItem="CF3-Lg-7ft" secondAttribute="trailing" constant="8" id="x1A-9d-EJI"/>
+                <constraint firstItem="uIn-RO-Euh" firstAttribute="leading" secondItem="Rii-rs-gLy" secondAttribute="trailing" constant="8" id="xah-Jg-zfr"/>
+            </constraints>
             <point key="canvasLocation" x="-121.5" y="43.5"/>
         </view>
     </objects>
