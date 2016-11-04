@@ -8,6 +8,8 @@
 
 #import "PRLTestViewController.h"
 #import "PRLview.h"
+#import "PRLCollectionView.h"
+
 
 @interface PRLTestViewController () <PRLViewProtocol, UIScrollViewDelegate>
 

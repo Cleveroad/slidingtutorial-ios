@@ -129,8 +129,6 @@ static NSUInteger const kExtraPages = 2;
         self.lastContentOffset = currentOff.x;
         [self.scrollView setContentOffset:currentOff animated: NO];
     }
-
-    [self addConstraintsToViewsArray:self.scrollView.subviews];
 }
 
 #pragma mark - UIScrollView delegate
