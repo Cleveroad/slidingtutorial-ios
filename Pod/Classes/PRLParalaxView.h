@@ -1,5 +1,5 @@
 //
-//  PRLCollectionView.h
+//  PRLParalaxView.h
 //  Pods
 //
 //  Created by Danil on 11/4/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol PRLCollectionViewProtocol <NSObject>
+@protocol PRLParalaxViewProtocol <NSObject>
 
 /**
  This method calls when Skip button action pressed
@@ -17,9 +17,9 @@
 
 @end
 
-@interface PRLCollectionView : UICollectionView
+@interface PRLParalaxView : UIView
 
-@property (weak, nonatomic) id <PRLCollectionViewProtocol> delegate;
+@property (weak, nonatomic) id <PRLParalaxViewProtocol> delegate;
 
 
 /**
