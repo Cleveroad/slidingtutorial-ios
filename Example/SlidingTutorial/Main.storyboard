@@ -1,65 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="whP-gf-Uak">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="ES1-4C-Qmq">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="wQg-tq-qST">
-            <objects>
-                <viewController id="whP-gf-Uak" customClass="PRLViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="uEw-UM-LJ8"/>
-                        <viewControllerLayoutGuide type="bottom" id="Mvr-aV-6Um"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="TpU-gO-2f1" userLabel="ViewController" customClass="PRLView">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5CQ-Us-3Qg">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="jNt-Kf-IpE"/>
-                                    <constraint firstAttribute="width" constant="100" id="mX5-4V-LBu"/>
-                                </constraints>
-                                <state key="normal" image="buttonTryAgain"/>
-                                <connections>
-                                    <action selector="actionTryAgain:" destination="whP-gf-Uak" eventType="touchUpInside" id="N8B-fr-mLI"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2f-AN-334">
-                                <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="Qtv-dR-BnA"/>
-                                    <constraint firstAttribute="height" constant="44" id="qz3-0q-L5n"/>
-                                </constraints>
-                                <state key="normal" title="TEST">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="25"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="ES1-4C-Qmq" kind="modal" id="kTQ-ze-jdP"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerX" secondItem="TpU-gO-2f1" secondAttribute="centerX" id="0kM-dP-wLb"/>
-                            <constraint firstItem="P2f-AN-334" firstAttribute="centerX" secondItem="5CQ-Us-3Qg" secondAttribute="centerX" id="TJm-5B-4dN"/>
-                            <constraint firstItem="5CQ-Us-3Qg" firstAttribute="top" secondItem="P2f-AN-334" secondAttribute="bottom" constant="45.5" id="X37-yK-Q5d"/>
-                            <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerY" secondItem="TpU-gO-2f1" secondAttribute="centerY" id="hkG-v3-rYX"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tc2-Qw-aMS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="162.5" y="409.5"/>
-        </scene>
         <!--Test View Controller-->
         <scene sceneID="KTe-lA-s7N">
             <objects>
@@ -72,29 +18,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yAx-sg-Xt4">
-                                <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5CQ-Us-3Qg">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="0bf-I9-utz"/>
-                                    <constraint firstAttribute="height" constant="44" id="gI3-4y-koP"/>
+                                    <constraint firstAttribute="height" constant="100" id="jNt-Kf-IpE"/>
+                                    <constraint firstAttribute="width" constant="100" id="mX5-4V-LBu"/>
                                 </constraints>
-                                <state key="normal" title="BACK">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="25"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
+                                <state key="normal" image="buttonTryAgain"/>
                                 <connections>
-                                    <action selector="actionBackButtonPressed:" destination="ES1-4C-Qmq" eventType="touchUpInside" id="HUU-gn-stf"/>
+                                    <action selector="actionTryAgain:" destination="ES1-4C-Qmq" eventType="touchUpInside" id="hUW-5C-jgr"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yAx-sg-Xt4" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="WCo-rQ-wcZ"/>
-                            <constraint firstItem="yAx-sg-Xt4" firstAttribute="centerY" secondItem="18U-Zm-jOi" secondAttribute="centerY" id="oEo-JD-Hm0"/>
+                            <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="DvD-je-IS4"/>
+                            <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerY" secondItem="18U-Zm-jOi" secondAttribute="centerY" id="H2u-eV-n3V"/>
+                            <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="i3I-24-wrp"/>
                         </constraints>
                     </view>
                 </viewController>

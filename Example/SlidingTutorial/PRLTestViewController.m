@@ -9,7 +9,7 @@
 #import "PRLTestViewController.h"
 #import "PRLview.h"
 
-@interface PRLTestViewController () <PRLViewProtocol>
+@interface PRLTestViewController () <PRLViewProtocol, UIScrollViewDelegate>
 
 @property (nonatomic, strong) PRLView *viewParallax;
 
@@ -26,6 +26,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)actionTryAgain:(id)sender {
+    [self deployTutorialParallaxView];
+}
+
 #pragma mark - PRLViewProtocol
 
 - (void)skipTutorial {
@@ -35,12 +39,13 @@
 #pragma mark - Private
 
 - (void)deployTutorialParallaxView {
-    PRLView *viewParallax = [[PRLView alloc] initWithViewsFromXibsNamed:@[@"TestView", @"TestView1", @"TestView2", @"TestView3"]
+    PRLView *viewParallax = [[PRLView alloc] initWithViewsFromXibsNamed:@[@"TestView", @"TestView1"]
                                                          circularScroll:YES];
     viewParallax.delegate = self;
     self.viewParallax = viewParallax;
     [self.view addSubview:viewParallax];
     [viewParallax prepareForShow];
+    //, @"TestView2", @"TestView3"
 }
 
 @end

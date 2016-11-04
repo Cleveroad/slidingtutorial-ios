@@ -13,7 +13,6 @@
 		6003F598195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F596195388D20070C39A /* InfoPlist.strings */; };
 		6003F59A195388D20070C39A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F599195388D20070C39A /* main.m */; };
 		6003F59E195388D20070C39A /* PRLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F59D195388D20070C39A /* PRLAppDelegate.m */; };
-		6003F5A7195388D20070C39A /* PRLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5A6195388D20070C39A /* PRLViewController.m */; };
 		6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F5AF195388D20070C39A /* XCTest.framework */; };
 		6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -56,8 +55,6 @@
 		6003F59B195388D20070C39A /* SlidingTutorial-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SlidingTutorial-Prefix.pch"; sourceTree = "<group>"; };
 		6003F59C195388D20070C39A /* PRLAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PRLAppDelegate.h; sourceTree = "<group>"; };
 		6003F59D195388D20070C39A /* PRLAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PRLAppDelegate.m; sourceTree = "<group>"; };
-		6003F5A5195388D20070C39A /* PRLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PRLViewController.h; sourceTree = "<group>"; };
-		6003F5A6195388D20070C39A /* PRLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PRLViewController.m; sourceTree = "<group>"; };
 		6003F5A8195388D20070C39A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		6003F5AE195388D20070C39A /* SlidingTutorial_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SlidingTutorial_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F5AF195388D20070C39A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -150,8 +147,6 @@
 				8ECA67301DC9033D00A0E241 /* TestView1.xib */,
 				8ECA67321DC909BA00A0E241 /* TestView2.xib */,
 				8ECA67341DCA3FC100A0E241 /* TestView3.xib */,
-				6003F5A5195388D20070C39A /* PRLViewController.h */,
-				6003F5A6195388D20070C39A /* PRLViewController.m */,
 				8ECA672D1DC8F45A00A0E241 /* PRLTestViewController.h */,
 				8ECA672E1DC8F45A00A0E241 /* PRLTestViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -267,6 +262,9 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Vladislav;
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						DevelopmentTeam = A6LF3JN6LP;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -416,7 +414,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* PRLAppDelegate.m in Sources */,
-				6003F5A7195388D20070C39A /* PRLViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				8ECA672F1DC8F45A00A0E241 /* PRLTestViewController.m in Sources */,
 			);
@@ -549,6 +546,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = A6LF3JN6LP;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlidingTutorial/SlidingTutorial-Prefix.pch";
 				INFOPLIST_FILE = "SlidingTutorial/SlidingTutorial-Info.plist";
@@ -567,6 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = A6LF3JN6LP;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlidingTutorial/SlidingTutorial-Prefix.pch";
 				INFOPLIST_FILE = "SlidingTutorial/SlidingTutorial-Info.plist";
