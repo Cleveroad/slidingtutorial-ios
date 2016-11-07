@@ -2,8 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11201"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -13,22 +12,20 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="mhg-nx-jch" customClass="PRLElementView">
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="mhg-nx-jch" secondAttribute="height" multiplier="163:23" id="xaT-IW-Qim"/>
-                    </constraints>
+                <view contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mhg-nx-jch" customClass="PRLElementView">
+                    <frame key="frameInset" minX="99" minY="221" width="177" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-00"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="0.10000000000000001"/>
+                            <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pne-Vn-88W" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pne-Vn-88W" customClass="PRLElementView">
+                    <frame key="frameInset" minX="87" minY="254" width="201" height="159"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="pne-Vn-88W" secondAttribute="height" multiplier="67:53" id="5i6-3u-j5y"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-04"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -36,23 +33,21 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SvY-nr-LeW" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SvY-nr-LeW" customClass="PRLElementView">
+                    <frame key="frameInset" minX="40" minY="348" width="97" height="65"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="SvY-nr-LeW" secondAttribute="height" multiplier="103:69" id="lr5-d0-qsy"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-02"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="0.20000000000000001"/>
+                            <real key="value" value="0.29999999999999999"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yn-dy-T0P" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5yn-dy-T0P" customClass="PRLElementView">
+                    <frame key="frameInset" minX="60" minY="295.5" width="49" height="40.5"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="5yn-dy-T0P" secondAttribute="height" multiplier="29:24" id="2xA-lH-chx"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-01"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -60,12 +55,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xy0-P2-OFt" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xy0-P2-OFt" customClass="PRLElementView">
+                    <frame key="frameInset" minX="27" minY="223" width="23" height="23"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="23" id="PT4-yi-UMD"/>
-                        <constraint firstAttribute="width" constant="23" id="omY-ob-sug"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-06"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -73,12 +66,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TdO-fh-toE" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TdO-fh-toE" customClass="PRLElementView">
+                    <frame key="frameInset" minX="306" minY="294" width="10" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="10" id="BNZ-xn-6Ny"/>
-                        <constraint firstAttribute="height" constant="25" id="wbW-ou-qKj"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-09"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -86,12 +77,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hw2-k9-Fvv" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hw2-k9-Fvv" customClass="PRLElementView">
+                    <frame key="frameInset" minX="296" minY="254" width="31" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="31" id="5w9-Xl-ABz"/>
-                        <constraint firstAttribute="height" constant="31" id="dLy-KT-FMb"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-08"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -99,12 +88,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWA-v4-h0x" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wWA-v4-h0x" customClass="PRLElementView">
+                    <frame key="frameInset" minX="58" minY="220" width="26" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="26" id="0KE-OU-gGc"/>
-                        <constraint firstAttribute="height" constant="26" id="vsl-qa-75w"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-07"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -112,11 +99,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ti6-By-GwZ" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ti6-By-GwZ" customClass="PRLElementView">
+                    <frame key="frameInset" minX="112" minY="421" width="151" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="Ti6-By-GwZ" secondAttribute="height" multiplier="5:1" id="qpy-U3-z3T"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-11"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -124,12 +110,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHy-mr-GES" customClass="PRLElementView">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iHy-mr-GES" customClass="PRLElementView">
+                    <frame key="frameInset" minX="35" minY="295.5" width="17" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="26" id="7bh-co-BXs"/>
-                        <constraint firstAttribute="width" constant="17" id="Io0-55-liz"/>
-                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="elem00-10"/>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -139,33 +123,6 @@
                 </view>
             </subviews>
             <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
-            <constraints>
-                <constraint firstItem="iHy-mr-GES" firstAttribute="top" secondItem="5yn-dy-T0P" secondAttribute="top" id="42S-QP-9rA"/>
-                <constraint firstItem="hw2-k9-Fvv" firstAttribute="top" secondItem="pne-Vn-88W" secondAttribute="top" id="62h-ti-Igv"/>
-                <constraint firstItem="pne-Vn-88W" firstAttribute="centerY" secondItem="lRv-MQ-CDe" secondAttribute="centerY" id="6JF-Yl-GCd"/>
-                <constraint firstItem="pne-Vn-88W" firstAttribute="top" secondItem="mhg-nx-jch" secondAttribute="bottom" constant="8" id="8Rl-Tq-EcG"/>
-                <constraint firstItem="5yn-dy-T0P" firstAttribute="leading" secondItem="iHy-mr-GES" secondAttribute="trailing" constant="8" id="8dz-8G-ZU3"/>
-                <constraint firstItem="pne-Vn-88W" firstAttribute="leading" secondItem="5yn-dy-T0P" secondAttribute="trailing" constant="-22" id="Dhu-Oe-xKv"/>
-                <constraint firstItem="5yn-dy-T0P" firstAttribute="leading" secondItem="lRv-MQ-CDe" secondAttribute="leading" constant="60" id="HXJ-0j-QDw"/>
-                <constraint firstItem="SvY-nr-LeW" firstAttribute="top" secondItem="5yn-dy-T0P" secondAttribute="bottom" constant="12" id="MaQ-5V-fUO"/>
-                <constraint firstItem="TdO-fh-toE" firstAttribute="top" secondItem="hw2-k9-Fvv" secondAttribute="bottom" constant="9" id="MvO-QF-e7T"/>
-                <constraint firstItem="mhg-nx-jch" firstAttribute="leading" secondItem="pne-Vn-88W" secondAttribute="leading" constant="12" id="Nxh-aw-7rw"/>
-                <constraint firstItem="pne-Vn-88W" firstAttribute="leading" secondItem="lRv-MQ-CDe" secondAttribute="leading" constant="87" id="OfA-J7-ShK"/>
-                <constraint firstItem="hw2-k9-Fvv" firstAttribute="leading" secondItem="pne-Vn-88W" secondAttribute="trailing" constant="8" id="Rc6-7E-z5H"/>
-                <constraint firstItem="mhg-nx-jch" firstAttribute="leading" secondItem="wWA-v4-h0x" secondAttribute="trailing" constant="15" id="Rzq-TJ-ugk"/>
-                <constraint firstItem="mhg-nx-jch" firstAttribute="trailing" secondItem="pne-Vn-88W" secondAttribute="trailing" constant="-12" id="S8w-CB-VWH"/>
-                <constraint firstItem="Ti6-By-GwZ" firstAttribute="leading" secondItem="pne-Vn-88W" secondAttribute="leading" constant="25" id="XAd-pb-D1C"/>
-                <constraint firstItem="SvY-nr-LeW" firstAttribute="bottom" secondItem="pne-Vn-88W" secondAttribute="bottom" id="ZKi-Kd-EWN"/>
-                <constraint firstAttribute="trailing" secondItem="pne-Vn-88W" secondAttribute="trailing" constant="87" id="aOQ-VC-Z3W"/>
-                <constraint firstItem="SvY-nr-LeW" firstAttribute="leading" secondItem="lRv-MQ-CDe" secondAttribute="leading" constant="40" id="bCP-9b-rf0"/>
-                <constraint firstItem="wWA-v4-h0x" firstAttribute="bottom" secondItem="mhg-nx-jch" secondAttribute="bottom" id="bDb-Ft-ToI"/>
-                <constraint firstItem="Ti6-By-GwZ" firstAttribute="top" secondItem="pne-Vn-88W" secondAttribute="bottom" constant="8" id="dFW-9i-e5w"/>
-                <constraint firstItem="Ti6-By-GwZ" firstAttribute="trailing" secondItem="pne-Vn-88W" secondAttribute="trailing" constant="-25" id="g07-tK-EAC"/>
-                <constraint firstItem="Xy0-P2-OFt" firstAttribute="bottom" secondItem="wWA-v4-h0x" secondAttribute="bottom" id="gI1-qG-1X4"/>
-                <constraint firstItem="TdO-fh-toE" firstAttribute="leading" secondItem="pne-Vn-88W" secondAttribute="trailing" constant="18" id="nGk-dl-2vY"/>
-                <constraint firstItem="pne-Vn-88W" firstAttribute="leading" secondItem="SvY-nr-LeW" secondAttribute="trailing" constant="-50" id="p6P-Tv-4V3"/>
-                <constraint firstItem="wWA-v4-h0x" firstAttribute="leading" secondItem="Xy0-P2-OFt" secondAttribute="trailing" constant="8" id="wpk-q7-BRG"/>
-            </constraints>
             <point key="canvasLocation" x="-121.5" y="43.5"/>
         </view>
     </objects>

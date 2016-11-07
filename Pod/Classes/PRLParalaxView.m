@@ -116,13 +116,14 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPRLCellReuseIdentifier forIndexPath:indexPath];
+    [self addViewFromXib:self.dataSourceArray[indexPath.item] toCell:cell];
+
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    [self addViewFromXib:self.dataSourceArray[indexPath.item] toCell:cell];
 
 }
 
@@ -144,7 +145,7 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
 #pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(collectionView.bounds.size.width, collectionView.bounds.size.height);
+    return CGSizeMake(self.bounds.size.width, self.bounds.size.height);
 }
 
 #pragma mark - UIScrollViewDelegate

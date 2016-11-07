@@ -9,6 +9,7 @@
 #import "PRLView.h"
 #import "PRLElementView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIView+PRLParalaxView.h"
 
 static NSUInteger const kExtraPages = 2;
 
@@ -91,7 +92,7 @@ static NSUInteger const kExtraPages = 2;
 }
 
 - (void)addViewFromXib:(NSString *)xibName toPageNum:(NSInteger)pageNum {
-    PRLElementView *viewSlip = [[NSBundle mainBundle] loadNibNamed:xibName
+    UIView *viewSlip = [[NSBundle mainBundle] loadNibNamed:xibName
                                                              owner:nil
                                                            options:nil].lastObject;
     if (viewSlip) {
@@ -135,13 +136,15 @@ static NSUInteger const kExtraPages = 2;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat contentOffset = scrollView.contentOffset.x;
-    for (PRLElementView *view in self.arrayOfElements) {
+    for (UIView *view in self.arrayOfElements) {
+        CGFloat kio = view.slippingCoefficient;
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
         CGAffineTransform transform = CGAffineTransformMakeTranslation(0, 0.0);
         [UIView animateWithDuration:0.3 animations:^{
             view.transform = CGAffineTransformTranslate(transform, offset, 0);
         }];
     }
+    
     NSInteger pageNum =  floorf(scrollView.contentOffset.x / SCREEN_WIDTH);
     self.lastContentOffset = contentOffset;
     if (pageNum < 0) {
