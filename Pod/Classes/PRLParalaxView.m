@@ -10,6 +10,7 @@
 
 #import "PRLElementView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "UIView+PRLParalaxView.h"
 
 static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
 
@@ -42,6 +43,8 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
         self.collectionView.pagingEnabled = YES;
         self.collectionView.showsHorizontalScrollIndicator = NO;
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:kPRLCellReuseIdentifier];
+        
+        self.circular = circular;
         if (circular) {
             self.dataSourceArray = [self createArrayForCircularScrollWithXibNames:xibNames];
         } else {
@@ -52,6 +55,7 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
         self.arrayOfBackgroundColors = [NSMutableArray new];
         [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
         [self addSubview:self.collectionView];
+        
         //--- configure bottom skip view
         UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 2, 1)];
@@ -73,7 +77,6 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
     return self;
 }
 
-
 - (void)prepareForShow {
     if (self.arrayOfBackgroundColors.count -1 < self.arrayOfPages.count) {
         NSLog(@"Wrong count of background colors. Should be %lu instead of %u", (unsigned long)self.arrayOfPages.count, self.arrayOfBackgroundColors.count -1);
@@ -82,10 +85,6 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
             [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
         }
     }
-    //    UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[0]
-    //                                        secondColor:self.arrayOfBackgroundColors[1]
-    //                                             offset:0];
-        [self setBackgroundColor:self.arrayOfBackgroundColors[0]];
     if (self.circular) {
         CGPoint currentOff = CGPointMake(SCREEN_WIDTH, self.collectionView.contentOffset.y);
         self.lastContentOffset = currentOff.x;
@@ -117,15 +116,10 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:kPRLCellReuseIdentifier forIndexPath:indexPath];
     [self addViewFromXib:self.dataSourceArray[indexPath.item] toCell:cell];
-
     return cell;
 }
 
 #pragma mark - UICollectionViewDelegate
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-
-}
 
 - (void)addViewFromXib:(NSString *)xibName toCell:(UICollectionViewCell *)cell {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -149,6 +143,32 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
 }
 
 #pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat contentOffset = scrollView.contentOffset.x;
+    for (UIView *view in self.arrayOfElements) {
+        CGFloat kio = view.slippingCoefficient;
+        CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(0, 0.0);
+        [UIView animateWithDuration:0.3 animations:^{
+            view.transform = CGAffineTransformTranslate(transform, offset, 0);
+        }];
+    }
+    
+    NSInteger pageNum =  floorf(scrollView.contentOffset.x / SCREEN_WIDTH);
+    self.lastContentOffset = contentOffset;
+    if (pageNum < 0) {
+        pageNum = 0;
+    }
+    if (pageNum > self.arrayOfBackgroundColors.count -2) {
+        pageNum = self.arrayOfBackgroundColors.count -2;
+    }
+    
+    UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[pageNum]
+                                        secondColor:self.arrayOfBackgroundColors[pageNum +1]
+                                             offset:scrollView.contentOffset.x];
+    [scrollView setBackgroundColor:mixedColor];
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (self.circular) {
@@ -190,6 +210,8 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
     
     return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:1];
 }
+
+#pragma mark - PRLParalaxViewProtocol
 
 - (void)skipPressed:(id)sender {
     if ([self.delegate respondsToSelector:@selector(skipTutorial)]) {

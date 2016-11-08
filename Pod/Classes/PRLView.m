@@ -12,6 +12,9 @@
 #import "UIView+PRLParalaxView.h"
 
 static NSUInteger const kExtraPages = 2;
+static NSString *const kVerticalConstraint = @"V:|[view]|";
+static NSString *const kHorizontalConstraint = @"H:|[view]|";
+static NSString *const kHorisontalViewToViewConstraint = @"H:[view]-0-[secondView]";
 
 @interface PRLView () <UIScrollViewDelegate>
 
@@ -42,6 +45,7 @@ static NSUInteger const kExtraPages = 2;
     }
     self.circular = circular;
     if ((self = [super initWithFrame:[UIScreen mainScreen].bounds])) {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
         self.arrayOfElements = [NSMutableArray new];
         self.arrayOfPages = [NSMutableArray new];
         self.arrayOfBackgroundColors = [NSMutableArray new];
@@ -49,6 +53,7 @@ static NSUInteger const kExtraPages = 2;
         self.lastScreenWidth = 0;
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
         self.scrollView.delegate = self;
         self.scrollView.pagingEnabled = YES;
         self.scrollView.showsHorizontalScrollIndicator = NO;
@@ -59,7 +64,7 @@ static NSUInteger const kExtraPages = 2;
             [self configureScrollViewWithArray:xibNames];
         }
         [self addSubview:self.scrollView];
-        
+        [self addConstrainsToInnerViews];
         //--- configure bottom skip view
         UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 2, 1)];
@@ -130,6 +135,7 @@ static NSUInteger const kExtraPages = 2;
         self.lastContentOffset = currentOff.x;
         [self.scrollView setContentOffset:currentOff animated: NO];
     }
+    [self addConstraintsToSuperView];
 }
 
 #pragma mark - UIScrollView delegate
@@ -173,37 +179,50 @@ static NSUInteger const kExtraPages = 2;
         }
     }
     self.pageControl.currentPage = [self getIndexOfPresentedViewFromOffset:scrollView.contentOffset.x];
+    UIView *huy = self.arrayOfPages[2];
     self.pageNum = self.pageControl.currentPage;
 }
 
 #pragma mark - Private
 
-- (void)addConstraintsToViewsArray:(NSArray *)views {
-//    [self.scrollView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//
-//    NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view]-0-|" options:0 metrics:nil views:@{@"view" : self.scrollView}];
-//    NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]-0-|" options:0 metrics:nil views:@{@"view" : self.scrollView}];
-//
-//    NSArray *horizontalViewToView = [NSLayoutConstraint constraintsWithVisualFormat:@"[firstView]-0-[view]-0-[secondView]" options:0 metrics:nil views:@{@"view" : self.scrollView,
-//                                                                                                                                                         @"firstView" : self.scrollView,
-//                                                                                                                                                         @"secondView" : self.scrollView}];
-//    NSArray *horizontalViewToSuperView = [NSLayoutConstraint constraintsWithVisualFormat:@"[firstView]-0-[view]-0-|" options:0 metrics:nil views:@{@"view" : self.scrollView,
-//                                                                                                                                                   @"firstView" : self.scrollView}];
-//    [self addConstraints:horizontal];
-//    [self addConstraints:vertical];
-//    [views enumerateObjectsUsingBlock:^(UIView *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        [obj setTranslatesAutoresizingMaskIntoConstraints:NO];
-//        if (idx == 0) {
-//            NSArray *horizontalSuperViewToView = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[view]-0-[secondView]"
-//                                                                                         options:0
-//                                                                                         metrics:nil
-//                                                                                           views:@{@"view" : obj,                                                                                                                                                      @"secondView" : views[idx + 1]}];
-//            NSArray *verticalView = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[view]-0-|" options:0 metrics:nil views:@{@"view" : obj}];
-//
-//            [self addConstraints:horizontalSuperViewToView];
-//            [self addConstraints:verticalView];
-//        }
-//    }];
+#pragma mark - Constraints
+
+- (void)addConstraintsToSuperView {
+    NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:kVerticalConstraint options:0 metrics:nil views:@{@"view" : self}];
+    NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:kHorizontalConstraint options:0 metrics:nil views:@{@"view" : self}];
+    
+    [self.superview addConstraints:vertical];
+    [self.superview addConstraints:horizontal];
+    [self addConstraintsToScrollView];
+}
+
+- (void)addConstraintsToScrollView {
+    NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:kVerticalConstraint options:0 metrics:nil views:@{@"view" : self.scrollView}];
+    NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:kHorizontalConstraint options:0 metrics:nil views:@{@"view" : self.scrollView}];
+
+    [self addConstraints:vertical];
+    [self addConstraints:horizontal];
+}
+
+- (void)addConstraintsToFirstView:(UIView *)view secondView:(UIView *)secondView {
+    NSDictionary *views = @{@"view" : view,
+                            @"secondView" : secondView};
+    NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:kVerticalConstraint options:0 metrics:nil views:views];
+    NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:kHorisontalViewToViewConstraint options:0 metrics:nil views:views];
+    [view.superview addConstraints:vertical];
+    [view addConstraints:horizontal];
+}
+
+- (void)addConstrainsToInnerViews {
+    [self.scrollView.subviews enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (idx == 0) {
+//            [self addConstraintsToFirstView:self.scrollView secondView:obj];
+        } else if (idx = self.arrayOfPages.count - 1) {
+//            [self addConstraintsToFirstView:self.scrollView secondView:obj];
+        } else {
+            [self addConstraintsToFirstView:self.arrayOfPages[idx - 1] secondView:obj];
+        }
+    }];
 }
 
 - (NSInteger)getIndexOfPresentedViewFromOffset:(CGFloat)offset {
@@ -245,6 +264,8 @@ static NSUInteger const kExtraPages = 2;
     
     return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:1];
 }
+
+#pragma mark - PRLParalaxViewProtocol
 
 - (void)skipPressed:(id)sender {
     if ([self.delegate respondsToSelector:@selector(skipTutorial)]) {

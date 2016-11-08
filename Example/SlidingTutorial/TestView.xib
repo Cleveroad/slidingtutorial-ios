@@ -27,22 +27,21 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="gu7-Md-4f5" secondAttribute="height" multiplier="43:30" id="0wo-as-qMd"/>
                         <constraint firstAttribute="width" constant="172" id="GDa-MF-Rg1"/>
-                        <constraint firstAttribute="height" constant="120" id="QJR-Zq-HJX"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-02" translatesAutoresizingMaskIntoConstraints="NO" id="Lnb-TZ-Hlc">
                     <constraints>
-                        <constraint firstAttribute="height" constant="65" id="AjD-9k-XeY"/>
-                        <constraint firstAttribute="width" constant="97" id="PRi-pA-Tyj"/>
+                        <constraint firstAttribute="height" constant="65" id="Efn-7g-9cf"/>
+                        <constraint firstAttribute="width" constant="97" id="ygo-HG-Fax"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.80000000000000004"/>
+                            <real key="value" value="0.80000000000000004"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -50,11 +49,11 @@
             <color key="backgroundColor" red="0.90588235294117647" green="0.59215686274509804" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="leading" secondItem="irh-Cn-xhz" secondAttribute="leading" id="32i-at-k82"/>
-                <constraint firstItem="gu7-Md-4f5" firstAttribute="leading" secondItem="Lnb-TZ-Hlc" secondAttribute="trailing" constant="-40" id="7pr-SY-ESZ"/>
+                <constraint firstItem="Lnb-TZ-Hlc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Atu-zP-tdW"/>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JIW-lL-o9d"/>
+                <constraint firstItem="Lnb-TZ-Hlc" firstAttribute="top" secondItem="gu7-Md-4f5" secondAttribute="bottom" constant="16.5" id="LVo-oo-Wq6"/>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="MM9-N5-TKB"/>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="trailing" secondItem="irh-Cn-xhz" secondAttribute="trailing" id="gcX-mG-ihc"/>
-                <constraint firstItem="Lnb-TZ-Hlc" firstAttribute="bottom" secondItem="gu7-Md-4f5" secondAttribute="bottom" id="mzh-pm-3AT"/>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="top" secondItem="irh-Cn-xhz" secondAttribute="bottom" constant="8" id="zAd-9S-JVb"/>
             </constraints>
             <point key="canvasLocation" x="-121.5" y="43.5"/>
