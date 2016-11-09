@@ -36,8 +36,7 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-02" translatesAutoresizingMaskIntoConstraints="NO" id="Lnb-TZ-Hlc">
                     <constraints>
-                        <constraint firstAttribute="height" constant="65" id="Efn-7g-9cf"/>
-                        <constraint firstAttribute="width" constant="97" id="ygo-HG-Fax"/>
+                        <constraint firstAttribute="width" secondItem="Lnb-TZ-Hlc" secondAttribute="height" multiplier="97:65" id="t6t-yr-SHO"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
@@ -50,9 +49,10 @@
             <constraints>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="leading" secondItem="irh-Cn-xhz" secondAttribute="leading" id="32i-at-k82"/>
                 <constraint firstItem="Lnb-TZ-Hlc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Atu-zP-tdW"/>
-                <constraint firstItem="gu7-Md-4f5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JIW-lL-o9d"/>
+                <constraint firstItem="gu7-Md-4f5" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="BWw-sD-pAe"/>
                 <constraint firstItem="Lnb-TZ-Hlc" firstAttribute="top" secondItem="gu7-Md-4f5" secondAttribute="bottom" constant="16.5" id="LVo-oo-Wq6"/>
-                <constraint firstItem="gu7-Md-4f5" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="MM9-N5-TKB"/>
+                <constraint firstItem="Lnb-TZ-Hlc" firstAttribute="trailing" secondItem="gu7-Md-4f5" secondAttribute="trailing" id="XeL-yo-1wo"/>
+                <constraint firstItem="gu7-Md-4f5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="d0M-kE-Jvj"/>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="trailing" secondItem="irh-Cn-xhz" secondAttribute="trailing" id="gcX-mG-ihc"/>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="top" secondItem="irh-Cn-xhz" secondAttribute="bottom" constant="8" id="zAd-9S-JVb"/>
             </constraints>
