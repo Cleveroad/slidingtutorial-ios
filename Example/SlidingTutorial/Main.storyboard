@@ -80,21 +80,56 @@
                                     <constraint firstAttribute="bottom" secondItem="fHL-pU-3f2" secondAttribute="bottom" id="zvB-NL-RCN"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qou-Am-lvK">
+                                <subviews>
+                                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="tIa-hT-0Yu"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hhd-DV-acU">
+                                        <color key="backgroundColor" red="0.93725490199999995" green="0.27450980390000002" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="qEx-uM-7UB"/>
+                                            <constraint firstAttribute="width" constant="46" id="ufB-tU-jD0"/>
+                                        </constraints>
+                                        <state key="normal" title="Button">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C33-hK-HEO">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="uCp-UW-lKK"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.78011950760000004" blue="0.40676415269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="C33-hK-HEO" firstAttribute="top" secondItem="Qou-Am-lvK" secondAttribute="top" id="0IY-Jv-TWt"/>
+                                    <constraint firstItem="tIa-hT-0Yu" firstAttribute="centerY" secondItem="Qou-Am-lvK" secondAttribute="centerY" id="13P-CB-tny"/>
+                                    <constraint firstItem="tIa-hT-0Yu" firstAttribute="centerX" secondItem="Qou-Am-lvK" secondAttribute="centerX" id="7Nl-gT-Jmp"/>
+                                    <constraint firstItem="Hhd-DV-acU" firstAttribute="centerY" secondItem="Qou-Am-lvK" secondAttribute="centerY" id="7QY-hK-Ug8"/>
+                                    <constraint firstAttribute="height" constant="40" id="e0U-uk-e6N"/>
+                                    <constraint firstAttribute="trailing" secondItem="C33-hK-HEO" secondAttribute="trailing" id="gM6-L4-Y0N"/>
+                                    <constraint firstItem="Hhd-DV-acU" firstAttribute="leading" secondItem="Qou-Am-lvK" secondAttribute="leading" constant="15" id="jbW-8y-RyQ"/>
+                                    <constraint firstItem="C33-hK-HEO" firstAttribute="leading" secondItem="Qou-Am-lvK" secondAttribute="leading" id="tfu-lt-ch7"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fHL-pU-3f2" firstAttribute="width" secondItem="OMo-Qs-RRq" secondAttribute="width" priority="750" id="3if-2g-pWh"/>
-                            <constraint firstItem="fHL-pU-3f2" firstAttribute="height" secondItem="OMo-Qs-RRq" secondAttribute="height" id="Br8-r9-4Ff"/>
-                            <constraint firstItem="Ky0-je-bUc" firstAttribute="top" secondItem="Ohq-WJ-oGn" secondAttribute="bottom" constant="-20" id="Qga-Et-BqK"/>
+                            <constraint firstItem="fHL-pU-3f2" firstAttribute="height" secondItem="OMo-Qs-RRq" secondAttribute="height" constant="-40" id="Br8-r9-4Ff"/>
+                            <constraint firstItem="Ky0-je-bUc" firstAttribute="top" secondItem="Ohq-WJ-oGn" secondAttribute="bottom" id="Qga-Et-BqK"/>
+                            <constraint firstItem="tC5-IF-40W" firstAttribute="top" secondItem="Qou-Am-lvK" secondAttribute="bottom" id="T95-Y9-T8Q"/>
+                            <constraint firstItem="Qou-Am-lvK" firstAttribute="top" secondItem="Ky0-je-bUc" secondAttribute="bottom" id="a99-BW-xGD"/>
+                            <constraint firstItem="Qou-Am-lvK" firstAttribute="leading" secondItem="OMo-Qs-RRq" secondAttribute="leading" id="jHI-3T-P1B"/>
                             <constraint firstAttribute="trailing" secondItem="Ky0-je-bUc" secondAttribute="trailing" id="kVn-3p-Er9"/>
-                            <constraint firstItem="tC5-IF-40W" firstAttribute="top" secondItem="Ky0-je-bUc" secondAttribute="bottom" id="rf0-bu-RMW"/>
                             <constraint firstItem="Ky0-je-bUc" firstAttribute="leading" secondItem="OMo-Qs-RRq" secondAttribute="leading" id="srC-cq-Jn9"/>
+                            <constraint firstAttribute="trailing" secondItem="Qou-Am-lvK" secondAttribute="trailing" id="vYa-T3-wgg"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kQu-6v-9NX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1117" y="57"/>
+            <point key="canvasLocation" x="1149.5" y="-68.5"/>
         </scene>
     </scenes>
     <resources>

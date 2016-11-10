@@ -57,7 +57,7 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
         [self addSubview:self.collectionView];
         
         //--- configure bottom skip view
-        UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
+        UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, kHeightSkipView)];
         UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 2, 1)];
         [lineView setBackgroundColor:[UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1]];
         [skipView addSubview:lineView];
@@ -70,7 +70,7 @@ static NSString *const kPRLCellReuseIdentifier = @"PRLCellReuseIdentifier";
         
         UIPageControl *pageControl = [UIPageControl new];
         pageControl.numberOfPages = xibNames.count;
-        pageControl.center = CGPointMake(SCREEN_WIDTH / 2, kHeightSkipView /2);
+        pageControl.center = CGPointMake(SCREEN_WIDTH /2);
         [skipView addSubview:pageControl];
         self.pageControl = pageControl;
     }
