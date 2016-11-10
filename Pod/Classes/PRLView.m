@@ -10,6 +10,7 @@
 #import "PRLElementView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+PRLParalaxView.h"
+#import "UIView+PRLConstraintsBuilder.h"
 
 static NSUInteger const kExtraPages = 2;
 static NSString *const kVerticalConstraint = @"V:|[view]|";
@@ -110,7 +111,10 @@ static CGFloat const kHeightSkipView = 40.0;
         self.lastContentOffset = currentOff.x;
         [self.scrollView setContentOffset:currentOff animated: NO];
     }
-    [self addConstraintsToSuperView];
+    [self addAnchorsToBaseView];
+    [self addAnchorsToScrollView:self.scrollView skipView:self.skipView];
+    [self addAnchorsToContentView:self.contentView];
+    
 }
 
 #pragma mark - UIScrollView delegate
@@ -159,152 +163,6 @@ static CGFloat const kHeightSkipView = 40.0;
 }
 
 #pragma mark - Private
-
-#pragma mark - Constraints
-
-- (void)addConstraintsToSuperView {
-    
-    NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:kVerticalConstraint options:0 metrics:nil views:@{@"view" : self}];
-    NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:kHorizontalConstraint options:0 metrics:nil views:@{@"view" : self}];
-    
-    [self.superview addConstraints:vertical];
-    [self.superview addConstraints:horizontal];
-    [self addConstraintsToScrollView];
-    [self addConstraintsToContentView:self.contentView relatedView:self];
-    [self addConstrainsToViews:self.contentView.subviews];
-}
-
-- (void)addConstraintsToScrollView {
-    NSDictionary *views = @{@"view":self.scrollView,
-                            @"secondView":self.skipView};
-    NSNumber *height = @(kHeightSkipView);
-    NSDictionary *metrics = NSDictionaryOfVariableBindings(height);
-    
-    NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view][secondView]" options:0 metrics:metrics views:views];
-    NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:nil views:views];
-    NSArray *horizontalSkip = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[secondView]|" options:0 metrics:nil views:views];
-    
-    [self addConstraints:vertical];
-    [self addConstraints:horizontal];
-    [self addConstraints:horizontalSkip];
-    [self addConstraintsTorSkipView];
-}
-
-- (void)addConstraintsToContentView:(UIView *)firstView relatedView:(UIView *)secondView {
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(firstView,secondView);
-    NSNumber *height = @(secondView.bounds.size.height - kHeightSkipView);
-    NSDictionary *metrics = NSDictionaryOfVariableBindings(height);
-    
-    NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[firstView]|" options:0 metrics:metrics views:views];
-    NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[firstView(secondView@750)]|" options:0 metrics:nil views:views];
-    
-    [secondView addConstraints:vertical];
-    [secondView addConstraints:horizontal];
-}
-
-- (void)addConstrainsToViews:(NSArray<UIView *> *)views {
-    
-    NSMutableDictionary *verticalViews = [NSMutableDictionary new];
-    NSNumber *screenWidth = @([UIScreen mainScreen].bounds.size.width);
-    NSDictionary *metrics = NSDictionaryOfVariableBindings(screenWidth);
-    
-    [views enumerateObjectsUsingBlock:^(UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-        view.translatesAutoresizingMaskIntoConstraints = NO;
-        verticalViews[@"view"] = view;
-        
-        NSArray *vertical = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view]|" options:0 metrics:nil views:verticalViews];
-        
-        if (idx == 0) {
-            UIView *secondView = views[idx + 1];
-            NSDictionary *horizontalViews = NSDictionaryOfVariableBindings(view, secondView);
-            NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view(secondView)][secondView]" options:0 metrics:metrics views:horizontalViews];
-            [view.superview addConstraints:vertical];
-            [view.superview addConstraints:horizontal];
-        } else if (idx == views.count - 1) {
-            UIView *secondView = views[idx - 1];
-            NSDictionary *horizontalViews = NSDictionaryOfVariableBindings(view, secondView);
-            NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(secondView)]|" options:0 metrics:metrics views:horizontalViews];
-            [view.superview addConstraints:vertical];
-            [view.superview addConstraints:horizontal];
-        } else {
-            UIView *secondView = views[idx + 1];
-            NSDictionary *horizontalViews = NSDictionaryOfVariableBindings(view, secondView);
-            NSArray *horizontal = [NSLayoutConstraint constraintsWithVisualFormat:@"H:[view(secondView)][secondView]" options:0 metrics:nil views:horizontalViews];
-            [view.superview addConstraints:vertical];
-            [view.superview addConstraints:horizontal];
-        }
-    }];
-}
-
-- (void)addConstraintsTorSkipView {
-    __block UIButton *button = nil;
-    __block UIPageControl *pageControl = nil;
-    __block UIView *view = nil;
-    [self.skipView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isMemberOfClass:[UIButton class]]) {
-            button = obj;
-        } else if ([obj isMemberOfClass:[UIPageControl class]]) {
-            pageControl = obj;
-        } else if ([obj isMemberOfClass:[UIView class]]) {
-            view = obj;
-        }
-    }];
-    NSDictionary *views = NSDictionaryOfVariableBindings(button,pageControl,view);
-    NSDictionary *metrics = @{@"separatorHeight" : @1, @"buttonHeight" : @40.0, @"buttonWidth" : @70.0};
-    
-    NSArray *verticalSeparator = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[view(separatorHeight)]" options:0 metrics:metrics views:views];
-    NSArray *horizontalSeparator = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[view]|" options:0 metrics:metrics views:views];
-    NSArray *verticalButton = [NSLayoutConstraint constraintsWithVisualFormat:@"V:[button(buttonHeight)]" options:NSLayoutFormatAlignAllCenterX metrics:metrics views:views];
-    NSArray *horizontalButton = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[button(buttonWidth)]" options:0 metrics:metrics views:views];
-    NSArray *pageControlConstraints = [NSLayoutConstraint constraintsWithVisualFormat:@"[pageControl]" options:NSLayoutFormatAlignAllCenterX|NSLayoutFormatAlignAllCenterY metrics:metrics views:views];
-    NSArray *allConstraints = @[verticalSeparator,horizontalSeparator,verticalButton,horizontalButton,pageControlConstraints];
-    [allConstraints enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [self.skipView addConstraints:obj];
-    }];
-}
-
-- (void) updateWidthConstraints {
-    UIView *view = self.contentView.subviews.firstObject;
-    [view.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.firstItem isEqual:view] && obj.firstAttribute == NSLayoutAttributeWidth) {
-            [view removeConstraints:@[obj]];
-            *stop = YES;
-        }
-    }];
-    NSLayoutConstraint *width = [NSLayoutConstraint constraintWithItem:view
-                                                             attribute:NSLayoutAttributeWidth
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:nil
-                                                             attribute:0
-                                                            multiplier:1
-                                                              constant:[UIScreen mainScreen].bounds.size.width];
-    [view addConstraint:width];
-}
-
-- (void) updateHeightConstraintsToView:(UIView *)view {
-    [view.constraints enumerateObjectsUsingBlock:^(__kindof NSLayoutConstraint * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.firstItem isEqual:view] && obj.firstAttribute == NSLayoutAttributeHeight) {
-            [view removeConstraints:@[obj]];
-            *stop = YES;
-        }
-    }];
-    NSLayoutConstraint *height = [NSLayoutConstraint constraintWithItem:view
-                                                             attribute:NSLayoutAttributeHeight
-                                                             relatedBy:NSLayoutRelationEqual
-                                                                toItem:nil
-                                                             attribute:0
-                                                            multiplier:1
-                                                              constant:[UIScreen mainScreen].bounds.size.height - kHeightSkipView];
-    [view addConstraint:height];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    [self updateWidthConstraints];
-    [self updateHeightConstraintsToView:self.contentView];
-}
 
 #pragma mark - Helpers
 
