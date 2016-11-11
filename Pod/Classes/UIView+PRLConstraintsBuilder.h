@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (PRLConstraintsBuilder)
+extern CGFloat const kHeightSkipView;
 
-- (void)addAnchorsToBaseView;
-- (void)addAnchorsToScrollView:(UIScrollView *)scrollView skipView:(UIView *)skipView;
-- (void)addAnchorsToContentView:(UIView *)contentView;
+- (void)addConstraintsToBaseView;
+- (void)addConstraintsToScrollView:(UIScrollView *)scrollView skipView:(UIView *)skipView;
+- (void)addConstraintsToStackView:(UIStackView *)stackView;
+
 @end

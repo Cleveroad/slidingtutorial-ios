@@ -8,9 +8,11 @@
 
 #import "UIView+PRLConstraintsBuilder.h"
 
+CGFloat const kHeightSkipView = 40.0;
+
 @implementation UIView (PRLConstraintsBuilder)
 
-- (void)addAnchorsToBaseView {
+- (void)addConstraintsToBaseView {
     
     [self.leadingAnchor constraintEqualToAnchor:self.superview.leadingAnchor].active = YES;
     [self.trailingAnchor constraintEqualToAnchor:self.superview.trailingAnchor].active = YES;
@@ -18,28 +20,32 @@
     [self.bottomAnchor constraintEqualToAnchor:self.superview.bottomAnchor].active = YES;
 }
 
-- (void)addAnchorsToScrollView:(UIScrollView *)scrollView skipView:(UIView *)skipView {
+- (void)addConstraintsToScrollView:(UIScrollView *)scrollView skipView:(UIView *)skipView {
     
+    //add constraints to scrollView
     [scrollView.leadingAnchor constraintEqualToAnchor:scrollView.superview.leadingAnchor].active = YES;
     [scrollView.trailingAnchor constraintEqualToAnchor:scrollView.superview.trailingAnchor].active = YES;
     [scrollView.topAnchor constraintEqualToAnchor:scrollView.superview.topAnchor].active = YES;
     
+    //connect scrollView bottom with skipView top
     [scrollView.bottomAnchor constraintEqualToAnchor:skipView.topAnchor].active = YES;
     
+    //add constraints to skipView
     [skipView.leadingAnchor constraintEqualToAnchor:skipView.superview.leadingAnchor].active = YES;
     [skipView.trailingAnchor constraintEqualToAnchor:skipView.superview.trailingAnchor].active = YES;
     [skipView.bottomAnchor constraintEqualToAnchor:skipView.superview.bottomAnchor].active = YES;
-    //[skipView.heightAnchor constraintEqualToConstant:40.0].active = YES;
+    [skipView.heightAnchor constraintEqualToConstant:kHeightSkipView].active = YES;
 }
 
-- (void)addAnchorsToContentView:(UIView *)contentView {
-    [contentView.leadingAnchor constraintEqualToAnchor:contentView.superview.leadingAnchor].active = YES;
-    [contentView.trailingAnchor constraintEqualToAnchor:contentView.superview.trailingAnchor].active = YES;
-    [contentView.topAnchor constraintEqualToAnchor:contentView.superview.topAnchor].active = YES;
-    [contentView.bottomAnchor constraintEqualToAnchor:contentView.superview.bottomAnchor].active = YES;
+- (void)addConstraintsToStackView:(UIStackView *)stackView {
     
-    [contentView.heightAnchor constraintEqualToAnchor:self.heightAnchor].active = YES;
-//    [contentView.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = NO;
+    [stackView.leadingAnchor constraintEqualToAnchor:stackView.superview.leadingAnchor].active = YES;
+    [stackView.trailingAnchor constraintEqualToAnchor:stackView.superview.trailingAnchor].active = YES;
+    [stackView.topAnchor constraintEqualToAnchor:stackView.superview.topAnchor].active = YES;
+    [stackView.bottomAnchor constraintEqualToAnchor:stackView.superview.bottomAnchor].active = YES;
+    
+    [stackView.subviews.firstObject.heightAnchor constraintEqualToAnchor:self.heightAnchor constant: - kHeightSkipView].active = YES;
+    [stackView.subviews.firstObject.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
 }
 
 @end

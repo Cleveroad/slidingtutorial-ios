@@ -13,15 +13,12 @@
 #import "UIView+PRLConstraintsBuilder.h"
 
 static NSUInteger const kExtraPages = 2;
-static NSString *const kVerticalConstraint = @"V:|[view]|";
-static NSString *const kHorizontalConstraint = @"H:|[view]|";
-static CGFloat const kHeightSkipView = 40.0;
 
 @interface PRLView () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *skipView;
-@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIStackView *stackView;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) UIView *currentView;
 
@@ -57,38 +54,16 @@ static CGFloat const kHeightSkipView = 40.0;
         self.scrollView.delegate = self;
         self.scrollView.pagingEnabled = YES;
         self.scrollView.showsHorizontalScrollIndicator = NO;
-        [self addSubview:self.scrollView];
-        
-        self.contentView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
-        [self.scrollView addSubview:self.contentView];
-        
+        self.scrollView.showsVerticalScrollIndicator = NO;
         if (circular) {
             NSArray *xibNamesWithExtra = [self createArrayForCircularScrollWithXibNames:xibNames];
             [self configureScrollViewWithArray:xibNamesWithExtra];
         } else {
             [self configureScrollViewWithArray:xibNames];
         }
-        //--- configure bottom skip view
-        UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 2, 1)];
-        [lineView setBackgroundColor:[UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1]];
-        [skipView addSubview:lineView];
+        [self addSubview:self.scrollView];
+        [self configureBottomSkipViewWithXibsCount:xibNames.count];
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, 70, 40)];
-        [button setTitle:@"Skip" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(skipPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [skipView addSubview:button];
-        [self addSubview:skipView];
-        
-        UIPageControl *pageControl = [UIPageControl new];
-        pageControl.numberOfPages = xibNames.count;
-        pageControl.center = CGPointMake(SCREEN_WIDTH / 2, kHeightSkipView /2);
-        [skipView addSubview:pageControl];
-        self.pageControl = pageControl;
-        
-        self.skipView = skipView;
-        //---
     }
     return  self;
 }
@@ -110,10 +85,13 @@ static CGFloat const kHeightSkipView = 40.0;
         CGPoint currentOff = CGPointMake(SCREEN_WIDTH, self.scrollView.contentOffset.y);
         self.lastContentOffset = currentOff.x;
         [self.scrollView setContentOffset:currentOff animated: NO];
+        self.currentView = self.arrayOfPages[1];
+    } else {
+        self.currentView = self.arrayOfPages.firstObject;
     }
-    [self addAnchorsToBaseView];
-    [self addAnchorsToScrollView:self.scrollView skipView:self.skipView];
-    [self addAnchorsToContentView:self.contentView];
+    [self addConstraintsToBaseView];
+    [self addConstraintsToScrollView:self.scrollView skipView:self.skipView];
+    [self addConstraintsToStackView:self.stackView];
     
 }
 
@@ -159,18 +137,51 @@ static CGFloat const kHeightSkipView = 40.0;
     }
     self.pageControl.currentPage = [self getIndexOfPresentedViewFromOffset:scrollView.contentOffset.x];
     self.pageNum = self.pageControl.currentPage;
-    
+    self.currentView = self.arrayOfPages[self.pageNum];
 }
 
 #pragma mark - Private
+#pragma mark - Configure view
 
-#pragma mark - Helpers
+- (void)addViewsToStackView {
+    UIStackView *stack = [[UIStackView alloc]initWithArrangedSubviews:self.arrayOfPages];
+    stack.axis = UILayoutConstraintAxisHorizontal;
+    stack.distribution = UIStackViewDistributionFillEqually;
+    stack.spacing = 0;
+    stack.translatesAutoresizingMaskIntoConstraints = NO;
+    self.stackView = stack;
+    [self.scrollView addSubview:stack];
+}
+
+- (void)configureBottomSkipViewWithXibsCount:(NSUInteger)xibsCount {
+    UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 2, 1)];
+    skipView.translatesAutoresizingMaskIntoConstraints = NO;
+    lineView.translatesAutoresizingMaskIntoConstraints = NO;
+    [lineView setBackgroundColor:[UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1]];
+    [skipView addSubview:lineView];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, 70, 40)];
+    [button setTitle:@"Skip" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(skipPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [skipView addSubview:button];
+    [self addSubview:skipView];
+    
+    UIPageControl *pageControl = [UIPageControl new];
+    pageControl.numberOfPages = xibsCount;
+    pageControl.center = CGPointMake(SCREEN_WIDTH / 2, kHeightSkipView /2);
+    [skipView addSubview:pageControl];
+    self.pageControl = pageControl;
+    
+    self.skipView = skipView;
+}
 
 - (void)configureScrollViewWithArray:(NSArray *)array {
     [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * array.count - 1, SCREEN_HEIGHT)];
     [array enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [self addViewFromXib:obj toPageNum:idx];
     }];
+    [self addViewsToStackView];
 }
 
 - (void)addViewFromXib:(NSString *)xibName toPageNum:(NSInteger)pageNum {
@@ -178,6 +189,7 @@ static CGFloat const kHeightSkipView = 40.0;
                                                      owner:nil
                                                    options:nil].lastObject;
     if (viewSlip) {
+        viewSlip.translatesAutoresizingMaskIntoConstraints = NO;
         viewSlip.frame = CGRectMake(SCREEN_WIDTH * pageNum, 0, SCREEN_WIDTH, SCREEN_HEIGHT - kHeightSkipView);
         viewSlip.clipsToBounds = YES;
         [self.arrayOfElements addObjectsFromArray:viewSlip.subviews];
@@ -185,8 +197,9 @@ static CGFloat const kHeightSkipView = 40.0;
     [self addBackgroundColor:viewSlip.backgroundColor];
     viewSlip.backgroundColor  = [UIColor clearColor];
     [self.arrayOfPages addObject:viewSlip];
-    [self.contentView addSubview:viewSlip];
 }
+
+#pragma mark - Helpers
 
 - (NSArray *)createArrayForCircularScrollWithXibNames:(NSArray *)xibNames {
     NSMutableArray *xibNamesWithExtra = xibNames.mutableCopy;
@@ -210,6 +223,8 @@ static CGFloat const kHeightSkipView = 40.0;
     return result;
 }
 
+#pragma mark - Colors
+
 - (void)addBackgroundColor:(UIColor *)color {
     [self.arrayOfBackgroundColors insertObject:color atIndex:self.arrayOfBackgroundColors.count -1];
 }
@@ -232,6 +247,22 @@ static CGFloat const kHeightSkipView = 40.0;
     CGFloat resultBlue = blueDelta * (offset / SCREEN_WIDTH) + blue1;
     
     return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:1];
+}
+
+#pragma mark - LifeCycle
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    NSUInteger page = self.pageNum;
+    CGPoint currentOffset;
+    if (self.circular) {
+        currentOffset = CGPointMake((page + 1) * SCREEN_WIDTH, 0);
+    } else {
+        currentOffset = CGPointMake(page * SCREEN_WIDTH, 0);
+    }
+    self.lastContentOffset = currentOffset.x;
+    [self.scrollView setContentOffset:currentOffset animated:NO];
 }
 
 #pragma mark - PRLParalaxViewProtocol
