@@ -23,7 +23,6 @@
 		8ECA672F1DC8F45A00A0E241 /* PRLTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8ECA672E1DC8F45A00A0E241 /* PRLTestViewController.m */; };
 		8ECA67311DC9033D00A0E241 /* TestView1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECA67301DC9033D00A0E241 /* TestView1.xib */; };
 		8ECA67331DC909BA00A0E241 /* TestView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECA67321DC909BA00A0E241 /* TestView2.xib */; };
-		8ECA67351DCA3FC100A0E241 /* TestView3.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8ECA67341DCA3FC100A0E241 /* TestView3.xib */; };
 		A7908C687831E151E0B99885 /* Pods_SlidingTutorial_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 376A85AC2B5C18708F6C2C8C /* Pods_SlidingTutorial_Tests.framework */; };
 		B2619010D0C89292E18588E8 /* Pods_SlidingTutorial_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE203E08469352129073E043 /* Pods_SlidingTutorial_Example.framework */; };
 		F5108C221BDFDC0000F996F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F5108C211BDFDC0000F996F8 /* LaunchScreen.xib */; };
@@ -68,7 +67,6 @@
 		8ECA672E1DC8F45A00A0E241 /* PRLTestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PRLTestViewController.m; sourceTree = "<group>"; };
 		8ECA67301DC9033D00A0E241 /* TestView1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestView1.xib; sourceTree = "<group>"; };
 		8ECA67321DC909BA00A0E241 /* TestView2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestView2.xib; sourceTree = "<group>"; };
-		8ECA67341DCA3FC100A0E241 /* TestView3.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestView3.xib; sourceTree = "<group>"; };
 		A19C2EDB9961AFECC595E4E5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		C2AC044A3524144B77992330 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		CDC9075D2CA92F38996342BE /* Pods-SlidingTutorial_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SlidingTutorial_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SlidingTutorial_Tests/Pods-SlidingTutorial_Tests.release.xcconfig"; sourceTree = "<group>"; };
@@ -146,7 +144,6 @@
 				8ECA672B1DC8C66A00A0E241 /* TestView.xib */,
 				8ECA67301DC9033D00A0E241 /* TestView1.xib */,
 				8ECA67321DC909BA00A0E241 /* TestView2.xib */,
-				8ECA67341DCA3FC100A0E241 /* TestView3.xib */,
 				8ECA672D1DC8F45A00A0E241 /* PRLTestViewController.h */,
 				8ECA672E1DC8F45A00A0E241 /* PRLTestViewController.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
@@ -299,7 +296,6 @@
 				F5108C221BDFDC0000F996F8 /* LaunchScreen.xib in Resources */,
 				8ECA67331DC909BA00A0E241 /* TestView2.xib in Resources */,
 				873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */,
-				8ECA67351DCA3FC100A0E241 /* TestView3.xib in Resources */,
 				8ECA672C1DC8C66A00A0E241 /* TestView.xib in Resources */,
 				8ECA67311DC9033D00A0E241 /* TestView1.xib in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
@@ -558,7 +554,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "26133c25-5b48-45ec-baff-aedfc87f49eb";
 				PROVISIONING_PROFILE_SPECIFIER = UniversalDev;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -569,8 +565,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = TS4L5392F8;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SlidingTutorial/SlidingTutorial-Prefix.pch";
 				INFOPLIST_FILE = "SlidingTutorial/SlidingTutorial-Info.plist";
@@ -578,9 +574,9 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				PROVISIONING_PROFILE = "823ec52e-9f7e-4b1a-8d16-ed92cf2bd536";
+				PROVISIONING_PROFILE_SPECIFIER = UniversalAdHoc;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

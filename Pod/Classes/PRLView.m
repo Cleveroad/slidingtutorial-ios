@@ -7,10 +7,12 @@
 //
 
 #import "PRLView.h"
-#import "PRLElementView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+PRLParalaxView.h"
 #import "UIView+PRLConstraintsBuilder.h"
+
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
 static NSUInteger const kExtraPages = 2;
 
@@ -27,7 +29,7 @@ static NSUInteger const kExtraPages = 2;
 @property (nonatomic, strong) NSMutableArray<UIView *> *arrayOfPages;
 
 @property (nonatomic, assign) CGFloat lastContentOffset;
-@property (nonatomic, assign) BOOL circular;
+@property (nonatomic, assign) BOOL infinite;
 @property (nonatomic, assign) NSInteger pageNum;
 
 @end
@@ -36,12 +38,15 @@ static NSUInteger const kExtraPages = 2;
 
 #pragma mark - Public
 
-- (instancetype)initWithViewsFromXibsNamed:(NSArray <NSString *> *)xibNames circularScroll:(BOOL)circular {
+- (instancetype)initWithViewsFromXibsNamed:(NSArray <NSString *> *)xibNames
+                            infiniteScroll:(BOOL)infinite
+                                  delegate:(id<PRLViewProtocol>)delegate {
     if (!xibNames.count) {
-        NSLog(@"Wrong you need at least 1 vew");
+        NSLog(@"Wrong you need at least 1 view");
         return nil;
     }
-    self.circular = circular;
+    _delegate = delegate;
+    _infinite = infinite;
     if ((self = [super initWithFrame:[UIScreen mainScreen].bounds])) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         self.arrayOfElements = [NSMutableArray new];
@@ -55,7 +60,7 @@ static NSUInteger const kExtraPages = 2;
         self.scrollView.pagingEnabled = YES;
         self.scrollView.showsHorizontalScrollIndicator = NO;
         self.scrollView.showsVerticalScrollIndicator = NO;
-        if (circular) {
+        if (infinite) {
             NSArray *xibNamesWithExtra = [self createArrayForCircularScrollWithXibNames:xibNames];
             [self configureScrollViewWithArray:xibNamesWithExtra];
         } else {
@@ -81,7 +86,7 @@ static NSUInteger const kExtraPages = 2;
                                              offset:0];
     self.skipView.backgroundColor = mixedColor;
     self.scrollView.backgroundColor = mixedColor;
-    if (self.circular) {
+    if (self.infinite) {
         CGPoint currentOff = CGPointMake(SCREEN_WIDTH, self.scrollView.contentOffset.y);
         self.lastContentOffset = currentOff.x;
         [self.scrollView setContentOffset:currentOff animated: NO];
@@ -92,7 +97,22 @@ static NSUInteger const kExtraPages = 2;
     [self addConstraintsToBaseView];
     [self addConstraintsToScrollView:self.scrollView skipView:self.skipView];
     [self addConstraintsToStackView:self.stackView];
+}
+
+#pragma mark - LifeCycle
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
     
+    NSUInteger page = self.pageNum;
+    CGPoint currentOffset;
+    if (self.infinite) {
+        currentOffset = CGPointMake((page + 1) * SCREEN_WIDTH, 0);
+    } else {
+        currentOffset = CGPointMake(page * SCREEN_WIDTH, 0);
+    }
+    self.lastContentOffset = currentOffset.x;
+    [self.scrollView setContentOffset:currentOffset animated:NO];
 }
 
 #pragma mark - UIScrollView delegate
@@ -121,10 +141,11 @@ static NSUInteger const kExtraPages = 2;
                                         secondColor:self.arrayOfBackgroundColors[pageNum +1]
                                              offset:scrollView.contentOffset.x];
     self.skipView.backgroundColor = mixedColor;
-    self.scrollView.backgroundColor = mixedColor;}
+    self.scrollView.backgroundColor = mixedColor;
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    if (self.circular) {
+    if (self.infinite) {
         if (scrollView.contentOffset.x == self.arrayOfPages.lastObject.frame.origin.x) {
             CGPoint currentOff = CGPointMake(SCREEN_WIDTH, self.scrollView.contentOffset.y);
             self.lastContentOffset = currentOff.x;
@@ -140,8 +161,15 @@ static NSUInteger const kExtraPages = 2;
     self.currentView = self.arrayOfPages[self.pageNum];
 }
 
-#pragma mark - Private
-#pragma mark - Configure view
+#pragma mark - PRLParalaxViewProtocol
+
+- (void)skipPressed:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(skipTutorial)]) {
+        [self.delegate skipTutorial];
+    }
+}
+
+#pragma mark - ConfigureView
 
 - (void)addViewsToStackView {
     UIStackView *stack = [[UIStackView alloc]initWithArrangedSubviews:self.arrayOfPages];
@@ -199,31 +227,7 @@ static NSUInteger const kExtraPages = 2;
     [self.arrayOfPages addObject:viewSlip];
 }
 
-#pragma mark - Helpers
-
-- (NSArray *)createArrayForCircularScrollWithXibNames:(NSArray *)xibNames {
-    NSMutableArray *xibNamesWithExtra = xibNames.mutableCopy;
-    [xibNamesWithExtra insertObject:xibNames.lastObject atIndex:0];
-    [xibNamesWithExtra insertObject:xibNames.firstObject atIndex:xibNamesWithExtra.count];
-    return xibNamesWithExtra.copy;
-}
-
-- (NSInteger)getIndexOfPresentedViewFromOffset:(CGFloat)offset {
-    __block NSInteger result;
-    __weak typeof(self)weakSelf = self;
-    [self.arrayOfPages enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (obj.frame.origin.x == offset) {
-            if (weakSelf.circular) {
-                result = idx - 1;
-            } else {
-                result = idx;
-            }
-        }
-    }];
-    return result;
-}
-
-#pragma mark - Colors
+#pragma mark - ConfigureColors
 
 - (void)addBackgroundColor:(UIColor *)color {
     [self.arrayOfBackgroundColors insertObject:color atIndex:self.arrayOfBackgroundColors.count -1];
@@ -249,28 +253,25 @@ static NSUInteger const kExtraPages = 2;
     return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:1];
 }
 
-#pragma mark - LifeCycle
+#pragma mark - Helpers
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    NSUInteger page = self.pageNum;
-    CGPoint currentOffset;
-    if (self.circular) {
-        currentOffset = CGPointMake((page + 1) * SCREEN_WIDTH, 0);
-    } else {
-        currentOffset = CGPointMake(page * SCREEN_WIDTH, 0);
-    }
-    self.lastContentOffset = currentOffset.x;
-    [self.scrollView setContentOffset:currentOffset animated:NO];
+- (NSArray *)createArrayForCircularScrollWithXibNames:(NSArray *)xibNames {
+    NSMutableArray *xibNamesWithExtra = xibNames.mutableCopy;
+    [xibNamesWithExtra insertObject:xibNames.lastObject atIndex:0];
+    [xibNamesWithExtra insertObject:xibNames.firstObject atIndex:xibNamesWithExtra.count];
+    return xibNamesWithExtra.copy;
 }
 
-#pragma mark - PRLParalaxViewProtocol
-
-- (void)skipPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(skipTutorial)]) {
-        [self.delegate skipTutorial];
-    }
+- (NSInteger)getIndexOfPresentedViewFromOffset:(CGFloat)offset {
+    __block NSInteger result;
+    __weak typeof(self)weakSelf = self;
+    [self.arrayOfPages enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.frame.origin.x == offset) {
+            result = weakSelf.infinite ? idx - 1 : idx;
+            *stop = YES;
+        }
+    }];
+    return result;
 }
 
 @end

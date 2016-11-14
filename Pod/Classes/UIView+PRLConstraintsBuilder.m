@@ -44,6 +44,7 @@ CGFloat const kHeightSkipView = 40.0;
     [stackView.topAnchor constraintEqualToAnchor:stackView.superview.topAnchor].active = YES;
     [stackView.bottomAnchor constraintEqualToAnchor:stackView.superview.bottomAnchor].active = YES;
     
+    //set Height and Width of views in StackView
     [stackView.subviews.firstObject.heightAnchor constraintEqualToAnchor:self.heightAnchor constant: - kHeightSkipView].active = YES;
     [stackView.subviews.firstObject.widthAnchor constraintEqualToAnchor:self.widthAnchor].active = YES;
 }

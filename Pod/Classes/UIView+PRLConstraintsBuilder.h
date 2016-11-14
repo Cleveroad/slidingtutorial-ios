@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (PRLConstraintsBuilder)
+
 extern CGFloat const kHeightSkipView;
 
 - (void)addConstraintsToBaseView;
