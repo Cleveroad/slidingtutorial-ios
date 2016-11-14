@@ -120,11 +120,10 @@ static NSUInteger const kExtraPages = 2;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat contentOffset = scrollView.contentOffset.x;
     for (UIView *view in self.arrayOfElements) {
-        CGFloat kio = view.slippingCoefficient;
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(0, 0.0);
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
         [UIView animateWithDuration:0.3 animations:^{
-            view.transform = CGAffineTransformTranslate(transform, offset, 0);
+            view.transform = CGAffineTransformTranslate(transform, offset, 0.0);
         }];
     }
     
@@ -175,7 +174,7 @@ static NSUInteger const kExtraPages = 2;
     UIStackView *stack = [[UIStackView alloc]initWithArrangedSubviews:self.arrayOfPages];
     stack.axis = UILayoutConstraintAxisHorizontal;
     stack.distribution = UIStackViewDistributionFillEqually;
-    stack.spacing = 0;
+    stack.spacing = 0.0;
     stack.translatesAutoresizingMaskIntoConstraints = NO;
     self.stackView = stack;
     [self.scrollView addSubview:stack];
@@ -189,7 +188,7 @@ static NSUInteger const kExtraPages = 2;
     [lineView setBackgroundColor:[UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1]];
     [skipView addSubview:lineView];
     
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, 70, 40)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(15.0, 0.0, 70.0, 40.0)];
     [button setTitle:@"Skip" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(skipPressed:) forControlEvents:UIControlEventTouchUpInside];
     [skipView addSubview:button];
@@ -218,7 +217,7 @@ static NSUInteger const kExtraPages = 2;
                                                    options:nil].lastObject;
     if (viewSlip) {
         viewSlip.translatesAutoresizingMaskIntoConstraints = NO;
-        viewSlip.frame = CGRectMake(SCREEN_WIDTH * pageNum, 0, SCREEN_WIDTH, SCREEN_HEIGHT - kHeightSkipView);
+        viewSlip.frame = CGRectMake(SCREEN_WIDTH * pageNum, 0.0, SCREEN_WIDTH, SCREEN_HEIGHT - kHeightSkipView);
         viewSlip.clipsToBounds = YES;
         [self.arrayOfElements addObjectsFromArray:viewSlip.subviews];
     }
