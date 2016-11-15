@@ -24,34 +24,14 @@
 /**
  Calls for instantiating Slipping Tutorial view
  
- @param pageCount - a count of pages in tutorial and second parameter is a coefficient of scaling images (put 1.0 if you don't need scale and images will displaying in a full size).
- @param scaleCoefficient - is a coefficient of scaling images (put 1.0 if you don't need scale and images will displaying in a full size).
+ @param xibNames - xib names from your project resources.
+ @param infinite - set YES if you want endless scroll.
+ @param delegate - object's delegate.
  */
-- (instancetype)initWithPageCount:(NSInteger)pageCount
-                 scaleCoefficient:(CGFloat)scaleCoefficient;
 
-
-/**
- Calls for adding images onto sliding page
- 
- @param name - image name from your project resources.
- @param offsetX and offsetY - layer offset from the center of the screen. If you send offsetX:0 offsetY:0 your image layer will be placed exactly in the center of the screen. Dot (0,0) in this coords system situated in the center of the screen in all device orientations.
- @param slippingCoefficient - ratio bound to scroll offset in scroll view. For 1 pixel content offset of scroll view layer will be slipping for 1 * slippingCoefficient (so if slippingCoefficient == 0.3, it will be equal 0.3px). Sign determines the direction of slipping - left or right.
- @param pageNum - the page number on which you will add this image layer.
- */
-- (void)addElementWithName:(NSString *)elementName
-                   offsetX:(CGFloat)offsetX
-                   offsetY:(CGFloat)offsetY
-       slippingCoefficient:(CGFloat)slippingCoefficient
-                   pageNum:(NSInteger)pageNum;
-
-
-/**
- Calls for adding background colors for all your tutorial pages
- The colors follow the order they are added. All missing colors will be replaced with white color.
- */
-- (void)addBackgroundColor:(UIColor *)color;
-
+- (instancetype)initWithViewsFromXibsNamed:(NSArray <NSString *> *)xibNames
+                            infiniteScroll:(BOOL)infinite
+                                  delegate:(id<PRLViewProtocol>)delegate NS_DESIGNATED_INITIALIZER;
 
 /**
   Call this method after you finished preparing Sliding Tutorial view.

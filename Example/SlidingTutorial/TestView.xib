@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-00" translatesAutoresizingMaskIntoConstraints="NO" id="irh-Cn-xhz">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="irh-Cn-xhz" secondAttribute="height" multiplier="151:23" id="4xd-cc-c2G"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="0.5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-04" translatesAutoresizingMaskIntoConstraints="NO" id="gu7-Md-4f5">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="172" id="DAg-T9-sFx"/>
+                        <constraint firstAttribute="height" constant="120" id="dq1-7a-1gF"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-02" translatesAutoresizingMaskIntoConstraints="NO" id="Lnb-TZ-Hlc">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Lnb-TZ-Hlc" secondAttribute="height" multiplier="93:52" id="166-Dg-Tq7"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="-0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-01" translatesAutoresizingMaskIntoConstraints="NO" id="wZd-Cv-mln">
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="wZd-Cv-mln" secondAttribute="height" multiplier="25:19" id="PZ6-Eq-0kz"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="-0.5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-06" translatesAutoresizingMaskIntoConstraints="NO" id="t44-vQ-GDv">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="XZi-YR-Awn"/>
+                        <constraint firstAttribute="height" constant="24" id="zDw-63-AdG"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="-0.40000000000000002"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-07" translatesAutoresizingMaskIntoConstraints="NO" id="pr1-AJ-lu0">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="2f5-j5-2tT"/>
+                        <constraint firstAttribute="height" constant="24" id="FHb-3k-ekl"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="-0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-09" translatesAutoresizingMaskIntoConstraints="NO" id="Ega-G5-5Ew">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="12" id="Mt6-df-MXW"/>
+                        <constraint firstAttribute="height" constant="26" id="wtR-4i-LEj"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="0.20000000000000001"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="elem00-08" translatesAutoresizingMaskIntoConstraints="NO" id="v60-Pj-eNF">
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="WKT-Hu-tLU"/>
+                        <constraint firstAttribute="height" constant="24" id="d7C-jL-TCN"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="0.5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Web Analytics" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uOV-Fm-hvu">
+                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="27"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
+                            <real key="value" value="0.29999999999999999"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.90588235294117647" green="0.59215686274509804" blue="0.12941176470588234" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="uOV-Fm-hvu" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="92L-Mx-HwB"/>
+                <constraint firstItem="uOV-Fm-hvu" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="E5t-XK-WH2"/>
+                <constraint firstItem="pr1-AJ-lu0" firstAttribute="leading" secondItem="t44-vQ-GDv" secondAttribute="trailing" constant="12" id="Es8-GP-Dop"/>
+                <constraint firstItem="gu7-Md-4f5" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="GuX-nh-9It"/>
+                <constraint firstItem="Lnb-TZ-Hlc" firstAttribute="top" secondItem="gu7-Md-4f5" secondAttribute="bottom" constant="-30" id="KiD-5K-dI8"/>
+                <constraint firstItem="Ega-G5-5Ew" firstAttribute="leading" secondItem="gu7-Md-4f5" secondAttribute="trailing" constant="18" id="LPb-Ca-C4k"/>
+                <constraint firstItem="irh-Cn-xhz" firstAttribute="trailing" secondItem="gu7-Md-4f5" secondAttribute="trailing" constant="-12" id="SgU-bT-T4y"/>
+                <constraint firstItem="irh-Cn-xhz" firstAttribute="leading" secondItem="gu7-Md-4f5" secondAttribute="leading" constant="12" id="TnD-6F-fwk"/>
+                <constraint firstAttribute="trailing" secondItem="uOV-Fm-hvu" secondAttribute="trailing" constant="30" id="VBw-WW-xJ4"/>
+                <constraint firstItem="uOV-Fm-hvu" firstAttribute="top" secondItem="gu7-Md-4f5" secondAttribute="bottom" constant="30" id="axc-wZ-Nf1"/>
+                <constraint firstItem="t44-vQ-GDv" firstAttribute="bottom" secondItem="pr1-AJ-lu0" secondAttribute="bottom" id="bK0-Pd-8BB"/>
+                <constraint firstItem="gu7-Md-4f5" firstAttribute="leading" secondItem="Lnb-TZ-Hlc" secondAttribute="trailing" constant="-56" id="bxM-Ye-xBu"/>
+                <constraint firstItem="v60-Pj-eNF" firstAttribute="top" secondItem="irh-Cn-xhz" secondAttribute="top" id="c7H-55-TT1"/>
+                <constraint firstItem="gu7-Md-4f5" firstAttribute="leading" secondItem="Lnb-TZ-Hlc" secondAttribute="leading" constant="37" id="dZZ-JW-XID"/>
+                <constraint firstItem="v60-Pj-eNF" firstAttribute="leading" secondItem="irh-Cn-xhz" secondAttribute="trailing" constant="24" id="faj-hY-Ah1"/>
+                <constraint firstItem="uOV-Fm-hvu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gu7-Md-4f5" secondAttribute="trailing" constant="8" id="io3-gT-H9d"/>
+                <constraint firstItem="t44-vQ-GDv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="j4T-SF-kj3"/>
+                <constraint firstItem="wZd-Cv-mln" firstAttribute="leading" secondItem="Lnb-TZ-Hlc" secondAttribute="leading" id="kON-jE-yNt"/>
+                <constraint firstItem="Ega-G5-5Ew" firstAttribute="top" secondItem="v60-Pj-eNF" secondAttribute="bottom" constant="17" id="krP-mj-Sru"/>
+                <constraint firstItem="Lnb-TZ-Hlc" firstAttribute="top" secondItem="wZd-Cv-mln" secondAttribute="bottom" constant="30" id="lmZ-76-Eco"/>
+                <constraint firstItem="irh-Cn-xhz" firstAttribute="leading" secondItem="pr1-AJ-lu0" secondAttribute="trailing" constant="12" id="mY1-RE-kFA"/>
+                <constraint firstItem="gu7-Md-4f5" firstAttribute="top" secondItem="irh-Cn-xhz" secondAttribute="bottom" constant="19" id="nPB-3L-z0d"/>
+                <constraint firstItem="uOV-Fm-hvu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ega-G5-5Ew" secondAttribute="trailing" constant="8" id="qTT-w1-c5z"/>
+                <constraint firstItem="gu7-Md-4f5" firstAttribute="leading" secondItem="wZd-Cv-mln" secondAttribute="trailing" constant="-20" id="v6p-aJ-or5"/>
+                <constraint firstItem="wZd-Cv-mln" firstAttribute="top" secondItem="pr1-AJ-lu0" secondAttribute="bottom" constant="36" id="wYL-ms-ksH"/>
+                <constraint firstItem="gu7-Md-4f5" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="yes-yD-LhC"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="j4T-SF-kj3"/>
+                    <exclude reference="92L-Mx-HwB"/>
+                    <exclude reference="VBw-WW-xJ4"/>
+                    <exclude reference="axc-wZ-Nf1"/>
+                    <exclude reference="io3-gT-H9d"/>
+                    <exclude reference="qTT-w1-c5z"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact">
+                <mask key="constraints">
+                    <exclude reference="yes-yD-LhC"/>
+                    <include reference="j4T-SF-kj3"/>
+                    <include reference="92L-Mx-HwB"/>
+                    <exclude reference="E5t-XK-WH2"/>
+                    <include reference="VBw-WW-xJ4"/>
+                    <exclude reference="io3-gT-H9d"/>
+                    <include reference="qTT-w1-c5z"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular">
+                <mask key="constraints">
+                    <include reference="axc-wZ-Nf1"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact-widthClass=compact">
+                <mask key="constraints">
+                    <exclude reference="axc-wZ-Nf1"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="-468.5" y="15.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="elem00-00" width="315" height="44"/>
+        <image name="elem00-01" width="111" height="84"/>
+        <image name="elem00-02" width="222" height="138"/>
+        <image name="elem00-04" width="364" height="303"/>
+        <image name="elem00-06" width="36" height="38"/>
+        <image name="elem00-07" width="55" height="55"/>
+        <image name="elem00-08" width="68" height="68"/>
+        <image name="elem00-09" width="17" height="39"/>
+    </resources>
+</document>

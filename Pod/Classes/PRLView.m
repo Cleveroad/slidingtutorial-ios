@@ -7,21 +7,30 @@
 //
 
 #import "PRLView.h"
-#import "PRLElementView.h"
+#import <QuartzCore/QuartzCore.h>
+#import "UIView+PRLParalaxView.h"
+#import "UIView+PRLConstraintsBuilder.h"
+
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+static NSUInteger const kExtraPages = 2;
 
 @interface PRLView () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIView *skipView;
+@property (nonatomic, strong) UIStackView *stackView;
 @property (nonatomic, strong) UIPageControl *pageControl;
+@property (nonatomic, strong) UIView *currentView;
 
 @property (nonatomic, strong) NSMutableArray *arrayOfElements;
 @property (nonatomic, strong) NSMutableArray *arrayOfBackgroundColors;
-@property (nonatomic, strong) NSMutableArray *arrayOfPages;
+@property (nonatomic, strong) NSMutableArray<UIView *> *arrayOfPages;
 
 @property (nonatomic, assign) CGFloat lastContentOffset;
-@property (nonatomic, assign) CGFloat lastScreenWidth;
-@property (nonatomic, assign) CGFloat scaleCoefficient;
+@property (nonatomic, assign) BOOL infinite;
+@property (nonatomic, assign) NSInteger pageNum;
 
 @end
 
@@ -29,90 +38,42 @@
 
 #pragma mark - Public
 
-- (instancetype)initWithPageCount:(NSInteger)pageCount
-                 scaleCoefficient:(CGFloat)scaleCoefficient;
-{
-    if (pageCount <= 0) {
-        NSLog(@"Wrong page count %li. It should be at least 1", (long)pageCount);
+- (instancetype)initWithViewsFromXibsNamed:(NSArray <NSString *> *)xibNames
+                            infiniteScroll:(BOOL)infinite
+                                  delegate:(id<PRLViewProtocol>)delegate {
+    if (!xibNames.count) {
+        NSLog(@"Wrong you need at least 1 view");
         return nil;
     }
-    
+    _delegate = delegate;
+    _infinite = infinite;
     if ((self = [super initWithFrame:[UIScreen mainScreen].bounds])) {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
         self.arrayOfElements = [NSMutableArray new];
         self.arrayOfPages = [NSMutableArray new];
         self.arrayOfBackgroundColors = [NSMutableArray new];
         [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
-        self.lastScreenWidth = 0;
-        self.scaleCoefficient = scaleCoefficient;
         
         self.scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
         self.scrollView.delegate = self;
         self.scrollView.pagingEnabled = YES;
-        [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * pageCount, SCREEN_HEIGHT)];
-        [self addSubview:self.scrollView];
-        
-        for (int i = 0; i < pageCount; i++) {
-            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT - kHeightSkipView)];
-            [self.arrayOfPages addObject:view];
-            [self.scrollView addSubview:view];
+        self.scrollView.showsHorizontalScrollIndicator = NO;
+        self.scrollView.showsVerticalScrollIndicator = NO;
+        if (infinite) {
+            NSArray *xibNamesWithExtra = [self createArrayForCircularScrollWithXibNames:xibNames];
+            [self configureScrollViewWithArray:xibNamesWithExtra];
+        } else {
+            [self configureScrollViewWithArray:xibNames];
         }
+        [self addSubview:self.scrollView];
+        [self configureBottomSkipViewWithXibsCount:xibNames.count];
         
-        //--- configure bottom skip view
-        UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH *2, 1)];
-        [lineView setBackgroundColor:[UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1]];
-        [skipView addSubview:lineView];
-        
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(15, 0, 70, 40)];
-        [button setTitle:@"Skip" forState:UIControlStateNormal];
-        [button addTarget:self action:@selector(skipPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [skipView addSubview:button];
-        [self addSubview:skipView];
-        
-        UIPageControl *pageControl = [UIPageControl new];
-        pageControl.numberOfPages = pageCount;
-        pageControl.center = CGPointMake(SCREEN_WIDTH / 2, kHeightSkipView /2);
-        [skipView addSubview:pageControl];
-        self.pageControl = pageControl;
-        
-        self.skipView = skipView;
-        //---
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationChanged:) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
     return  self;
 }
 
-- (void)addElementWithName:(NSString *)elementName
-                   offsetX:(CGFloat)offsetX
-                   offsetY:(CGFloat)offsetY
-       slippingCoefficient:(CGFloat)slippingCoefficient
-                   pageNum:(NSInteger)pageNum;
-{
-    if (pageNum >= self.arrayOfPages.count || pageNum < 0) {
-        NSLog(@"Wrong page number %lu Range of pages should be from 0 to %u",(long)pageNum, self.arrayOfPages.count -1);
-        return;
-    }
-    
-    PRLElementView *viewSlip = [[PRLElementView alloc] initWithImageName:elementName
-                                                                     offsetX:offsetX
-                                                                     offsetY:offsetY
-                                                                  pageNumber:pageNum
-                                                     slippingCoefficient:slippingCoefficient
-                                                        scaleCoefficient:self.scaleCoefficient];
-    if (viewSlip) {
-        [self.arrayOfPages[pageNum] addSubview:viewSlip];
-        [self.arrayOfElements addObject:viewSlip];
-    }
-}
-
-- (void)addBackgroundColor:(UIColor *)color;
-{
-    [self.arrayOfBackgroundColors insertObject:color atIndex:self.arrayOfBackgroundColors.count -1];
-}
-
-- (void)prepareForShow;
-{
+- (void)prepareForShow {
     if (self.arrayOfBackgroundColors.count -1 < self.arrayOfPages.count) {
         NSLog(@"Wrong count of background colors. Should be %lu instead of %u", (unsigned long)self.arrayOfPages.count, self.arrayOfBackgroundColors.count -1);
         NSLog(@"The missing colors will be replaced by white");
@@ -120,25 +81,54 @@
             [self.arrayOfBackgroundColors addObject:[UIColor whiteColor]];
         }
     }
-    
     UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[0]
                                         secondColor:self.arrayOfBackgroundColors[1]
                                              offset:0];
-    [self.scrollView setBackgroundColor:mixedColor];
+    self.skipView.backgroundColor = mixedColor;
+    self.scrollView.backgroundColor = mixedColor;
+    if (self.infinite) {
+        CGPoint currentOff = CGPointMake(SCREEN_WIDTH, self.scrollView.contentOffset.y);
+        self.lastContentOffset = currentOff.x;
+        [self.scrollView setContentOffset:currentOff animated: NO];
+        self.currentView = self.arrayOfPages[1];
+    } else {
+        self.currentView = self.arrayOfPages.firstObject;
+    }
+    [self addConstraintsToBaseView];
+    [self addConstraintsToScrollView:self.scrollView skipView:self.skipView];
+    [self addConstraintsToStackView:self.stackView];
+}
+
+#pragma mark - LifeCycle
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    NSUInteger page = self.pageNum;
+    CGPoint currentOffset;
+    if (self.infinite) {
+        currentOffset = CGPointMake((page + 1) * SCREEN_WIDTH, 0);
+    } else {
+        currentOffset = CGPointMake(page * SCREEN_WIDTH, 0);
+    }
+    self.lastContentOffset = currentOffset.x;
+    [self.scrollView setContentOffset:currentOffset animated:NO];
 }
 
 #pragma mark - UIScrollView delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
-{
-    CGFloat contentOffset = self.scrollView.contentOffset.x;
-    for (PRLElementView *view in self.arrayOfElements) {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat contentOffset = scrollView.contentOffset.x;
+    for (UIView *view in self.arrayOfElements) {
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
-        [view setFrame:CGRectMake(view.frame.origin.x + offset, view.frame.origin.y, view.frame.size.width, view.frame.size.height)];
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+        [UIView animateWithDuration:0.3 animations:^{
+            view.transform = CGAffineTransformTranslate(transform, offset, 0.0);
+        }];
     }
     
-    self.lastContentOffset = contentOffset;
     NSInteger pageNum =  floorf(scrollView.contentOffset.x / SCREEN_WIDTH);
+    self.lastContentOffset = contentOffset;
     if (pageNum < 0) {
         pageNum = 0;
     }
@@ -149,18 +139,102 @@
     UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[pageNum]
                                         secondColor:self.arrayOfBackgroundColors[pageNum +1]
                                              offset:scrollView.contentOffset.x];
-    [scrollView setBackgroundColor:mixedColor];
-    
-    self.pageControl.currentPage = lround(self.scrollView.contentOffset.x / (self.scrollView.contentSize.width / self.pageControl.numberOfPages));
+    self.skipView.backgroundColor = mixedColor;
+    self.scrollView.backgroundColor = mixedColor;
 }
 
-#pragma mark - Private
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (self.infinite) {
+        if (scrollView.contentOffset.x == self.arrayOfPages.lastObject.frame.origin.x) {
+            CGPoint currentOff = CGPointMake(SCREEN_WIDTH, self.scrollView.contentOffset.y);
+            self.lastContentOffset = currentOff.x;
+            [scrollView setContentOffset:currentOff animated:NO];
+        } else if (scrollView.contentOffset.x == self.arrayOfPages.firstObject.frame.origin.x) {
+            CGPoint currentOff = CGPointMake(self.arrayOfPages.lastObject.frame.origin.x - SCREEN_WIDTH, self.scrollView.contentOffset.y);
+            self.lastContentOffset = currentOff.x;
+            [scrollView setContentOffset:currentOff animated:NO];
+        }
+    }
+    self.pageControl.currentPage = [self getIndexOfPresentedViewFromOffset:scrollView.contentOffset.x];
+    self.pageNum = self.pageControl.currentPage;
+    self.currentView = self.arrayOfPages[self.pageNum];
+}
 
+#pragma mark - PRLParalaxViewProtocol
+
+- (void)skipPressed:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(skipTutorial)]) {
+        [self.delegate skipTutorial];
+    }
+}
+
+#pragma mark - ConfigureView
+
+- (void)addViewsToStackView {
+    UIStackView *stack = [[UIStackView alloc]initWithArrangedSubviews:self.arrayOfPages];
+    stack.axis = UILayoutConstraintAxisHorizontal;
+    stack.distribution = UIStackViewDistributionFillEqually;
+    stack.spacing = 0.0;
+    stack.translatesAutoresizingMaskIntoConstraints = NO;
+    self.stackView = stack;
+    [self.scrollView addSubview:stack];
+}
+
+- (void)configureBottomSkipViewWithXibsCount:(NSUInteger)xibsCount {
+    UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 2, 1)];
+    skipView.translatesAutoresizingMaskIntoConstraints = NO;
+    lineView.translatesAutoresizingMaskIntoConstraints = NO;
+    [lineView setBackgroundColor:[UIColor colorWithRed:0.90 green:0.90 blue:0.90 alpha:1]];
+    [skipView addSubview:lineView];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(15.0, 0.0, 70.0, 40.0)];
+    [button setTitle:@"Skip" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(skipPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [skipView addSubview:button];
+    [self addSubview:skipView];
+    
+    UIPageControl *pageControl = [UIPageControl new];
+    pageControl.numberOfPages = xibsCount;
+    pageControl.center = CGPointMake(SCREEN_WIDTH / 2, kHeightSkipView /2);
+    [skipView addSubview:pageControl];
+    self.pageControl = pageControl;
+    
+    self.skipView = skipView;
+}
+
+- (void)configureScrollViewWithArray:(NSArray *)array {
+    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * array.count - 1, SCREEN_HEIGHT)];
+    [array enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [self addViewFromXib:obj toPageNum:idx];
+    }];
+    [self addViewsToStackView];
+}
+
+- (void)addViewFromXib:(NSString *)xibName toPageNum:(NSInteger)pageNum {
+    UIView *viewSlip = [[NSBundle mainBundle] loadNibNamed:xibName
+                                                     owner:nil
+                                                   options:nil].lastObject;
+    if (viewSlip) {
+        viewSlip.translatesAutoresizingMaskIntoConstraints = NO;
+        viewSlip.frame = CGRectMake(SCREEN_WIDTH * pageNum, 0.0, SCREEN_WIDTH, SCREEN_HEIGHT - kHeightSkipView);
+        viewSlip.clipsToBounds = YES;
+        [self.arrayOfElements addObjectsFromArray:viewSlip.subviews];
+    }
+    [self addBackgroundColor:viewSlip.backgroundColor];
+    viewSlip.backgroundColor  = [UIColor clearColor];
+    [self.arrayOfPages addObject:viewSlip];
+}
+
+#pragma mark - ConfigureColors
+
+- (void)addBackgroundColor:(UIColor *)color {
+    [self.arrayOfBackgroundColors insertObject:color atIndex:self.arrayOfBackgroundColors.count -1];
+}
 
 - (UIColor *)colorWithFirstColor:(UIColor *)firstColor
                      secondColor:(UIColor *)secondColor
-                          offset:(CGFloat)offset;
-{
+                          offset:(CGFloat)offset {
     CGFloat red1, green1, blue1, alpha1;
     CGFloat red2, green2, blue2, alpha2;
     [firstColor  getRed:&red1 green:&green1 blue:&blue1 alpha:&alpha1];
@@ -178,58 +252,25 @@
     return [UIColor colorWithRed:resultRed green:resultGreen blue:resultBlue alpha:1];
 }
 
-- (void)deviceOrientationChanged:(NSNotification *)notification {
-    if (self.lastScreenWidth == 0) { //first launch setup
-        self.lastScreenWidth = SCREEN_WIDTH;
-    }
-    
-    NSInteger currentPageNum = self.scrollView.contentOffset.x / self.lastScreenWidth;
-    [self setBackgroundColor:self.scrollView.backgroundColor];
-    [self.scrollView setContentOffset:CGPointMake(0, 0)]; //fix problem with inapropriate elements transtion
-    [self.scrollView setFrame:[UIScreen mainScreen].bounds];
-    [self.scrollView setContentSize:CGSizeMake(SCREEN_WIDTH * self.arrayOfPages.count, SCREEN_HEIGHT)];
-    
-    //-- resizing all tutorial pages
-    for (int i = 0; i < self.arrayOfPages.count; i++) {
-        UIView *view = self.arrayOfPages[i];
-        [view setFrame:CGRectMake(SCREEN_WIDTH * i, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    }
-    
-    //-- removing element views and put in a new coords
-    for (int i = 0; i < self.arrayOfElements.count; i++) {
-        PRLElementView *view = self.arrayOfElements[i];
-        [view removeFromSuperview];
-        
-        PRLElementView *viewSlip = [[PRLElementView alloc] initWithImageName:view.imageName
-                                                                     offsetX:view.offsetX
-                                                                     offsetY:view.offsetY
-                                                                  pageNumber:view.pageNumber
-                                                         slippingCoefficient:view.slippingCoefficient
-                                                            scaleCoefficient:self.scaleCoefficient];
-        
-        if (viewSlip) {
-            [self.arrayOfPages[viewSlip.pageNumber] addSubview:viewSlip];
-            [self.arrayOfElements replaceObjectAtIndex:i withObject:viewSlip];
+#pragma mark - Helpers
+
+- (NSArray *)createArrayForCircularScrollWithXibNames:(NSArray *)xibNames {
+    NSMutableArray *xibNamesWithExtra = xibNames.mutableCopy;
+    [xibNamesWithExtra insertObject:xibNames.lastObject atIndex:0];
+    [xibNamesWithExtra insertObject:xibNames.firstObject atIndex:xibNamesWithExtra.count];
+    return xibNamesWithExtra.copy;
+}
+
+- (NSInteger)getIndexOfPresentedViewFromOffset:(CGFloat)offset {
+    __block NSInteger result;
+    __weak typeof(self)weakSelf = self;
+    [self.arrayOfPages enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (obj.frame.origin.x == offset) {
+            result = weakSelf.infinite ? idx - 1 : idx;
+            *stop = YES;
         }
-    }
-    [self.skipView removeFromSuperview];
-    [self.skipView setFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
-    [self addSubview:self.skipView];
-    //---
-    
-    //--- scrolling to current page selected
-    [self.scrollView setContentOffset:CGPointMake(SCREEN_WIDTH * currentPageNum, 0)];
-    self.lastScreenWidth = SCREEN_WIDTH;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-}
-
-- (void)skipPressed:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(skipTutorial)]) {
-        [self.delegate skipTutorial];
-    }
+    }];
+    return result;
 }
 
 @end
