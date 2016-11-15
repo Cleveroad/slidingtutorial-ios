@@ -40,7 +40,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="-0.40000000000000002"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -51,7 +51,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="-0.80000000000000004"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -62,7 +62,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.25"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -73,7 +73,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.59999999999999998"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -83,7 +83,7 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
@@ -94,7 +94,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.40000000000000002"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -104,7 +104,7 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
@@ -144,13 +144,13 @@
             </variation>
             <variation key="heightClass=compact">
                 <mask key="constraints">
-                    <exclude reference="pHT-hQ-Gm5"/>
                     <include reference="1kc-R4-rch"/>
                     <include reference="IaN-ui-pSN"/>
                     <exclude reference="QGq-MS-tba"/>
                     <include reference="aWI-0T-rpE"/>
                     <include reference="jiP-87-wTD"/>
                     <exclude reference="vCI-iZ-qxQ"/>
+                    <exclude reference="pHT-hQ-Gm5"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="-139.5" y="-212.5"/>

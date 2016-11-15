@@ -18,7 +18,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="0.0"/>
+                            <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -39,7 +39,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="-0.29999999999999999"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -60,7 +60,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="-0.40000000000000002"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -71,7 +71,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="-0.29999999999999999"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -82,7 +82,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.20000000000000001"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -93,7 +93,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -103,7 +103,7 @@
                     <nil key="highlightedColor"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.29999999999999999"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
@@ -125,7 +125,6 @@
                 <constraint firstItem="v60-Pj-eNF" firstAttribute="top" secondItem="irh-Cn-xhz" secondAttribute="top" id="c7H-55-TT1"/>
                 <constraint firstItem="gu7-Md-4f5" firstAttribute="leading" secondItem="Lnb-TZ-Hlc" secondAttribute="leading" constant="37" id="dZZ-JW-XID"/>
                 <constraint firstItem="v60-Pj-eNF" firstAttribute="leading" secondItem="irh-Cn-xhz" secondAttribute="trailing" constant="24" id="faj-hY-Ah1"/>
-                <constraint firstItem="uOV-Fm-hvu" firstAttribute="top" secondItem="gu7-Md-4f5" secondAttribute="bottom" constant="30" id="giY-iB-cwA"/>
                 <constraint firstItem="uOV-Fm-hvu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gu7-Md-4f5" secondAttribute="trailing" constant="8" id="io3-gT-H9d"/>
                 <constraint firstItem="t44-vQ-GDv" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="50" id="j4T-SF-kj3"/>
                 <constraint firstItem="wZd-Cv-mln" firstAttribute="leading" secondItem="Lnb-TZ-Hlc" secondAttribute="leading" id="kON-jE-yNt"/>
@@ -150,12 +149,11 @@
             </variation>
             <variation key="heightClass=compact">
                 <mask key="constraints">
-                    <include reference="j4T-SF-kj3"/>
                     <exclude reference="yes-yD-LhC"/>
+                    <include reference="j4T-SF-kj3"/>
                     <include reference="92L-Mx-HwB"/>
                     <exclude reference="E5t-XK-WH2"/>
                     <include reference="VBw-WW-xJ4"/>
-                    <exclude reference="giY-iB-cwA"/>
                     <exclude reference="io3-gT-H9d"/>
                     <include reference="qTT-w1-c5z"/>
                 </mask>

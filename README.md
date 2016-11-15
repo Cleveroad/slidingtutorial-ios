@@ -25,6 +25,8 @@ After you should instantiate an instance of sliding view tutorial class: <br>
 
 Where first parameter is an array of xib's names tou want to setup to your tutorial, second parameter is a boolean - set YES if you want endless scroll and third parameter is an object's delegate <br>
 
+**slippingCoefficient** - (Sets in interface builder) ratio bound to scroll offset in scroll view. For 1 pixel content offset of scroll view layer will be slipping for 1 * slippingCoefficient (so if slippingCoefficient == 0.3, it will be equal 0.3px). Sign determines the direction of slipping - left or right. <br>
+
 After all call last method - prepareForShow: <br>
 `[viewParallax prepareForShow];` <br>
 And now your tutorial is ready to show. <br>

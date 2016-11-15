@@ -43,7 +43,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -60,7 +60,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="-1"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -71,7 +71,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.69999999999999996"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -93,7 +93,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-0.5"/>
+                            <real key="value" value="0.5"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -154,13 +154,13 @@
                     <include reference="YAo-jk-BNn"/>
                     <exclude reference="oH6-3V-Qgc"/>
                     <include reference="pHC-IB-aC2"/>
-                    <exclude reference="td0-xR-dJR"/>
                     <exclude reference="0cn-iX-bli"/>
                     <include reference="2O8-Xt-Oi8"/>
                     <include reference="Rip-oo-iRO"/>
                     <exclude reference="YcD-to-x2K"/>
                     <exclude reference="e8E-4U-GKa"/>
                     <include reference="kTU-LR-n0j"/>
+                    <exclude reference="td0-xR-dJR"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="104" y="-480"/>
