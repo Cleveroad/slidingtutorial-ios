@@ -40,7 +40,7 @@
 
 - (void)deployTutorialParallaxView {
     PRLView *viewParallax = [[PRLView alloc] initWithViewsFromXibsNamed:@[@"TestView", @"TestView1", @"TestView2"]
-                                                         infiniteScroll:YES
+                                                         infiniteScroll:NO
                                                                delegate:self];
     self.viewParallax = viewParallax;
     [self.view addSubview:viewParallax];

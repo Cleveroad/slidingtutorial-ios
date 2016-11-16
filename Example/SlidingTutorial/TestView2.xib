@@ -60,7 +60,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="-1"/>
+                            <real key="value" value="-0.40000000000000002"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
@@ -71,7 +71,7 @@
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="slippingCoefficient">
-                            <real key="value" value="0.69999999999999996"/>
+                            <real key="value" value="0.20000000000000001"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>

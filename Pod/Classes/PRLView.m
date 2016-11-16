@@ -113,6 +113,10 @@ static NSUInteger const kExtraPages = 2;
     }
     self.lastContentOffset = currentOffset.x;
     [self.scrollView setContentOffset:currentOffset animated:NO];
+    NSLog(@"%d", page);
+    if (page == 0) {
+        [self setInitialPositions];
+    }
 }
 
 #pragma mark - UIScrollView delegate
@@ -122,9 +126,7 @@ static NSUInteger const kExtraPages = 2;
     for (UIView *view in self.arrayOfElements) {
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
         CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
-        [UIView animateWithDuration:0.3 animations:^{
-            view.transform = CGAffineTransformTranslate(transform, offset, 0.0);
-        }];
+        view.transform = CGAffineTransformTranslate(view.transform, offset, 0.0);
     }
     
     NSInteger pageNum =  floorf(scrollView.contentOffset.x / SCREEN_WIDTH);
@@ -170,16 +172,6 @@ static NSUInteger const kExtraPages = 2;
 
 #pragma mark - ConfigureView
 
-- (void)addViewsToStackView {
-    UIStackView *stack = [[UIStackView alloc]initWithArrangedSubviews:self.arrayOfPages];
-    stack.axis = UILayoutConstraintAxisHorizontal;
-    stack.distribution = UIStackViewDistributionFillEqually;
-    stack.spacing = 0.0;
-    stack.translatesAutoresizingMaskIntoConstraints = NO;
-    self.stackView = stack;
-    [self.scrollView addSubview:stack];
-}
-
 - (void)configureBottomSkipViewWithXibsCount:(NSUInteger)xibsCount {
     UIView *skipView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kHeightSkipView, SCREEN_WIDTH, kHeightSkipView)];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH * 2, 1)];
@@ -217,13 +209,38 @@ static NSUInteger const kExtraPages = 2;
                                                    options:nil].lastObject;
     if (viewSlip) {
         viewSlip.translatesAutoresizingMaskIntoConstraints = NO;
-        viewSlip.frame = CGRectMake(SCREEN_WIDTH * pageNum, 0.0, SCREEN_WIDTH, SCREEN_HEIGHT - kHeightSkipView);
         viewSlip.clipsToBounds = YES;
         [self.arrayOfElements addObjectsFromArray:viewSlip.subviews];
     }
     [self addBackgroundColor:viewSlip.backgroundColor];
     viewSlip.backgroundColor  = [UIColor clearColor];
     [self.arrayOfPages addObject:viewSlip];
+}
+
+- (void)addViewsToStackView {
+    UIStackView *stack = [[UIStackView alloc]initWithArrangedSubviews:self.arrayOfPages];
+    stack.axis = UILayoutConstraintAxisHorizontal;
+    stack.distribution = UIStackViewDistributionFillEqually;
+    stack.spacing = 0.0;
+    stack.translatesAutoresizingMaskIntoConstraints = NO;
+    self.stackView = stack;
+    [self.scrollView addSubview:stack];
+}
+
+- (void)setInitialPositions {
+    for (UIView *containerView in self.arrayOfPages) {
+        NSUInteger pageNum = [self.arrayOfPages indexOfObject:containerView];
+        CGFloat slippingShift;
+        if (self.infinite) {
+            slippingShift = (pageNum + 1) * SCREEN_WIDTH;
+        } else {
+            slippingShift = pageNum * SCREEN_WIDTH;
+        }
+        for (UIView *view in containerView.subviews) {
+            CGFloat offset =  slippingShift * view.slippingCoefficient;
+            view.transform = CGAffineTransformMakeTranslation(offset, 0.0);
+        }
+    }
 }
 
 #pragma mark - ConfigureColors
