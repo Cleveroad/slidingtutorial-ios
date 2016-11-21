@@ -113,19 +113,62 @@ static NSUInteger const kExtraPages = 2;
     }
     self.lastContentOffset = currentOffset.x;
     [self.scrollView setContentOffset:currentOffset animated:NO];
-    NSLog(@"%d", page);
-    if (page == 0) {
-        [self setInitialPositions];
+    for (UIView *view in self.arrayOfElements) {
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+        view.transform = CGAffineTransformTranslate(transform, 0.0, 0.0);
     }
+    NSLog(@"%d", page);
 }
 
 #pragma mark - UIScrollView delegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+    NSUInteger page = self.pageNum;
+    NSInteger directionIndicator = 1;
+    if(translation.x < 0) {
+        NSLog(@"%d BEFORE", page);
+        if (!self.infinite) {
+            if (page < self.arrayOfPages.count - 1) {
+                page += 1;
+            } else if (page == self.arrayOfPages.count - 1) {
+                return;
+            }
+        } else {
+            if (page < self.arrayOfPages.count - 1) {
+                page += 2;
+            }        }
+        NSLog(@"%d AFTER", page);
+        NSLog(@"--->>");
+    } else {
+        NSLog(@"%d BEFORE", page);
+        if (!self.infinite) {
+            if (page > 0) {
+                page -= 1;
+            } else if (page == 0){
+                return;
+            }
+        }
+        directionIndicator  = -1;
+        NSLog(@"%d AFTER", page);
+        NSLog(@"<<---");
+    }
+    [self prepareForShowViewAtIndex:page direction:directionIndicator];
+}
+
+- (void)prepareForShowViewAtIndex:(NSInteger)index direction:(NSInteger)direction {
+    for (UIView *view in self.arrayOfPages[index].subviews) {
+        CGFloat evilOffset = (SCREEN_WIDTH * view.slippingCoefficient) * direction;
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+        view.transform = CGAffineTransformTranslate(transform, evilOffset, 0.0);
+    }
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat contentOffset = scrollView.contentOffset.x;
     for (UIView *view in self.arrayOfElements) {
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+        CGFloat evilOffset = ((self.lastContentOffset - contentOffset) * view.slippingCoefficient);
         view.transform = CGAffineTransformTranslate(view.transform, offset, 0.0);
     }
     
@@ -155,6 +198,10 @@ static NSUInteger const kExtraPages = 2;
             CGPoint currentOff = CGPointMake(self.arrayOfPages.lastObject.frame.origin.x - SCREEN_WIDTH, self.scrollView.contentOffset.y);
             self.lastContentOffset = currentOff.x;
             [scrollView setContentOffset:currentOff animated:NO];
+        }
+        for (UIView *view in self.arrayOfElements) {
+            CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+            view.transform = CGAffineTransformTranslate(transform, 0.0, 0.0);
         }
     }
     self.pageControl.currentPage = [self getIndexOfPresentedViewFromOffset:scrollView.contentOffset.x];
@@ -225,22 +272,6 @@ static NSUInteger const kExtraPages = 2;
     stack.translatesAutoresizingMaskIntoConstraints = NO;
     self.stackView = stack;
     [self.scrollView addSubview:stack];
-}
-
-- (void)setInitialPositions {
-    for (UIView *containerView in self.arrayOfPages) {
-        NSUInteger pageNum = [self.arrayOfPages indexOfObject:containerView];
-        CGFloat slippingShift;
-        if (self.infinite) {
-            slippingShift = (pageNum + 1) * SCREEN_WIDTH;
-        } else {
-            slippingShift = pageNum * SCREEN_WIDTH;
-        }
-        for (UIView *view in containerView.subviews) {
-            CGFloat offset =  slippingShift * view.slippingCoefficient;
-            view.transform = CGAffineTransformMakeTranslation(offset, 0.0);
-        }
-    }
 }
 
 #pragma mark - ConfigureColors
