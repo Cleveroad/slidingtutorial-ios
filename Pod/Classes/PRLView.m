@@ -14,6 +14,12 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
+typedef NS_ENUM(NSInteger, PRLDirectionIndicator) {
+    PRLDirectionIndicatorRightToLeft = 1,
+    PRLDirectionIndicatorLeftToRight = -1
+    
+};
+
 static NSUInteger const kExtraPages = 2;
 
 @interface PRLView () <UIScrollViewDelegate>
@@ -125,7 +131,6 @@ static NSUInteger const kExtraPages = 2;
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
     NSUInteger page = self.pageNum;
-    NSInteger directionIndicator = 1;
     if(translation.x < 0) {
         NSLog(@"%d BEFORE", page);
         if (!self.infinite) {
@@ -137,9 +142,11 @@ static NSUInteger const kExtraPages = 2;
         } else {
             if (page < self.arrayOfPages.count - 1) {
                 page += 2;
-            }        }
+            }
+        }
         NSLog(@"%d AFTER", page);
         NSLog(@"--->>");
+        [self prepareForShowViewAtIndex:page direction:PRLDirectionIndicatorRightToLeft];
     } else {
         NSLog(@"%d BEFORE", page);
         if (!self.infinite) {
@@ -149,11 +156,10 @@ static NSUInteger const kExtraPages = 2;
                 return;
             }
         }
-        directionIndicator  = -1;
         NSLog(@"%d AFTER", page);
         NSLog(@"<<---");
+        [self prepareForShowViewAtIndex:page direction:PRLDirectionIndicatorLeftToRight];
     }
-    [self prepareForShowViewAtIndex:page direction:directionIndicator];
 }
 
 - (void)prepareForShowViewAtIndex:(NSInteger)index direction:(NSInteger)direction {
