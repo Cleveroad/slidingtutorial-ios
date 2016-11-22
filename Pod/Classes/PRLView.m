@@ -164,9 +164,9 @@ static NSUInteger const kExtraPages = 2;
 
 - (void)prepareForShowViewAtIndex:(NSInteger)index direction:(NSInteger)direction {
     for (UIView *view in self.arrayOfPages[index].subviews) {
-        CGFloat evilOffset = (SCREEN_WIDTH * view.slippingCoefficient) * direction;
+        CGFloat xShift = (SCREEN_WIDTH * view.slippingCoefficient) * direction;
         CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
-        view.transform = CGAffineTransformTranslate(transform, evilOffset, 0.0);
+        view.transform = CGAffineTransformTranslate(transform, xShift, 0.0);
     }
 }
 
