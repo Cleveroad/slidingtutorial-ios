@@ -14,6 +14,8 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
+static BOOL const debugMode = NO;
+
 typedef NS_ENUM(NSInteger, PRLDirectionIndicator) {
     PRLDirectionIndicatorRightToLeft = 1,
     PRLDirectionIndicatorLeftToRight = -1
@@ -35,6 +37,8 @@ static NSUInteger const kExtraPages = 2;
 @property (nonatomic, strong) NSMutableArray<UIView *> *arrayOfPages;
 
 @property (nonatomic, assign) CGFloat lastContentOffset;
+@property (nonatomic, assign) CGFloat pageContentOffset;
+
 @property (nonatomic, assign) BOOL infinite;
 @property (nonatomic, assign) NSInteger pageNum;
 
@@ -123,16 +127,17 @@ static NSUInteger const kExtraPages = 2;
         CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
         view.transform = CGAffineTransformTranslate(transform, 0.0, 0.0);
     }
-    NSLog(@"%d", page);
 }
 
 #pragma mark - UIScrollView delegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    CGPoint translation = [scrollView.panGestureRecognizer translationInView:scrollView.superview];
+    CGPoint translation = [scrollView.panGestureRecognizer velocityInView:scrollView.superview];
     NSUInteger page = self.pageNum;
     if(translation.x < 0) {
-        NSLog(@"%d BEFORE", page);
+        if (debugMode) {
+            NSLog(@"%d BEFORE", page);
+        }
         if (!self.infinite) {
             if (page < self.arrayOfPages.count - 1) {
                 page += 1;
@@ -144,11 +149,16 @@ static NSUInteger const kExtraPages = 2;
                 page += 2;
             }
         }
-        NSLog(@"%d AFTER", page);
-        NSLog(@"--->>");
+        if (debugMode) {
+            NSLog(@"%d AFTER", page);
+            NSLog(@"--->>");
+        }
         [self prepareForShowViewAtIndex:page direction:PRLDirectionIndicatorRightToLeft];
-    } else {
-        NSLog(@"%d BEFORE", page);
+        
+    } else if (translation.x > 0){
+        if (debugMode) {
+            NSLog(@"%d BEFORE", page);
+        }
         if (!self.infinite) {
             if (page > 0) {
                 page -= 1;
@@ -156,51 +166,68 @@ static NSUInteger const kExtraPages = 2;
                 return;
             }
         }
-        NSLog(@"%d AFTER", page);
-        NSLog(@"<<---");
+        if (debugMode) {
+            NSLog(@"%d AFTER", page);
+            NSLog(@"<<---");
+        }
         [self prepareForShowViewAtIndex:page direction:PRLDirectionIndicatorLeftToRight];
-    }
-}
-
-- (void)prepareForShowViewAtIndex:(NSInteger)index direction:(NSInteger)direction {
-    for (UIView *view in self.arrayOfPages[index].subviews) {
-        CGFloat xShift = (SCREEN_WIDTH * view.slippingCoefficient) * direction;
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
-        view.transform = CGAffineTransformTranslate(transform, xShift, 0.0);
+    }  else {
+        if (debugMode) {
+            NSLog(@"--------");
+        }
+        return;
     }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat contentOffset = scrollView.contentOffset.x;
+    CGFloat repeatedOffset = contentOffset - self.pageContentOffset;
+    CGFloat percentage = fabs(repeatedOffset / SCREEN_WIDTH);
+    CGFloat currentAlpha = 1.0 - percentage;
+    NSLog(@"%.2f, %.2f, %.2f", percentage, contentOffset, currentAlpha);
+
     for (UIView *view in self.arrayOfElements) {
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient;
-        CGFloat evilOffset = ((self.lastContentOffset - contentOffset) * view.slippingCoefficient);
         view.transform = CGAffineTransformTranslate(view.transform, offset, 0.0);
     }
-    
     NSInteger pageNum =  floorf(scrollView.contentOffset.x / SCREEN_WIDTH);
-    self.lastContentOffset = contentOffset;
+    if (self.lastContentOffset < scrollView.contentOffset.x) {
+        [self configureAlphaForViewsOnPageNum:(pageNum + 1) alphaValue:percentage];
+    } else {
+        [self configureAlphaForViewsOnPageNum:(pageNum) alphaValue:percentage];
+    }
     if (pageNum < 0) {
         pageNum = 0;
     }
     if (pageNum > self.arrayOfBackgroundColors.count -2) {
         pageNum = self.arrayOfBackgroundColors.count -2;
     }
-    
     UIColor *mixedColor = [self colorWithFirstColor:self.arrayOfBackgroundColors[pageNum]
-                                        secondColor:self.arrayOfBackgroundColors[pageNum +1]
+                                        secondColor:self.arrayOfBackgroundColors[pageNum + 1]
                                              offset:scrollView.contentOffset.x];
     self.skipView.backgroundColor = mixedColor;
     self.scrollView.backgroundColor = mixedColor;
+    self.lastContentOffset = contentOffset;
+}
+
+- (void)configureAlphaForViewsOnPageNum:(NSInteger)pageNum alphaValue:(CGFloat)currentAlpha{
+    if (pageNum < 0) {
+        pageNum = 0;
+    } else if (pageNum > self.arrayOfPages.count - 1) {
+        pageNum = self.arrayOfPages.count - 1;
+    }
+    for (UIView *view in self.arrayOfPages[pageNum].subviews) {
+        view.alpha = currentAlpha;
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     if (self.infinite) {
-        if (scrollView.contentOffset.x == self.arrayOfPages.lastObject.frame.origin.x) {
+        if ([@(scrollView.contentOffset.x) isEqualToNumber:@(self.arrayOfPages.lastObject.frame.origin.x)]) {
             CGPoint currentOff = CGPointMake(SCREEN_WIDTH, self.scrollView.contentOffset.y);
             self.lastContentOffset = currentOff.x;
             [scrollView setContentOffset:currentOff animated:NO];
-        } else if (scrollView.contentOffset.x == self.arrayOfPages.firstObject.frame.origin.x) {
+        } else if ([@(scrollView.contentOffset.x) isEqualToNumber:@(self.arrayOfPages.firstObject.frame.origin.x)]) {
             CGPoint currentOff = CGPointMake(self.arrayOfPages.lastObject.frame.origin.x - SCREEN_WIDTH, self.scrollView.contentOffset.y);
             self.lastContentOffset = currentOff.x;
             [scrollView setContentOffset:currentOff animated:NO];
@@ -212,6 +239,7 @@ static NSUInteger const kExtraPages = 2;
     }
     self.pageControl.currentPage = [self getIndexOfPresentedViewFromOffset:scrollView.contentOffset.x];
     self.pageNum = self.pageControl.currentPage;
+    self.pageContentOffset = SCREEN_WIDTH * self.pageNum;
     self.currentView = self.arrayOfPages[self.pageNum];
 }
 
@@ -278,6 +306,14 @@ static NSUInteger const kExtraPages = 2;
     stack.translatesAutoresizingMaskIntoConstraints = NO;
     self.stackView = stack;
     [self.scrollView addSubview:stack];
+}
+
+- (void)prepareForShowViewAtIndex:(NSInteger)index direction:(NSInteger)direction {
+    for (UIView *view in self.arrayOfPages[index].subviews) {
+        CGFloat xShift = (SCREEN_WIDTH * view.slippingCoefficient) * direction;
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(0.0, 0.0);
+        view.transform = CGAffineTransformTranslate(transform, xShift, 0.0);
+    }
 }
 
 #pragma mark - ConfigureColors
