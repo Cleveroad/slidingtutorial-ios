@@ -27,12 +27,28 @@
                                     <action selector="actionTryAgain:" destination="ES1-4C-Qmq" eventType="touchUpInside" id="hUW-5C-jgr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N3j-Un-TCn">
+                                <state key="normal" title="Simple"/>
+                                <connections>
+                                    <action selector="actionShowSimpleTutorial:" destination="ES1-4C-Qmq" eventType="touchUpInside" id="XQZ-3E-rCJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rEd-7V-BoZ">
+                                <state key="normal" title="Infinity"/>
+                                <connections>
+                                    <action selector="actionShowInfinityTutorial:" destination="ES1-4C-Qmq" eventType="touchUpInside" id="Hs9-Mx-tSJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="DvD-je-IS4"/>
                             <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerY" secondItem="18U-Zm-jOi" secondAttribute="centerY" id="H2u-eV-n3V"/>
+                            <constraint firstItem="rEd-7V-BoZ" firstAttribute="top" secondItem="N3j-Un-TCn" secondAttribute="bottom" constant="68" id="KMt-oW-tcB"/>
+                            <constraint firstItem="xpH-fD-YXW" firstAttribute="top" secondItem="rEd-7V-BoZ" secondAttribute="bottom" constant="50" id="d0y-Yu-qev"/>
+                            <constraint firstItem="N3j-Un-TCn" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="eYM-qj-aBf"/>
                             <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="i3I-24-wrp"/>
+                            <constraint firstItem="rEd-7V-BoZ" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="kgZ-sV-Yya"/>
                         </constraints>
                     </view>
                 </viewController>
