@@ -8,5 +8,4 @@ end
 target 'SlidingTutorial_Tests' do
   pod "SlidingTutorial", :path => "../"
 
-  pod 'FBSnapshotTestCase'
 end

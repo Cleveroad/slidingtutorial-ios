@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="ES1-4C-Qmq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ES1-4C-Qmq">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,13 +14,13 @@
                         <viewControllerLayoutGuide type="bottom" id="xpH-fD-YXW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="18U-Zm-jOi">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5CQ-Us-3Qg">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="jNt-Kf-IpE"/>
-                                    <constraint firstAttribute="width" constant="100" id="mX5-4V-LBu"/>
+                                    <constraint firstAttribute="height" constant="80" id="jNt-Kf-IpE"/>
+                                    <constraint firstAttribute="width" constant="80" id="mX5-4V-LBu"/>
                                 </constraints>
                                 <state key="normal" image="buttonTryAgain"/>
                                 <connections>
@@ -44,8 +44,8 @@
                         <constraints>
                             <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="DvD-je-IS4"/>
                             <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerY" secondItem="18U-Zm-jOi" secondAttribute="centerY" id="H2u-eV-n3V"/>
-                            <constraint firstItem="rEd-7V-BoZ" firstAttribute="top" secondItem="N3j-Un-TCn" secondAttribute="bottom" constant="68" id="KMt-oW-tcB"/>
-                            <constraint firstItem="xpH-fD-YXW" firstAttribute="top" secondItem="rEd-7V-BoZ" secondAttribute="bottom" constant="50" id="d0y-Yu-qev"/>
+                            <constraint firstItem="rEd-7V-BoZ" firstAttribute="top" secondItem="N3j-Un-TCn" secondAttribute="bottom" constant="20" id="KMt-oW-tcB"/>
+                            <constraint firstItem="xpH-fD-YXW" firstAttribute="top" secondItem="rEd-7V-BoZ" secondAttribute="bottom" constant="30" id="d0y-Yu-qev"/>
                             <constraint firstItem="N3j-Un-TCn" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="eYM-qj-aBf"/>
                             <constraint firstItem="5CQ-Us-3Qg" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="i3I-24-wrp"/>
                             <constraint firstItem="rEd-7V-BoZ" firstAttribute="centerX" secondItem="18U-Zm-jOi" secondAttribute="centerX" id="kgZ-sV-Yya"/>
@@ -54,15 +54,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cH6-2K-FIV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="514" y="410"/>
+            <point key="canvasLocation" x="419.02173913043481" y="594.20289855072474"/>
         </scene>
     </scenes>
     <resources>
         <image name="buttonTryAgain" width="256" height="256"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
-    </simulatedMetricsContainer>
 </document>
