@@ -183,7 +183,6 @@ static NSUInteger const kExtraPages = 2;
     CGFloat contentOffset = scrollView.contentOffset.x;
     CGFloat repeatedOffset = contentOffset - self.pageContentOffset;
     CGFloat percentage = fabs(repeatedOffset / SCREEN_WIDTH);
-    CGFloat invercePercentage = 1.0 - percentage;
     
     for (UIView *view in self.arrayOfElements) {
         CGFloat offset = (self.lastContentOffset - contentOffset) * view.slippingCoefficient * 0.5;
