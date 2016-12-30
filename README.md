@@ -8,9 +8,10 @@ Hello, everyone! Do you remember our [Sliding tutorial for Android](https://gith
 
 ![Demo image](/images/demo.gif)
 
-This view allows placing more pictures on one page at the same time which makes UX of your app more convenient. Moreover, people love pictures, that’s why new original UI of your collection view will definitely attract their attention. 
+Google-stylized and equipped with parallax effects, the library will help your app make unforgettable first impression. So, what are you waiting for?
 
-So, don’t be afraid to make some changes, just add some creativity to your app and users will love it! 
+If you want to have this tutorial in your app, all you have to do is to adhere to your brand style — colors, images, text, and follow our instructions. 
+ 
 
 [![Awesome](/images/logo-footer.png)](https://www.cleveroad.com/?utm_source=github&utm_medium=label&utm_campaign=contacts)
 <br/>
