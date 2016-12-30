@@ -1,13 +1,19 @@
-##Sliding Tutorial iOS [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)  <a href="https://www.cleveroad.com/?utm_source=github&utm_medium=label&utm_campaign=contacts"><img src="https://www.cleveroad.com/public/comercial/label-cleveroad.svg" height="20"></a>
+# CRCellCollectionView [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome) <img src="https://www.cleveroad.com/public/comercial/label-ios.svg" height="20"> <a href="https://www.cleveroad.com/?utm_source=github&utm_medium=label&utm_campaign=contacts"><img src="https://www.cleveroad.com/public/comercial/label-cleveroad.svg" height="20"></a>
 
-###Simple library that helps developers to create awesome sliding iOS app tutorial.
+![Header image](/images/header.jpg)
 
-Applied parallax effects will make your product presentation look like Google apps tutorial.
+## Cleveroad introduces CellCollectionView for iOS
 
-All you need to do is:
-<br>1. Create xibs for each screen of your tutorial
-<br>2. Follow the instructions below
+Do you want to change something in your app? Start with its collection view! Cleveroad iOS developers are glad to present you CRCellCollectionView library. With this component, pictures in your apps collection view will look like honeycomb instead of the boring standard variant. 
 
+![Demo image](/images/demo.gif)
+
+This view allows placing more pictures on one page at the same time which makes UX of your app more convenient. Moreover, people love pictures, that’s why new original UI of your collection view will definitely attract their attention. 
+
+So, don’t be afraid to make some changes, just add some creativity to your app and users will love it! 
+
+[![Awesome](/images/logo-footer.png)](https://www.cleveroad.com/?utm_source=github&utm_medium=label&utm_campaign=contacts)
+<br/>
 ## Usage
 
 Add to your Podline a line  <br>
