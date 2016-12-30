@@ -51,14 +51,13 @@ And now your tutorial is ready to show.
 For handle skip button action, you should support **PRLViewProtocol**  and implement protocol method **skipTutorial**
 
 ## Support
-If you have any questions regarding the use of this tutorial, please contact us for support
-at info@cleveroad.com (email subject: «Sliding iOS app tutorial. Support request.»)
-<br>or
-<br>Use our contacts:
-<br><a href="https://www.cleveroad.com/?utm_source=github&utm_medium=link&utm_campaign=contacts">Cleveroad.com</a>
-<br><a href="https://www.facebook.com/cleveroadinc">Facebook account</a>
-<br><a href="https://twitter.com/CleveroadInc">Twitter account</a>
-<br><a href="https://plus.google.com/+CleveroadInc/">Google+ account</a>
+If you have any questions, issues or propositions, please create a <a href="../../issues/new">new issue</a> in this repository.
+
+If you want to hire us, send an email to sales@cleveroad.com or fill the form on <a href="https://www.cleveroad.com/contact">contact page</a>
+
+Follow us:
+
+[![Awesome](/images/social/facebook.png)](https://www.facebook.com/cleveroadinc/)   [![Awesome](/images/social/twitter.png)](https://twitter.com/cleveroadinc)   [![Awesome](/images/social/google.png)](https://plus.google.com/+CleveroadInc)   [![Awesome](/images/social/linkedin.png)](https://www.linkedin.com/company/cleveroad-inc-)   [![Awesome](/images/social/youtube.png)](https://www.youtube.com/channel/UCFNHnq1sEtLiy0YCRHG2Vaw)
 
 ## License
 
