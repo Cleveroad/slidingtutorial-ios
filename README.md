@@ -2,9 +2,9 @@
 
 ![Header image](/images/header.jpg)
 
-## Cleveroad introduces CellCollectionView for iOS
+## Cleveroad is glad to introduce CRSliding Tutorial for iOS
 
-Do you want to change something in your app? Start with its collection view! Cleveroad iOS developers are glad to present you CRCellCollectionView library. With this component, pictures in your apps collection view will look like honeycomb instead of the boring standard variant. 
+Hello, everyone! Do you remember our [Sliding tutorial for Android](https://github.com/Cleveroad/SlidingTutorial-Android) apps? Then, we’ve got great new for you! Our team has taken into account your feedback and your wish to have the same on iOS and, ta-da, here is your Sliding tutorial library for iPhone and iPad apps. We made creation of unique and smart tutorials go simple and straightforward.
 
 ![Demo image](/images/demo.gif)
 
